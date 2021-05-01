@@ -1,0 +1,442 @@
+fileFormatVersion: 2
+guid: 51375f6cb56c9f5ee98994092eb15ba1
+ModelImporter:
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      74: -4872934612705730949
+    second: magnetHook|bracingHawser_0|Take 001|BaseLayer
+  - first:
+      74: 7344703449398122869
+    second: magnetHook|bracingHawser_1|Take 001|BaseLayer
+  - first:
+      74: -6722799769689419147
+    second: magnetHook|cablePoint_01|Take 001|BaseLayer
+  - first:
+      74: 360264912502172442
+    second: magnetHook|cablePoint_02|Take 001|BaseLayer
+  - first:
+      74: -1700130614499460762
+    second: magnetHook|cablePoint_03|Take 001|BaseLayer
+  - first:
+      74: 8784373015323542428
+    second: magnetHook|cablePoint_04|Take 001|BaseLayer
+  - first:
+      74: -7003071309417757412
+    second: magnetHook|cablePoint_05_m|Take 001|BaseLayer
+  - first:
+      74: -3268512268542639718
+    second: magnetHook|cablePoint_05|Take 001|BaseLayer
+  - first:
+      74: -6889187562582193731
+    second: magnetHook|cablePoint_06|Take 001|BaseLayer
+  - first:
+      74: 3851256962454504268
+    second: magnetHook|cablePoint_07|Take 001|BaseLayer
+  - first:
+      74: -3187234325815918072
+    second: magnetHook|cablePoint_08|Take 001|BaseLayer
+  - first:
+      74: 8104360349354708329
+    second: magnetHook|cablePoint_09_m|Take 001|BaseLayer
+  - first:
+      74: 4053399410201778223
+    second: magnetHook|cablePoint_09|Take 001|BaseLayer
+  - first:
+      74: -8495635639125906002
+    second: magnetHook|cablePoint_10|Take 001|BaseLayer
+  - first:
+      74: 510780395088784292
+    second: magnetHook|cablePoint_11|Take 001|BaseLayer
+  - first:
+      74: 3283396066153752785
+    second: magnetHook|cablePoint_12|Take 001|BaseLayer
+  - first:
+      74: -4018633387179417534
+    second: magnetHook|cablePoint_13_m|Take 001|BaseLayer
+  - first:
+      74: -7843755722367842780
+    second: magnetHook|cablePoint_13|Take 001|BaseLayer
+  - first:
+      74: 8306607045578495443
+    second: magnetHook|cablePoint_14|Take 001|BaseLayer
+  - first:
+      74: 8700263168713891237
+    second: magnetHook|cablePoint_15|Take 001|BaseLayer
+  - first:
+      74: -5082085659599213743
+    second: magnetHook|cablePoint_16|Take 001|BaseLayer
+  - first:
+      74: -1738109277284108648
+    second: magnetHook|cablePoint_17_m|Take 001|BaseLayer
+  - first:
+      74: -1628378725785029690
+    second: magnetHook|cablePoint_17|Take 001|BaseLayer
+  - first:
+      74: 2169019162393583800
+    second: magnetHook|cablePoint_18|Take 001|BaseLayer
+  - first:
+      74: 1170832938680817364
+    second: magnetHook|cablePoint_19|Take 001|BaseLayer
+  - first:
+      74: 2084918936834763443
+    second: magnetHook|cablePoint_20|Take 001|BaseLayer
+  - first:
+      74: 1485164087361242320
+    second: magnetHook|cablePoint_21_m|Take 001|BaseLayer
+  - first:
+      74: 6946870212871878176
+    second: magnetHook|cablePoint_21|Take 001|BaseLayer
+  - first:
+      74: -5381161962797228289
+    second: magnetHook|cablePoint_22|Take 001|BaseLayer
+  - first:
+      74: 655947947762533009
+    second: magnetHook|cablePoint_23|Take 001|BaseLayer
+  - first:
+      74: 8253873032045892602
+    second: magnetHook|cablePoint_24|Take 001|BaseLayer
+  - first:
+      74: 5549490963652438300
+    second: magnetHook|cablePoint_25_m|Take 001|BaseLayer
+  - first:
+      74: -4896961816065259088
+    second: magnetHook|cablePoint_25|Take 001|BaseLayer
+  - first:
+      74: 8576366923036766788
+    second: magnetHook|cablePoint_26|Take 001|BaseLayer
+  - first:
+      74: 3401229767334937861
+    second: magnetHook|cablePoint_27|Take 001|BaseLayer
+  - first:
+      74: 4862448386697654164
+    second: magnetHook|cablePoint_28|Take 001|BaseLayer
+  - first:
+      74: 5535889731735596989
+    second: magnetHook|cablePoint_29_m|Take 001|BaseLayer
+  - first:
+      74: 7262608134980383693
+    second: magnetHook|cablePoint_29|Take 001|BaseLayer
+  - first:
+      74: -7820122516327890461
+    second: magnetHook|cablePoint_30|Take 001|BaseLayer
+  - first:
+      74: 1571919397316077487
+    second: magnetHook|cablePoint_31|Take 001|BaseLayer
+  - first:
+      74: 2627739771484269905
+    second: magnetHook|cablePoint_32|Take 001|BaseLayer
+  - first:
+      74: 5528079602212126042
+    second: magnetHook|cablePoint_33_m|Take 001|BaseLayer
+  - first:
+      74: -394662827132860717
+    second: magnetHook|cablePoint_33|Take 001|BaseLayer
+  - first:
+      74: 6665168148244443281
+    second: magnetHook|cablePoint_34|Take 001|BaseLayer
+  - first:
+      74: -1304887657972442768
+    second: magnetHook|cablePoint_35|Take 001|BaseLayer
+  - first:
+      74: 6304814653976192330
+    second: magnetHook|cablePoint_36|Take 001|BaseLayer
+  - first:
+      74: 8858411710254055785
+    second: magnetHook|cablePoint_37|Take 001|BaseLayer
+  - first:
+      74: 4489249513771196183
+    second: magnetHook|craneBeam_point_0|Take 001|BaseLayer
+  - first:
+      74: 7653435464089710051
+    second: magnetHook|craneBeam_wheelLB|Take 001|BaseLayer
+  - first:
+      74: 499595049155487565
+    second: magnetHook|craneBeam_wheelLF|Take 001|BaseLayer
+  - first:
+      74: -4643608107377407680
+    second: magnetHook|craneBeam_wheelRB|Take 001|BaseLayer
+  - first:
+      74: 8691167611018247138
+    second: magnetHook|craneBeam_wheelRF|Take 001|BaseLayer
+  - first:
+      74: 852225032069967776
+    second: magnetHook|craneBeam|Take 001|BaseLayer
+  - first:
+      74: 9114500712077892687
+    second: magnetHook|gear_0|Take 001|BaseLayer
+  - first:
+      74: -8751598790072277089
+    second: magnetHook|gear_l|Take 001|BaseLayer
+  - first:
+      74: -2721661018678677325
+    second: magnetHook|gear_r|Take 001|BaseLayer
+  - first:
+      74: -3267099854857810426
+    second: magnetHook|hawser_1.001|Take 001|BaseLayer
+  - first:
+      74: -2453292898992785095
+    second: magnetHook|hawser_1.002|Take 001|BaseLayer
+  - first:
+      74: 1188538860607456952
+    second: magnetHook|hawser_1.003|Take 001|BaseLayer
+  - first:
+      74: -2173064406515089309
+    second: magnetHook|hawser_1|Take 001|BaseLayer
+  - first:
+      74: 6286401902929162923
+    second: magnetHook|hawser_reel|Take 001|BaseLayer
+  - first:
+      74: 3624422429008987853
+    second: magnetHook|hawserHandler|Take 001|BaseLayer
+  - first:
+      74: -937783617896576507
+    second: magnetHook|hawser|Take 001|BaseLayer
+  - first:
+      74: -6087272769767439053
+    second: magnetHook|hook_point_0|Take 001|BaseLayer
+  - first:
+      74: -3865950934437383426
+    second: magnetHook|hook_point_1|Take 001|BaseLayer
+  - first:
+      74: 2802214047439109778
+    second: magnetHook|hook_point_2|Take 001|BaseLayer
+  - first:
+      74: 8970762366552639417
+    second: magnetHook|hook_point_3|Take 001|BaseLayer
+  - first:
+      74: -5783181098839633585
+    second: magnetHook|hook_point_wheel|Take 001|BaseLayer
+  - first:
+      74: -7338900350713458071
+    second: magnetHook|pult_point|Take 001|BaseLayer
+  - first:
+      74: -6823000667425937416
+    second: magnetHook|pultCablePoint_01|Take 001|BaseLayer
+  - first:
+      74: -8620506046341257574
+    second: magnetHook|pultCablePoint_02_m|Take 001|BaseLayer
+  - first:
+      74: 6282240861885280713
+    second: magnetHook|pultCablePoint_02|Take 001|BaseLayer
+  - first:
+      74: 8344229498417450756
+    second: magnetHook|pultCablePoint_03|Take 001|BaseLayer
+  - first:
+      74: 7066121574458235263
+    second: magnetHook|pultCablePoint_04|Take 001|BaseLayer
+  - first:
+      74: 8407980824525125258
+    second: magnetHook|pultCablePoint_05|Take 001|BaseLayer
+  - first:
+      74: 3808793827808145316
+    second: magnetHook|pultCablePoint_06_m|Take 001|BaseLayer
+  - first:
+      74: -269604132254025254
+    second: magnetHook|pultCablePoint_06|Take 001|BaseLayer
+  - first:
+      74: -4028077250898376270
+    second: magnetHook|pultCablePoint_07|Take 001|BaseLayer
+  - first:
+      74: -2349463536046602905
+    second: magnetHook|pultCablePoint_08|Take 001|BaseLayer
+  - first:
+      74: -5017143474870792805
+    second: magnetHook|pultCablePoint_09|Take 001|BaseLayer
+  - first:
+      74: -2425172270917979347
+    second: magnetHook|pultCablePoint_10_m|Take 001|BaseLayer
+  - first:
+      74: -5373147930394447195
+    second: magnetHook|pultCablePoint_10|Take 001|BaseLayer
+  - first:
+      74: 6552764693345161243
+    second: magnetHook|pultCablePoint_11|Take 001|BaseLayer
+  - first:
+      74: -8599291302045728442
+    second: magnetHook|pultCablePoint_12|Take 001|BaseLayer
+  - first:
+      74: -8289800295666961160
+    second: magnetHook|pultCablePoint_13|Take 001|BaseLayer
+  - first:
+      74: 4521717892208510808
+    second: magnetHook|pultCablePoint_14_m|Take 001|BaseLayer
+  - first:
+      74: -4603702083243292804
+    second: magnetHook|pultCablePoint_14|Take 001|BaseLayer
+  - first:
+      74: 489507201674938631
+    second: magnetHook|pultCablePoint_15|Take 001|BaseLayer
+  - first:
+      74: 3610797063074522782
+    second: magnetHook|pultCablePoint_16|Take 001|BaseLayer
+  - first:
+      74: -8170657282175096715
+    second: magnetHook|pultCablePoint_17|Take 001|BaseLayer
+  - first:
+      74: 7877472946933668949
+    second: magnetHook|pultCablePoint_18_m|Take 001|BaseLayer
+  - first:
+      74: -4164006293652643371
+    second: magnetHook|pultCablePoint_18|Take 001|BaseLayer
+  - first:
+      74: 7315648870151800736
+    second: magnetHook|pultCablePoint_19|Take 001|BaseLayer
+  - first:
+      74: -4287958286182408994
+    second: magnetHook|pultCablePoint_20|Take 001|BaseLayer
+  - first:
+      74: 3547971960011659895
+    second: magnetHook|pultCablePoint_21|Take 001|BaseLayer
+  - first:
+      74: -3962378622632561661
+    second: magnetHook|pultCablePoint_22_m|Take 001|BaseLayer
+  - first:
+      74: 5893330051497433903
+    second: magnetHook|pultCablePoint_22|Take 001|BaseLayer
+  - first:
+      74: 8284037661466493921
+    second: magnetHook|pultCablePoint_23|Take 001|BaseLayer
+  - first:
+      74: -6293559235625136706
+    second: magnetHook|pultCablePoint_24|Take 001|BaseLayer
+  - first:
+      74: -6636171467782566617
+    second: magnetHook|pultCablePoint_25|Take 001|BaseLayer
+  - first:
+      74: -2943311535976196792
+    second: magnetHook|pultCablePoint_26_m|Take 001|BaseLayer
+  - first:
+      74: 678653188583782610
+    second: magnetHook|pultCablePoint_26|Take 001|BaseLayer
+  - first:
+      74: 4350714841565381377
+    second: magnetHook|pultCablePoint_27|Take 001|BaseLayer
+  - first:
+      74: 1607598459261824490
+    second: magnetHook|pultCablePoint_28|Take 001|BaseLayer
+  - first:
+      74: 7746671896312486189
+    second: magnetHook|pultCablePoint_29|Take 001|BaseLayer
+  - first:
+      74: 237783817929301402
+    second: magnetHook|pultCablePoint_30_m|Take 001|BaseLayer
+  - first:
+      74: -2363823386283467572
+    second: magnetHook|pultCablePoint_30|Take 001|BaseLayer
+  - first:
+      74: -7569044677547784368
+    second: magnetHook|pultCablePoint_31|Take 001|BaseLayer
+  - first:
+      74: -4597753836410722715
+    second: magnetHook|pultCablePoint_32|Take 001|BaseLayer
+  - first:
+      74: -8221369863597109490
+    second: magnetHook|pultCablePoint_33|Take 001|BaseLayer
+  - first:
+      74: -2676465347238568192
+    second: magnetHook|pultCablePoint_34|Take 001|BaseLayer
+  - first:
+      74: -8137599781703682177
+    second: magnetHook|reel|Take 001|BaseLayer
+  - first:
+      74: -1253917398859564352
+    second: magnetHook|telpher_point_0|Take 001|BaseLayer
+  - first:
+      74: 1181180335897814441
+    second: magnetHook|wheel_l.001|Take 001|BaseLayer
+  - first:
+      74: 3507866068073596308
+    second: magnetHook|wheel_l|Take 001|BaseLayer
+  externalObjects: {}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
