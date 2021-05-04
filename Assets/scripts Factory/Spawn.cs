@@ -40,7 +40,7 @@ public class Spawn : MonoBehaviour{
 		float Zinc = 0;
 		float Y = 2;
 		for (int i = 0; i < NumCubes; i++) {
-			Debug.Log ("Creating cube number: " + i);
+			//Debug.Log ("Creating cube number: " + i);
 			//set range of X and Z positions
 			Vector3 SpawnPos = new Vector3(StartPosX + Xinc, Y, StartPosZ + Zinc);
 			Xinc = Xinc + Random.Range(1.01F, 1.3F);
