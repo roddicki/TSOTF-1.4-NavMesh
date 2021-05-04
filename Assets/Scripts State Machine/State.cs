@@ -102,11 +102,18 @@ public class SetTarget : State {
 	{
 		Debug.Log (name.ToString ());
 		base.Enter ();
+		// set wandering destination
+		agent.SetDestination (Wander ());
 	}
 
 	public override void Update ()
 	{
-		// set destination / target
+		// wander
+		if (agent.pathPending != true && agent.remainingDistance < 1) {
+			agent.SetDestination (Wander());
+		}
+
+
 		// find cube
 		RaycastHit hit;
 		Vector3 source = new Vector3 (agent.transform.position.x, agent.transform.position.y + 0.5f, agent.transform.position.z);
@@ -123,7 +130,7 @@ public class SetTarget : State {
 		Ray ray = new Ray (source, angle);
 		if (Physics.Raycast (ray, out hit, 40)) {
 			Debug.DrawRay (source, angle * hit.distance, Color.red);
-			Debug.Log (hit.collider.name);
+			//Debug.Log (hit.collider.name);
 			if (hit.collider.tag == "cube") {
 				Debug.Log (hit.collider.name);
 				cube.position = GameObject.Find (hit.collider.name).transform.position;
@@ -137,6 +144,16 @@ public class SetTarget : State {
 	{
 		//anim.ResetTrigger ("isWalking");
 		base.Exit ();
+	}
+
+	Vector3 Wander()
+	{
+		Vector3 randomDirection = Random.insideUnitSphere * 10;
+		randomDirection += agent.transform.position;
+		NavMeshHit hit;
+		NavMesh.SamplePosition (randomDirection, out hit, 10, 1);
+		Vector3 finalPosition = hit.position;
+		return finalPosition;
 	}
 }
 
