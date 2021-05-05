@@ -149,6 +149,9 @@ public class SetTarget : State {
 		base.Exit ();
 	}
 
+	// find cube
+
+
 	// return random position to move to
 	Vector3 Wander()
 	{
@@ -175,7 +178,8 @@ public class Search: State
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString());
-		agent.SetDestination (cube.position);
+		// set destination just behind cube
+		agent.SetDestination (cube.position  - (bay.position - cube.position).normalized);
 		base.Enter ();
 	}
 
@@ -185,7 +189,7 @@ public class Search: State
 		// conditions for moving to next state
 		// if path resolved and agent has moved to target
 		if (agent.pathPending != true && agent.remainingDistance < 1) {
-			nextState = new Stop (npc, agent, anim, cube, bay, health);
+			nextState = new Push (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
 	}
@@ -197,6 +201,37 @@ public class Search: State
 	}
 }
 
+//------------------------------------------//
+// push state
+public class Push : State {
+	public Push (GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _cube, Transform _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
+	{
+		name = STATE.PUSH;
+		agent.speed = 2; //nav mesh
+		agent.isStopped = false;
+		// set destination to bay.position
+		// cube obstacle enabled = false // so it can be pushed
+		//agent.SetDestination (Vector3.zero);
+	}
+
+	public override void Enter ()
+	{
+		Debug.Log (name.ToString ());
+		//anim.SetTrigger ("isIdle");
+		base.Enter ();
+	}
+
+	public override void Update ()
+	{
+		// do nothing stay in idle state
+	}
+
+	public override void Exit ()
+	{
+		//anim.ResetTrigger ("isIdle");
+		base.Exit ();
+	}
+}
 
 
 //------------------------------------------//
