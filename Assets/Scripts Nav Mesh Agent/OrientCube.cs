@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PushCube : MonoBehaviour
+public class OrientCube : MonoBehaviour
 {
-    // character animation
-    AnimateMe AnimationController;
+    
     public bool NearCube;
     private GameObject cube;
     private Rigidbody CubeRbody;
@@ -13,7 +12,6 @@ public class PushCube : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AnimationController = GetComponent<AnimateMe>();
         NearCube = false;
     }
 
@@ -22,7 +20,7 @@ public class PushCube : MonoBehaviour
     {
         if (NearCube)
         {
-            OrientCube();
+            OrientCubeTowardAgent();
         }
     }
 
@@ -34,21 +32,28 @@ public class PushCube : MonoBehaviour
             Debug.Log("hit- " + cube.name);
             NearCube = true;
             CubeRbody = cube.GetComponent<Rigidbody>();
+            // position in front of the agent
+            Debug.Log("agent:" + this.transform.position);
+            // rotate (might be better rotated to face bay)
+            float speed = 5.0f;
+            var qTo = Quaternion.LookRotation(this.transform.position - cube.transform.position);
+            qTo = Quaternion.Slerp(cube.transform.rotation, qTo, speed * Time.deltaTime);
+            CubeRbody.MoveRotation(qTo);
+            //cube.transform.rotation = Quaternion.LookRotation(CubeRbody.velocity, Vector3.up);
         }
     }
 
     // push cube
-    void OrientCube(){
+    void OrientCubeTowardAgent(){
         // If Agent is defined and close to this cube
         if (cube != null && Vector3.Distance(cube.transform.position, transform.position) <= 1.3f) {
-            AnimationController.IsPushing = true;
             // face direction of travel
             // NOT WORKING
             if (CubeRbody.velocity != Vector3.zero) {
                 // Set constraints to keep hovering
                 CubeRbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
                 CubeRbody.angularDrag = 1;
-                cube.transform.rotation = Quaternion.LookRotation(CubeRbody.velocity, Vector3.up);
+                //cube.transform.rotation = Quaternion.LookRotation(CubeRbody.velocity, Vector3.up);
             }
         }
         // agent is no longer close to cube - reset everything
@@ -57,7 +62,6 @@ public class PushCube : MonoBehaviour
             CubeRbody.angularDrag = 0.05f;
             // un freeze constraints
             //CubeRbody.constraints = RigidbodyConstraints.None;
-            AnimationController.IsPushing = false;
         }
     }
 }

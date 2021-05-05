@@ -93,7 +93,7 @@ public class Cube : MonoBehaviour {
 			// turn on physics    
 			CubeRigidBody.useGravity = true;
 			//unfreeze rotation
-			CubeRigidBody.constraints = RigidbodyConstraints.None;
+			//CubeRigidBody.constraints = RigidbodyConstraints.None;
 			//stop CraneMagnet following
 		} 
 	}

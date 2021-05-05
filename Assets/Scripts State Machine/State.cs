@@ -137,6 +137,11 @@ public class SetTarget : State {
 			if (hit.collider.tag == "cube") {
 				Debug.Log (hit.collider.name);
 				cube.position = GameObject.Find (hit.collider.name).transform.position;
+				// cube obstacle enabled = false // so it can be pushed
+				Debug.Log("NavMeshObstacle:" + cube.GetComponent<NavMeshObstacle>().enabled);
+				cube.GetComponent<NavMeshObstacle>().enabled = false;
+				Debug.Log("NavMeshObstacle:" + cube.GetComponent<NavMeshObstacle>().enabled);
+				// goto next state
 				nextState = new Search (npc, agent, anim, cube, bay, health);
 				stage = EVENT.EXIT;
 			}
@@ -209,21 +214,25 @@ public class Push : State {
 		name = STATE.PUSH;
 		agent.speed = 2; //nav mesh
 		agent.isStopped = false;
-		// set destination to bay.position
-		// cube obstacle enabled = false // so it can be pushed
-		//agent.SetDestination (Vector3.zero);
 	}
 
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString ());
 		//anim.SetTrigger ("isIdle");
+		// set destination to bay.position
+		agent.SetDestination (bay.position);
 		base.Enter ();
 	}
 
 	public override void Update ()
 	{
-		// do nothing stay in idle state
+		// conditions for moving to next state
+		// if path resolved and agent has moved to target
+		if (agent.pathPending != true && agent.remainingDistance < 1) {
+			nextState = new Stop (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		}
 	}
 
 	public override void Exit ()
@@ -231,6 +240,26 @@ public class Push : State {
 		//anim.ResetTrigger ("isIdle");
 		base.Exit ();
 	}
+
+	// orientCube to bay
+	// agent hits cube
+    void OnCollisionEnter(Collision col){
+        // Hit Cube.
+        if (col.gameObject.CompareTag("cube")) {
+            //cube = col.gameObject;
+            Debug.Log("hit- " + cube.name);
+            // NearCube = true;
+            // CubeRbody = cube.GetComponent<Rigidbody>();
+            // // position in front of the agent
+            // Debug.Log("agent:" + this.transform.position);
+            // // rotate (might be better rotated to face bay)
+            // float speed = 5.0f;
+            // var qTo = Quaternion.LookRotation(this.transform.position - cube.transform.position);
+            // qTo = Quaternion.Slerp(cube.transform.rotation, qTo, speed * Time.deltaTime);
+            // CubeRbody.MoveRotation(qTo);
+            //cube.transform.rotation = Quaternion.LookRotation(CubeRbody.velocity, Vector3.up);
+        }
+    }
 }
 
 
