@@ -33,6 +33,7 @@ TagManager:
   - bay_agent_2
   - bay_agent_3
   - bay_agent_4
+  - bay
   layers:
   - Default
   - TransparentFX

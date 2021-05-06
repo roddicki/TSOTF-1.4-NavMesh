@@ -183,14 +183,14 @@ public class Search: State
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString());
-		// set destination just behind cube
-		agent.SetDestination (cube.position  - (bay.position - cube.position).normalized);
 		base.Enter ();
 	}
 
 	public override void Update ()
 	{
 		// set destination / target
+		// set destination just behind cube
+		agent.SetDestination (cube.position  - ((bay.position - cube.position).normalized * 2));
 		// conditions for moving to next state
 		// if path resolved and agent has moved to target
 		if (agent.pathPending != true && agent.remainingDistance < 1) {

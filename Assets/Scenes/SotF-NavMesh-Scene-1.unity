@@ -2356,7 +2356,7 @@ GameObject:
   - component: {fileID: 426019702}
   m_Layer: 2
   m_Name: Agent-1-bay
-  m_TagString: ground
+  m_TagString: bay
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3765,7 +3765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DoSpawn: 1
   SpawnedCube: {fileID: 813623607}
-  NumCubes: 0
+  NumCubes: 5
   SpawnPosMaxX: 6
   SpawnPosMinX: -5
   SpawnPosMaxZ: 6
@@ -4874,7 +4874,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813623607}
   m_LocalRotation: {x: -0, y: -0.18108167, z: -0, w: 0.9834681}
-  m_LocalPosition: {x: -0.35, y: -0.891, z: 9.27}
+  m_LocalPosition: {x: 5.72, y: -0.891, z: 8.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 431565183}
@@ -4900,7 +4900,7 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813623607}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
@@ -11342,7 +11342,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0a9c78cbbc2f90bbdbb73f9a5cd876f6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.08
+      value: 3.03
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0a9c78cbbc2f90bbdbb73f9a5cd876f6,
         type: 3}
@@ -11352,7 +11352,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0a9c78cbbc2f90bbdbb73f9a5cd876f6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.13
+      value: 15.43
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0a9c78cbbc2f90bbdbb73f9a5cd876f6,
         type: 3}
