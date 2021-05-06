@@ -8,11 +8,14 @@ public class OrientCube : MonoBehaviour
     public bool NearCube;
     private GameObject cube;
     private Rigidbody CubeRbody;
+	private AI ai;
 
     // Start is called before the first frame update
     void Start()
     {
         NearCube = false;
+		ai = GetComponent<AI> ();
+		Debug.Log ("bay" + ai.bay.position);
     }
 
     // Update is called once per frame
@@ -20,7 +23,7 @@ public class OrientCube : MonoBehaviour
     {
         if (NearCube)
         {
-            OrientCubeTowardAgent();
+            //OrientCubeTowardAgent();
         }
     }
 
@@ -34,13 +37,17 @@ public class OrientCube : MonoBehaviour
             CubeRbody = cube.GetComponent<Rigidbody>();
             // position in front of the agent
             Debug.Log("agent:" + this.transform.position);
-            // rotate (might be better rotated to face bay)
+            // rotate (might be better rotated to face bay) 
+			// NOT WORKING
             float speed = 5.0f;
-            var qTo = Quaternion.LookRotation(this.transform.position - cube.transform.position);
+            var qTo = Quaternion.LookRotation(ai.bay.position - cube.transform.position);
             qTo = Quaternion.Slerp(cube.transform.rotation, qTo, speed * Time.deltaTime);
             CubeRbody.MoveRotation(qTo);
-            //cube.transform.rotation = Quaternion.LookRotation(CubeRbody.velocity, Vector3.up);
-        }
+			//cube.transform.rotation = Quaternion.LookRotation(CubeRbody.velocity, Vector3.up);
+			// Set constraints to keep hovering - WORKING
+			CubeRbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
+			CubeRbody.angularDrag = 1;
+		}
     }
 
     // push cube
