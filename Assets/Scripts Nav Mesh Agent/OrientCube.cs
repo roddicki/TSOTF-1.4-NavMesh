@@ -62,8 +62,9 @@ public class OrientCube : MonoBehaviour
                 qTo = Quaternion.Slerp(cube.transform.rotation, qTo, speed * Time.deltaTime);
                 CubeRbody.MoveRotation(qTo);
                 // position in front of the agent
-                CubeRbody.MovePosition(this.transform.position + transform.forward);
-                //CubeRbody.MovePosition(this.transfom.position  + (ai.bay.position - this.transfom.position).normalized);
+                //CubeRbody.MovePosition(this.transform.position + transform.forward);
+                // cube parented by agent
+                // probably make kinematic
             }
         }
         // agent is no longer close to cube - reset everything
