@@ -44,7 +44,8 @@ public class OrientCube : MonoBehaviour
         {
             // release cube
             NearCube = false;
-        }
+			cube.transform.SetParent (null);
+		}
     }
 
     // push cube
@@ -61,11 +62,14 @@ public class OrientCube : MonoBehaviour
                 var qTo = Quaternion.LookRotation(ai.bay.position - cube.transform.position);
                 qTo = Quaternion.Slerp(cube.transform.rotation, qTo, speed * Time.deltaTime);
                 CubeRbody.MoveRotation(qTo);
-                // position in front of the agent
-                //CubeRbody.MovePosition(this.transform.position + transform.forward);
-                // cube parented by agent
-                // probably make kinematic
-            }
+
+				// position in front of the agent
+				//CubeRbody.MovePosition(this.transform.position + transform.forward);
+
+				// cube parented by agent
+				// probably make kinematic
+				cube.transform.SetParent (this.transform);
+			}
         }
         // agent is no longer close to cube - reset everything
         else if (cube != null && Vector3.Distance(cube.transform.position, transform.position) >= 1.5f)  {
