@@ -64,11 +64,11 @@ public class OrientCube : MonoBehaviour
                 CubeRbody.MoveRotation(qTo);
 
 				// position in front of the agent
-				//CubeRbody.MovePosition(this.transform.position + transform.forward);
+				CubeRbody.MovePosition(this.transform.position + transform.forward);
 
 				// cube parented by agent
 				// probably make kinematic
-				cube.transform.SetParent (this.transform);
+				//cube.transform.SetParent (this.transform);
 			}
         }
         // agent is no longer close to cube - reset everything

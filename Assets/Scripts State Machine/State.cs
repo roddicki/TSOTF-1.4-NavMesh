@@ -118,34 +118,32 @@ public class SetTarget : State {
 		// find cube
 		RaycastHit hit;
 		Vector3 source = new Vector3 (agent.transform.position.x, agent.transform.position.y + 1.5f, agent.transform.position.z);
-		Vector3 angle = agent.transform.TransformDirection (Vector3.forward);
-		i += 1;
-		if (i == 1) {
-			angle = agent.transform.TransformDirection (Vector3.forward);
-			//angle = agent.transform.TransformDirection ((Vector3.forward + Vector3.right).normalized);
-		} else if (i == 2) {
-			angle = agent.transform.TransformDirection (Vector3.forward);
-		} else if (i == 3) {
-			angle = agent.transform.TransformDirection (Vector3.forward);
-			//angle = agent.transform.TransformDirection ((Vector3.forward - Vector3.right).normalized);
-			i = 0;
-		}
-		Ray ray = new Ray (source, angle);
-		if (Physics.SphereCast (ray, 3.0f, out hit, 60)) {
-			Debug.DrawRay (source, angle * hit.distance, Color.red);
-			Debug.Log (hit.collider.name);
-			if (hit.collider.tag == "cube") {
+		Vector3 [] angles = new Vector3 [3];
+
+		angles [0] = agent.transform.TransformDirection ((Vector3.forward + Vector3.right).normalized);
+		angles [1] = agent.transform.TransformDirection (Vector3.forward);
+		angles [2] = agent.transform.TransformDirection ((Vector3.forward - Vector3.right).normalized);
+
+		foreach (Vector3 angle in angles) {
+			Ray ray = new Ray (source, angle);
+			//Debug.DrawRay (source, angle * 40, Color.red, 1.0f);
+			if (Physics.SphereCast (ray, 3.0f, out hit, 60)) {
+				Debug.DrawRay (source, angle * hit.distance, Color.red);
 				Debug.Log (hit.collider.name);
-				cube.position = GameObject.Find (hit.collider.name).transform.position;
-				// cube obstacle enabled = false // so it can be pushed
-				Debug.Log("NavMeshObstacle:" + cube.GetComponent<NavMeshObstacle>().enabled);
-				cube.GetComponent<NavMeshObstacle>().enabled = false;
-				Debug.Log("NavMeshObstacle:" + cube.GetComponent<NavMeshObstacle>().enabled);
-				// goto next state
-				nextState = new Search (npc, agent, anim, cube, bay, health);
-				stage = EVENT.EXIT;
+				if (hit.collider.tag == "cube") {
+					Debug.Log (hit.collider.name);
+					cube.position = GameObject.Find (hit.collider.name).transform.position;
+					// cube obstacle enabled = false // so it can be pushed
+					Debug.Log ("NavMeshObstacle:" + cube.GetComponent<NavMeshObstacle> ().enabled);
+					cube.GetComponent<NavMeshObstacle> ().enabled = false;
+					Debug.Log ("NavMeshObstacle:" + cube.GetComponent<NavMeshObstacle> ().enabled);
+					// goto next state
+					nextState = new Search (npc, agent, anim, cube, bay, health);
+					stage = EVENT.EXIT;
+				}
 			}
 		}
+
 	}
 
 	public override void Exit ()
