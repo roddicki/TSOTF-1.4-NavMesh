@@ -25,8 +25,15 @@ public class InBay : MonoBehaviour
 	// enter bay
 	void OnTriggerEnter (Collider other)
 	{
+		// if entering bay
 		if (other.tag == "bay") {
-			// enable NaveMeshObstacle in state.cs
+			// enable NaveMeshObstacle in state.cs at the end of PUSH state
+		} 
+		// if entering centre
+		else if (other.tag == "central_bay")
+		{
+			// disable NaveMeshObstacle
+			navMeshObstacle.enabled = false;
 		}
 	}
 

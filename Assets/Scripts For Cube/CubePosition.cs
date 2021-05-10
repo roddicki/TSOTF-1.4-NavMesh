@@ -8,6 +8,7 @@ public class CubePosition : MonoBehaviour {
     private GameObject GridBox;
     private Bounds YellowBoxBounds;
     private Bounds GridBoxBounds;
+    
 
     // Start is called before the first frame update
     void Start(){
@@ -37,6 +38,8 @@ public class CubePosition : MonoBehaviour {
         // else must be out of the game
         else {
             Outside = 2; //out of the game
+            // change layer to ignore agents raycast
+            gameObject.layer = 2;
         }
 	}
 

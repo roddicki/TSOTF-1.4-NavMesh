@@ -21,12 +21,12 @@ public class ChangeGroundMaterial : MonoBehaviour
         GoalDetect = GetComponent<GoalDetect>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter(Collider other) 
     {
-        if(GoalDetect.goal) {
+        // Touched goal and goal name
+        if (other.gameObject.CompareTag("cube")) {
             // Swap ground material for a bit to indicate we scored.
-            //StartCoroutine(GoalScoredSwapGroundMaterial(goalScoredMaterial, 0.5f));
+            StartCoroutine(GoalScoredSwapGroundMaterial(goalScoredMaterial, 0.5f));
         }
     }
 

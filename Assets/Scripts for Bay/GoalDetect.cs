@@ -9,9 +9,14 @@ public class GoalDetect : MonoBehaviour
     public bool ownGoal;
 	public GameObject Agent;
 	AgentHealth agentHealth;
+    string[] agentName;
 
     void Start() {
-       goal = false;
+        // tie the bay to an agent with the same name
+        agentName = this.name.Split('-');
+        //Debug.Log(agentName[0]);
+        Agent = GameObject.Find(agentName[0]);
+        goal = false;
         ownGoal = false;
         goalCount = 0;
 		agentHealth = Agent.GetComponent<AgentHealth> ();

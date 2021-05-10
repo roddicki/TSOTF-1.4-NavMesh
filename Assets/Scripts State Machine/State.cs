@@ -177,12 +177,15 @@ public class Search: State
 		agent.isStopped = false;
 	}
 	public NavMeshObstacle navMeshObstacle;
+	// timer variable
+	private float elapsedTime;
 
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString());
 		navMeshObstacle = cube.GetComponent<NavMeshObstacle> ();
 		navMeshObstacle.enabled = true;
+		elapsedTime = 0;
 		base.Enter ();
 	}
 
@@ -196,7 +199,17 @@ public class Search: State
 		if (agent.pathPending != true && agent.remainingDistance < 1) {
 			nextState = new Push (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
+		} 
+		// if still trying to get to cube
+		else if (elapsedTime > 30)
+		{
+			elapsedTime = 0;
+			nextState = new SetTarget (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
 		}
+
+		// countdown
+		elapsedTime += Time.deltaTime;
 	}
 
 	public override void Exit ()
@@ -241,7 +254,7 @@ public class Push : State {
 			stage = EVENT.EXIT;
 		} 
 		// else if agent loses cube
-		else if (Vector3.Distance (cube.transform.position, agent.transform.position) >= 3.5f) 
+		else if (Vector3.Distance (cube.transform.position, agent.transform.position) >= 2.5f) 
 		{
 			nextState = new Search (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;

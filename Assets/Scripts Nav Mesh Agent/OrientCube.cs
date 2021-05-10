@@ -77,7 +77,7 @@ public class OrientCube : MonoBehaviour
         // agent is no longer close to cube - reset everything
         else if (cube != null && Vector3.Distance(cube.transform.position, transform.position) >= 1.5f)  {
             NearCube = false;
-			//CubeRbody.constraints = RigidbodyConstraints.None;
+			CubeRbody.constraints = RigidbodyConstraints.None;
 
 		}
     }

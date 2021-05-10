@@ -7,7 +7,7 @@ public class AI : MonoBehaviour
 {
 	NavMeshAgent agent;
 	Animator anim;
-	public GameObject cube;
+	private GameObject cube;
 	public GameObject bay;
 	State currentState;
 	private AgentHealth health;
@@ -15,6 +15,7 @@ public class AI : MonoBehaviour
 	// Start is called before the first frame update
     void Start()
     {
+		bay = GameObject.Find(this.name + "-bay");
 		agent = this.GetComponent<NavMeshAgent> ();
 		anim = this.GetComponent<Animator> ();
 		health = this.GetComponent<AgentHealth> ();
