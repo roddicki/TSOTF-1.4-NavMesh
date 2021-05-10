@@ -173,7 +173,7 @@ public class Search: State
 	public Search (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
 	{
 		name = STATE.SEARCH;
-		agent.speed = 2; //nav mesh
+		agent.speed = 4; //nav mesh
 		agent.isStopped = false;
 	}
 	public NavMeshObstacle navMeshObstacle;
@@ -227,7 +227,7 @@ public class Push : State {
 	public Push (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
 	{
 		name = STATE.PUSH;
-		agent.speed = 2; //nav mesh
+		agent.speed = 4; //nav mesh
 		agent.isStopped = false;
 	}
 
