@@ -18,13 +18,13 @@ public class State
 	protected EVENT stage;
 	protected GameObject npc;
 	protected Animator anim;
-	protected Transform cube;
-	protected Transform bay;
+	protected GameObject cube;
+	protected GameObject bay;
 	protected AgentHealth health;
 	protected State nextState;
 	protected NavMeshAgent agent;
 
-	public State(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _cube, Transform _bay, AgentHealth _health)
+	public State(GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health)
 	{
 		npc = _npc;
 		agent = _agent;
@@ -59,7 +59,7 @@ public class State
 // Idle state
 public class Idle: State 
 {
-	public Idle (GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _cube, Transform _bay, AgentHealth _health) : base(_npc, _agent, _anim, _cube, _bay, _health)
+	public Idle (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base(_npc, _agent, _anim, _cube, _bay, _health)
 	{
 		name = STATE.IDLE;
 	}
@@ -90,18 +90,20 @@ public class Idle: State
 //------------------------------------------//
 // SetTarget state
 public class SetTarget : State {
-	int i = 0;
-	
-	public SetTarget (GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _cube, Transform _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
+
+	public SetTarget (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
 	{
 		name = STATE.SETTARGET;
 		agent.speed = 2; //nav mesh
 		agent.isStopped = false;
 	}
 
+	public Collider bayCollider;
+
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString ());
+		bayCollider = bay.GetComponent<Collider> ();
 		base.Enter ();
 		// set wandering destination
 		agent.SetDestination (Wander ());
@@ -114,7 +116,6 @@ public class SetTarget : State {
 			agent.SetDestination (Wander());
 		}
 
-
 		// find cube
 		RaycastHit hit;
 		Vector3 source = new Vector3 (agent.transform.position.x, agent.transform.position.y + 1.5f, agent.transform.position.z);
@@ -126,17 +127,15 @@ public class SetTarget : State {
 
 		foreach (Vector3 angle in angles) {
 			Ray ray = new Ray (source, angle);
-			//Debug.DrawRay (source, angle * 40, Color.red, 1.0f);
+			Debug.DrawRay (source, angle * 40, Color.red, 1.0f);
 			if (Physics.SphereCast (ray, 3.0f, out hit, 60)) {
 				Debug.DrawRay (source, angle * hit.distance, Color.red);
-				Debug.Log (hit.collider.name);
-				if (hit.collider.tag == "cube") {
+				// if hit cube & hit cube not contained in bay
+				if (hit.collider.tag == "cube" && bayCollider.bounds.Contains(GameObject.Find (hit.collider.name).transform.position) == false) 
+				{
 					Debug.Log (hit.collider.name);
-					cube.position = GameObject.Find (hit.collider.name).transform.position;
-					// cube obstacle enabled = false // so it can be pushed
-					Debug.Log ("NavMeshObstacle:" + cube.GetComponent<NavMeshObstacle> ().enabled);
-					cube.GetComponent<NavMeshObstacle> ().enabled = false;
-					Debug.Log ("NavMeshObstacle:" + cube.GetComponent<NavMeshObstacle> ().enabled);
+					// set as target cube
+					cube = GameObject.Find (hit.collider.name);
 					// goto next state
 					nextState = new Search (npc, agent, anim, cube, bay, health);
 					stage = EVENT.EXIT;
@@ -171,16 +170,19 @@ public class SetTarget : State {
 // Search state
 public class Search: State 
 {
-	public Search (GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _cube, Transform _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
+	public Search (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
 	{
 		name = STATE.SEARCH;
 		agent.speed = 2; //nav mesh
 		agent.isStopped = false;
 	}
+	public NavMeshObstacle navMeshObstacle;
 
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString());
+		navMeshObstacle = cube.GetComponent<NavMeshObstacle> ();
+		navMeshObstacle.enabled = true;
 		base.Enter ();
 	}
 
@@ -188,7 +190,7 @@ public class Search: State
 	{
 		// set destination / target
 		// set destination just behind cube
-		agent.SetDestination (cube.position  - ((bay.position - cube.position).normalized * 2));
+		agent.SetDestination (cube.transform.position  - ((bay.transform.position - cube.transform.position).normalized * 2));
 		// conditions for moving to next state
 		// if path resolved and agent has moved to target
 		if (agent.pathPending != true && agent.remainingDistance < 1) {
@@ -209,19 +211,23 @@ public class Search: State
 public class Push : State {
 
 
-	public Push (GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _cube, Transform _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
+	public Push (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
 	{
 		name = STATE.PUSH;
 		agent.speed = 2; //nav mesh
 		agent.isStopped = false;
 	}
 
+	public NavMeshObstacle navMeshObstacle;
+
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString ());
+		navMeshObstacle = cube.GetComponent<NavMeshObstacle> ();
+		navMeshObstacle.enabled = false;
 		//anim.SetTrigger ("isIdle");
 		// set destination to bay.position
-		agent.SetDestination (bay.position);
+		agent.SetDestination (bay.transform.position);
 		base.Enter ();
 	}
 
@@ -230,7 +236,14 @@ public class Push : State {
 		// conditions for moving to next state
 		// if path resolved and agent has moved to target
 		if (agent.pathPending != true && agent.remainingDistance < 1) {
+			navMeshObstacle.enabled = true; // enable so agent avoids in the bay
 			nextState = new Stop (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		} 
+		// else if agent loses cube
+		else if (Vector3.Distance (cube.transform.position, agent.transform.position) >= 3.5f) 
+		{
+			nextState = new Search (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
 	}
@@ -241,14 +254,13 @@ public class Push : State {
 		base.Exit ();
 	}
 
-
 }
 
 
 //------------------------------------------//
 // stop state
 public class Stop : State {
-	public Stop (GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _cube, Transform _bay, AgentHealth _health) : base(_npc, _agent, _anim, _cube, _bay, _health)
+	public Stop (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base(_npc, _agent, _anim, _cube, _bay, _health)
 	{
 		name = STATE.STOP;
 		agent.speed = 2; //nav mesh
@@ -266,7 +278,8 @@ public class Stop : State {
 
 	public override void Update ()
 	{
-		// do nothing stay in idle state
+		nextState = new SetTarget (npc, agent, anim, cube, bay, health);
+		stage = EVENT.EXIT;
 	}
 
 	public override void Exit ()

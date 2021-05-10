@@ -10,12 +10,13 @@ public class OrientCube : MonoBehaviour
     private Rigidbody CubeRbody;
 	private AI ai;
 
-    // Start is called before the first frame update
-    void Start()
+
+	// Start is called before the first frame update
+	void Start()
     {
         NearCube = false;
 		ai = GetComponent<AI> ();
-		Debug.Log ("bay" + ai.bay.position);
+		//Debug.Log ("bay" + ai.bay.position);
     }
 
     // Update is called once per frame
@@ -38,43 +39,46 @@ public class OrientCube : MonoBehaviour
 		}
     }
 
+	// enter bay
     void OnTriggerEnter(Collider other) {
-        Debug.Log("Trigger " + other.tag);
+        //Debug.Log("Trigger " + other.tag);
         if (other.tag == "bay")
         {
             // release cube
             NearCube = false;
-			cube.transform.SetParent (null);
+			CubeRbody.constraints = RigidbodyConstraints.None;
 		}
     }
 
     // push cube
     void OrientCubeTowardAgent(){
         // If Agent is defined and close to this cube
-        if (cube != null && Vector3.Distance(cube.transform.position, transform.position) <= 1.5f) {
+        if (cube != null && Vector3.Distance(cube.transform.position, transform.position) <= 1.2f) {
             // face direction of travel
             // NOT WORKING
             if (CubeRbody.velocity != Vector3.zero) {
                 // Set constraints to keep hovering
                 CubeRbody.angularDrag = 2.0f;
                 // rotate to face bay (NOTE: check this works if bay changes!)
-                float speed = 0.5f;
-                var qTo = Quaternion.LookRotation(ai.bay.position - cube.transform.position);
-                qTo = Quaternion.Slerp(cube.transform.rotation, qTo, speed * Time.deltaTime);
+                var qTo = Quaternion.LookRotation(ai.bay.transform.position - cube.transform.position);
                 CubeRbody.MoveRotation(qTo);
 
-				// position in front of the agent
-				CubeRbody.MovePosition(this.transform.position + transform.forward);
+				// Set constraints 
+				CubeRbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
-				// cube parented by agent
-				// probably make kinematic
-				//cube.transform.SetParent (this.transform);
+				// position in front of the agent
+				//CubeRbody.MovePosition(this.transform.position + transform.forward);
+				// use force
+				//CubeRbody.AddForce (((this.transform.position + transform.forward) - cube.transform.position) * 1000.5f);
+				//CubeRbody.AddForce ((ai.transform.position - cube.transform.position) * 1000.5f);
+				//CubeRbody.AddForce (((this.transform.position + ((ai.bay.position - this.transform.position).normalized * 1)) - cube.transform.position) * 35.0f);
 			}
-        }
+		}
         // agent is no longer close to cube - reset everything
         else if (cube != null && Vector3.Distance(cube.transform.position, transform.position) >= 1.5f)  {
             NearCube = false;
-            CubeRbody.angularDrag = 0.05f;
-        }
+			//CubeRbody.constraints = RigidbodyConstraints.None;
+
+		}
     }
 }

@@ -7,8 +7,8 @@ public class AI : MonoBehaviour
 {
 	NavMeshAgent agent;
 	Animator anim;
-	public Transform cube;
-	public Transform bay;
+	public GameObject cube;
+	public GameObject bay;
 	State currentState;
 	private AgentHealth health;
 
