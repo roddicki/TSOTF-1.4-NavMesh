@@ -66,18 +66,21 @@ public class OrientCube : MonoBehaviour
 				// Set constraints 
 				CubeRbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
+				//
+				cube.transform.SetParent (this.transform.parent);
 				// position in front of the agent
 				//CubeRbody.MovePosition(this.transform.position + transform.forward);
 				// use force
 				//CubeRbody.AddForce (((this.transform.position + transform.forward) - cube.transform.position) * 1000.5f);
 				//CubeRbody.AddForce ((ai.transform.position - cube.transform.position) * 1000.5f);
-				//CubeRbody.AddForce (((this.transform.position + ((ai.bay.position - this.transform.position).normalized * 1)) - cube.transform.position) * 35.0f);
+				//CubeRbody.AddForce (((this.transform.position + ((ai.bay.transform.position - this.transform.position).normalized * 1)) - cube.transform.position) * 35.0f);
 			}
 		}
         // agent is no longer close to cube - reset everything
         else if (cube != null && Vector3.Distance(cube.transform.position, transform.position) >= 1.5f)  {
             NearCube = false;
 			CubeRbody.constraints = RigidbodyConstraints.None;
+			cube.transform.SetParent (null);
 
 		}
     }

@@ -173,7 +173,7 @@ public class Search: State
 	public Search (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
 	{
 		name = STATE.SEARCH;
-		agent.speed = 4; //nav mesh
+		agent.speed = 2; //nav mesh
 		agent.isStopped = false;
 	}
 	public NavMeshObstacle navMeshObstacle;
@@ -183,6 +183,7 @@ public class Search: State
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString());
+		agent.speed = 4;
 		navMeshObstacle = cube.GetComponent<NavMeshObstacle> ();
 		navMeshObstacle.enabled = true;
 		elapsedTime = 0;
@@ -206,6 +207,11 @@ public class Search: State
 			elapsedTime = 0;
 			nextState = new SetTarget (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
+		}
+
+		// slow down
+		if (agent.pathPending != true && agent.remainingDistance < 4) {
+			agent.speed = 2;
 		}
 
 		// countdown
@@ -241,6 +247,7 @@ public class Push : State {
 		//anim.SetTrigger ("isIdle");
 		// set destination to bay.position
 		agent.SetDestination (bay.transform.position);
+		agent.speed = 4;
 		base.Enter ();
 	}
 

@@ -3770,7 +3770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DoSpawn: 1
   SpawnedCube: {fileID: 813623607}
-  NumCubes: 25
+  NumCubes: 10
   SpawnPosMaxX: 6
   SpawnPosMinX: -5
   SpawnPosMaxZ: 6
@@ -4091,8 +4091,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644750836}
-  m_LocalRotation: {x: 0.010800358, y: -0.9865873, z: 0.14547561, w: 0.07325132}
-  m_LocalPosition: {x: 7.1384935, y: 6.541914, z: 25.789688}
+  m_LocalRotation: {x: -0.33070618, y: -0.23245952, z: 0.084411815, w: -0.9107528}
+  m_LocalPosition: {x: -18.301685, y: 17.300184, z: -19.849419}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4894,7 +4894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &748138183
 Transform:
   m_ObjectHideFlags: 0
@@ -5699,7 +5699,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 168004, guid: 7c2901cdfa15c492184561d2b3931a8e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 419476, guid: 7c2901cdfa15c492184561d2b3931a8e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6136,7 +6136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &950568193
 Transform:
   m_ObjectHideFlags: 0
@@ -15424,7 +15424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &919132149082972489
 GameObject:
   m_ObjectHideFlags: 0
@@ -15450,7 +15450,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &958248850456189093
 Transform:
   m_ObjectHideFlags: 0
