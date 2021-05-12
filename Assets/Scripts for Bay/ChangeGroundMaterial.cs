@@ -43,6 +43,7 @@ public class ChangeGroundMaterial : MonoBehaviour
 		m_MarkerRenderer.material = markerMaterial;
 		yield return new WaitForSeconds(time); // Wait for 2 sec
         m_GroundRenderer.material = m_GroundMaterial;
+		yield return new WaitForSeconds (time*2.0f); // Wait for 2 sec
 		m_MarkerRenderer.material = m_MarkerMaterial;
 	}
 }

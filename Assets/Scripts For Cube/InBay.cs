@@ -27,7 +27,7 @@ public class InBay : MonoBehaviour
 	{
 		// if entering bay
 		if (other.tag == "bay") {
-			// enable NaveMeshObstacle in state.cs at the end of PUSH state
+			// enable NaveMeshObstacle in state.cs at the start of STOP state
 		} 
 		// if entering centre
 		else if (other.tag == "central_bay" && navMeshObstacle != null)

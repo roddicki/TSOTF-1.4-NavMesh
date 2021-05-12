@@ -256,7 +256,7 @@ public class Push : State {
 		// conditions for moving to next state
 		// if path resolved and agent has moved to target
 		if (agent.pathPending != true && agent.remainingDistance < 1) {
-			navMeshObstacle.enabled = true; // enable so agent avoids in the bay
+			//navMeshObstacle.enabled = true; // enable so agent avoids in the bay
 			nextState = new Stop (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		} 
@@ -289,9 +289,13 @@ public class Stop : State {
 		//agent.SetDestination (Vector3.zero);
 	}
 
+	public NavMeshObstacle navMeshObstacle;
+
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString ());
+		navMeshObstacle = cube.GetComponent<NavMeshObstacle> ();
+		navMeshObstacle.enabled = true;
 		//anim.SetTrigger ("isIdle");
 		base.Enter ();
 	}

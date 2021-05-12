@@ -46,7 +46,7 @@ public class OrientCube : MonoBehaviour
         {
             // release cube
             NearCube = false;
-			CubeRbody.constraints = RigidbodyConstraints.None;
+			//CubeRbody.constraints = RigidbodyConstraints.None;
 		}
     }
 
