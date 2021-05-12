@@ -8,6 +8,7 @@
 
 //AGENT
 //- still gets stuck in a SEARCH hit cube PUSH loop
+//- slow down as apparoach bay so not to 'bang' other cubes
 //- keep rigid body constraints until PUSH is over - hmm have I done this..?Nope
 //- first ‘wander’ head toward the centre of the nav mesh
 //- change agent speed based on health
