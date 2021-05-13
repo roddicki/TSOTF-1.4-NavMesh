@@ -16,8 +16,8 @@ public class State
 
 	public STATE name;
 	protected EVENT stage;
-	protected GameObject npc;
 	protected Animator anim;
+	protected GameObject npc;
 	protected GameObject cube;
 	protected GameObject bay;
 	protected AgentHealth health;
@@ -100,12 +100,12 @@ public class SetTarget : State {
 
 	public Collider bayCollider;
 	public Collider centralBayCollider;
-
+	public float timeRemaining;
 
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString ());
-		Debug.Log (health.Health);
+		timeRemaining = npc.GetComponent<Timer>().timeRemaining;
 		bayCollider = bay.GetComponent<Collider> ();
 		// get central bay
 		centralBayCollider = GameObject.Find ("Ground Decal Square").GetComponent<Collider> ();
@@ -141,6 +141,9 @@ public class SetTarget : State {
 					Debug.Log (hit.collider.name);
 					// set as target cube
 					cube = GameObject.Find (hit.collider.name);
+					// start timer in Timer.cs
+					npc.GetComponent<Timer>().timeRemaining = 20;
+					npc.GetComponent<Timer>().startTimer = true;
 					// goto next state
 					nextState = new Search (npc, agent, anim, cube, bay, health);
 					stage = EVENT.EXIT;
@@ -193,7 +196,7 @@ public class Search: State
 	}
 	public NavMeshObstacle navMeshObstacle;
 	// timer variable
-	private float elapsedTime;
+	public float timeRemaining;
 
 	public override void Enter ()
 	{
@@ -201,7 +204,6 @@ public class Search: State
 		agent.speed = 4;
 		navMeshObstacle = cube.GetComponent<NavMeshObstacle> ();
 		navMeshObstacle.enabled = true;
-		elapsedTime = 0;
 		base.Enter ();
 	}
 
@@ -216,10 +218,11 @@ public class Search: State
 			nextState = new Push (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		} 
-		// if still trying to get to cube
-		else if (elapsedTime > 30)
+
+		// if still trying to get to cube give up after timer ends
+		timeRemaining = npc.GetComponent<Timer>().timeRemaining;
+		if (timeRemaining == 0)
 		{
-			elapsedTime = 0;
 			nextState = new SetTarget (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
@@ -228,9 +231,7 @@ public class Search: State
 		if (agent.pathPending != true && agent.remainingDistance < 4) {
 			agent.speed = 2;
 		}
-
-		// countdown
-		elapsedTime += Time.deltaTime;
+		
 	}
 
 	public override void Exit ()
@@ -253,6 +254,8 @@ public class Push : State {
 	}
 
 	public NavMeshObstacle navMeshObstacle;
+	// timer variable
+	public float timeRemaining;
 
 	public override void Enter ()
 	{
@@ -269,6 +272,14 @@ public class Push : State {
 	public override void Update ()
 	{
 		// conditions for moving to next state
+		// if still trying to get to cube give up after timer ends
+		timeRemaining = npc.GetComponent<Timer>().timeRemaining;
+		if (timeRemaining == 0)
+		{
+			nextState = new SetTarget (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		}
+
 		// if path resolved and agent has moved to target
 		if (agent.pathPending != true && agent.remainingDistance < 1) {
 			//navMeshObstacle.enabled = true; // enable so agent avoids in the bay
@@ -307,9 +318,13 @@ public class Stop : State {
 		agent.isStopped = false;
 		// stop.. doesn't work
 		//agent.SetDestination (Vector3.zero);
+		// reset Timer in Timer.cs
+		npc.GetComponent<Timer>().timeRemaining = 20; // DO I NEED THIS
 	}
 
 	public NavMeshObstacle navMeshObstacle;
+	// timer variable
+	public float timeRemaining;
 
 	public override void Enter ()
 	{

@@ -7,8 +7,8 @@
 //BAY
 
 //AGENT
-//- set timer from SETTARGET so agents dont get stuck trying to get one cube.
-//- still gets stuck in a SEARCH hit cube PUSH loop - investigate - timer not working
+//- work out BREATHLESS, DEATH states
+//- still gets stuck in a SEARCH hit cube PUSH loop - investigate - timer not working // think this is done
 //- keep rigid body constraints until PUSH is over - hmm have I done this..?Nope
 
 //- change agent speed based on health

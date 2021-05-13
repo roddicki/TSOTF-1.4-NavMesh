@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class AI : MonoBehaviour
 {
+	GameObject npc;
 	NavMeshAgent agent;
 	Animator anim;
 	private GameObject cube;
@@ -15,11 +16,12 @@ public class AI : MonoBehaviour
 	// Start is called before the first frame update
     void Start()
     {
+		npc = gameObject;
 		bay = GameObject.Find(this.name + "-bay");
 		agent = this.GetComponent<NavMeshAgent> ();
 		anim = this.GetComponent<Animator> ();
 		health = this.GetComponent<AgentHealth> ();
-		currentState = new Idle (this.gameObject, agent, anim, cube, bay, health);
+		currentState = new Idle (npc, agent, anim, cube, bay, health);
     }
 
     // Update is called once per frame
