@@ -99,14 +99,18 @@ public class SetTarget : State {
 	}
 
 	public Collider bayCollider;
+	public Collider centralBayCollider;
+
 
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString ());
 		bayCollider = bay.GetComponent<Collider> ();
+		// get central bay
+		centralBayCollider = GameObject.Find ("Ground Decal Square").GetComponent<Collider> ();
 		base.Enter ();
-		// set wandering destination
-		agent.SetDestination (Wander ());
+		// set wandering destination toward navmeshcentre
+		agent.SetDestination (RandomPointInBounds (centralBayCollider.bounds));
 	}
 
 	public override void Update ()
@@ -153,6 +157,16 @@ public class SetTarget : State {
 
 	// find cube
 
+
+	// return random point in central bay
+	Vector3 RandomPointInBounds (Bounds bounds)
+	{
+		return new Vector3 (
+			Random.Range (bounds.min.x, bounds.max.x),
+			Random.Range (bounds.min.y, bounds.max.y),
+			Random.Range (bounds.min.z, bounds.max.z)
+		);
+	}
 
 	// return random position to move to
 	Vector3 Wander()
@@ -265,6 +279,11 @@ public class Push : State {
 		{
 			nextState = new Search (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
+		}
+
+		// slow down
+		if (agent.pathPending != true && agent.remainingDistance < 2) {
+			agent.speed = 2;
 		}
 	}
 

@@ -7,8 +7,6 @@
 //BAY
 
 //AGENT
-//- first ‘wander’ head toward the centre of the nav mesh
-//- slow down as approach bay so not to 'bang' other cubes
 //- set timer from SETTARGET so agents dont get stuck trying to get one cube.
 //- still gets stuck in a SEARCH hit cube PUSH loop - investigate - timer not working
 //- keep rigid body constraints until PUSH is over - hmm have I done this..?Nope
