@@ -105,6 +105,7 @@ public class SetTarget : State {
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString ());
+		Debug.Log (health.Health);
 		bayCollider = bay.GetComponent<Collider> ();
 		// get central bay
 		centralBayCollider = GameObject.Find ("Ground Decal Square").GetComponent<Collider> ();
