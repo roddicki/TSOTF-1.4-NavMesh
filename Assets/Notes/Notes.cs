@@ -5,14 +5,22 @@
 // make crane more efficient
 
 //BAY
+//- hilite bay area on flash / goal / fade edges
+
+//BAY MARKER
+//- correlate emmission material brightness with Agent health - dead agent = black marker
 
 //AGENT
 //- work out BREATHLESS, DEATH states
-//- still gets stuck in a SEARCH hit cube PUSH loop - investigate - timer not working // think this is done
+//- agents walking off the ground in the air
+//- still gets stuck in a SEARCH hit cube PUSH loop - investigate - timer not working // ...think this is done
 //- keep rigid body constraints until PUSH is over - hmm have I done this..?Nope
+//- add ragdoll state to dead agents
+//- spawn agents (link to bay and determine colour)
+
 
 //- change agent speed based on health
-//- add cooperation and compete coefficients to state (like health)
+//- add cooperation and compete coefficients to state (like health) .. 0.0 to 1.0 float
 
 
 // GANTRY
