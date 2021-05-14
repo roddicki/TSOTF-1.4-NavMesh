@@ -151,6 +151,12 @@ public class SetTarget : State {
 			}
 		}
 
+		// health
+		if (health.Health < 105.0f) {
+			nextState = new Breathless (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		}
+
 	}
 
 	public override void Exit ()
@@ -231,7 +237,13 @@ public class Search: State
 		if (agent.pathPending != true && agent.remainingDistance < 4) {
 			agent.speed = 2;
 		}
-		
+
+		// health
+		if (health.Health < 105.0f) {
+			nextState = new Breathless (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		}
+
 	}
 
 	public override void Exit ()
@@ -297,6 +309,12 @@ public class Push : State {
 		if (agent.pathPending != true && agent.remainingDistance < 2) {
 			agent.speed = 2;
 		}
+
+		// health
+		if (health.Health < 105.0f) {
+			nextState = new Breathless (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		}
 	}
 
 	public override void Exit ()
@@ -347,4 +365,70 @@ public class Stop : State {
 		base.Exit ();
 	}
 }
+
+//------------------------------------------//
+// Breathless state
+public class Breathless : State {
+	public Breathless (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
+	{
+		name = STATE.BREATHLESS;
+		agent.speed = 0; //nav mesh
+		agent.isStopped = true;
+		// stop.. doesn't work
+		agent.SetDestination (Vector3.zero);
+	}
+
+	public override void Enter ()
+	{
+		Debug.Log (name.ToString ());
+		base.Enter ();
+	}
+
+	public override void Update ()
+	{
+		// health
+		if (health.Health < 10.0f) {
+			nextState = new Death (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		}
+	}
+
+	public override void Exit ()
+	{
+		//anim.ResetTrigger ("isIdle");
+		base.Exit ();
+	}
+}
+
+//------------------------------------------//
+// Death state
+public class Death : State {
+	public Death (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
+	{
+		name = STATE.DEATH;
+		agent.speed = 0; //nav mesh
+		agent.isStopped = true;
+		// stop.. doesn't work
+		agent.SetDestination (Vector3.zero);
+	}
+
+	public override void Enter ()
+	{
+		Debug.Log (name.ToString ());
+		base.Enter ();
+	}
+
+	public override void Update ()
+	{
+		//nextState = new Idle (npc, agent, anim, cube, bay, health);
+		//stage = EVENT.EXIT;
+	}
+
+	public override void Exit ()
+	{
+		//anim.ResetTrigger ("isIdle");
+		base.Exit ();
+	}
+}
+
 

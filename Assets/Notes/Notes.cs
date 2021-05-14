@@ -13,7 +13,6 @@
 //AGENT
 //- work out BREATHLESS, DEATH states
 //- agents walking off the ground in the air
-//- still gets stuck in a SEARCH hit cube PUSH loop - investigate - timer not working // ...think this is done
 //- keep rigid body constraints until PUSH is over - hmm have I done this..?Nope
 //- add ragdoll state to dead agents
 //- spawn agents (link to bay and determine colour)
@@ -23,10 +22,10 @@
 //- add cooperation and compete coefficients to state (like health) .. 0.0 to 1.0 float
 
 
-// GANTRY
+//GANTRY
 //- fix pick up cube - change move position to parent transform
 
-// ADJUSTMENTS
+//ADJUSTMENTS
 // previously Changed the cube from mass 1, Drag 0.5, TO mass 1.5, Drag 1  - to make it harder for the agent
 
 

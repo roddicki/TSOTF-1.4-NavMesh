@@ -8583,7 +8583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DoSpawn: 1
   SpawnedCube: {fileID: 813623607}
-  NumCubes: 50
+  NumCubes: 0
   SpawnPosMaxX: 6
   SpawnPosMinX: -5
   SpawnPosMaxZ: 6
