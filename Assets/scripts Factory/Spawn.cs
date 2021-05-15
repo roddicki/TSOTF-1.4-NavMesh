@@ -54,7 +54,8 @@ public class Spawn : MonoBehaviour{
 				Renderer m_MarkerRenderer = marker.GetComponent<Renderer> ();
 				Material m_MarkerMaterial = m_MarkerRenderer.material;
 				// apply to child of agent
-				GameObject m_RiggedAgent = NewAgent.transform.Find ("shadow_human_rigged_001_geo").gameObject;
+				GameObject m_RiggedAgent = NewAgent.transform.Find ("shadow_human_remodelled-5").gameObject.transform.Find ("shadow_human_rigged_001_geo").gameObject;
+				//GameObject m_RiggedAgent = NewAgent.transform.Find ("shadow_human_rigged_001_geo").gameObject;
 				Renderer m_RiggedAgentRenderer = m_RiggedAgent.GetComponent<SkinnedMeshRenderer> ();
 				m_RiggedAgentRenderer.material = m_MarkerRenderer.material; 
 			}
