@@ -2,6 +2,8 @@
 
 // ANIMATIONS
 // Death animation
+
+//GANTRY CRANE
 // make crane more efficient
 
 //BAY
@@ -11,12 +13,11 @@
 //- correlate emmission material brightness with Agent health - dead agent = black marker
 
 //AGENT
-//- work out BREATHLESS, DEATH states
-//- agents walking off the ground in the air
+//- fix jittering animations
+//- fix / new push animation
+//- fix PantingInt 2, ProneInt 1 & PantingInt 2, ProneInt 0
 //- keep rigid body constraints until PUSH is over - hmm have I done this..?Nope
 //- add ragdoll state to dead agents
-//- spawn agents (link to bay and determine colour)
-
 
 //- change agent speed based on health
 //- add cooperation and compete coefficients to state (like health) .. 0.0 to 1.0 float
