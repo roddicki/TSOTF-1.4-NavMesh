@@ -392,10 +392,10 @@ public class Breathless : State {
 	{
 		
 		// health
-		if (health.Health < 10.0f) {
-			nextState = new Death (npc, agent, anim, cube, bay, health);
-			stage = EVENT.EXIT;
-		}
+		// if (health.Health < 10.0f) {
+		// 	nextState = new Death (npc, agent, anim, cube, bay, health);
+		// 	stage = EVENT.EXIT;
+		// }
 	}
 
 	public override void Exit ()
