@@ -18,7 +18,6 @@ public class Spawn : MonoBehaviour{
 	// agent
 	public GameObject SpawnedAgent;
 	public bool AgentSpawnComplete;
-	
 
 
 	// Start is called before the first frame update
@@ -51,13 +50,13 @@ public class Spawn : MonoBehaviour{
 				GameObject NewAgent = Instantiate (SpawnedAgent, SpawnPos, SpawnedAgent.transform.rotation);
 				NewAgent.name = "Agent" + i;
 				// get marker material
-				GameObject marker = bay.gameObject;
+				GameObject marker = bay.transform.Find ("marker").gameObject; 
 				Renderer m_MarkerRenderer = marker.GetComponent<Renderer> ();
 				Material m_MarkerMaterial = m_MarkerRenderer.material;
 				// apply to child of agent
 				GameObject m_RiggedAgent = NewAgent.transform.Find ("shadow_human_rigged_001_geo").gameObject;
 				Renderer m_RiggedAgentRenderer = m_RiggedAgent.GetComponent<SkinnedMeshRenderer> ();
-				m_RiggedAgentRenderer.material = marker.GetComponent<Renderer> ().material;
+				m_RiggedAgentRenderer.material = m_MarkerRenderer.material; 
 			}
 			i += 1;
 			yield return null;
