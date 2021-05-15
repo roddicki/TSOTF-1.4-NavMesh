@@ -49,7 +49,7 @@ public class MoveGantry : MonoBehaviour {
         // so BeginCraneOperations() runs continously
         //Debug.Log("UPDATE TargetCube: " + TargetCube + "GantryBusy: "+ GantryBusy); 
 
-        if(TargetCube != null && GantryBusy == false && Spawn.SpawnComplete) {
+        if(TargetCube != null && GantryBusy == false && Spawn.CubeSpawnComplete) {
             StartCoroutine(BeginCraneOperations());
             GantryBusy = true;
         }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour{
 	public bool DoSpawn;
+
+	// cube
 	public GameObject SpawnedCube;
 	private float SpawnWait;
 	public int NumCubes;
@@ -11,27 +13,61 @@ public class Spawn : MonoBehaviour{
 	public float SpawnPosMinX;
 	public float SpawnPosMaxZ;
 	public float SpawnPosMinZ;
-	public bool SpawnComplete;
+	public bool CubeSpawnComplete;
+
+	// agent
+	public GameObject SpawnedAgent;
+	public bool AgentSpawnComplete;
 	
 
 
 	// Start is called before the first frame update
-	void Start() {
+	void Awake() {
 		SpawnWait = 0.01F;
 		if (DoSpawn){
-			StartCoroutine (Spawner ());
+			StartCoroutine (AgentSpawner ());
+			StartCoroutine (CubeSpawner ());
 		}
-		
-		SpawnComplete = false;
-    }
+
+		CubeSpawnComplete = false;
+		AgentSpawnComplete = false;
+
+	}
 
     // Update is called once per frame
     void Update() {
         
     }
 
-	
-	IEnumerator Spawner (){
+	// spawn an agent for each bay
+	IEnumerator AgentSpawner (){
+		// get location of each bay
+		GameObject[] bays = GameObject.FindGameObjectsWithTag ("bay");
+		int i = 0;
+		foreach (GameObject bay in bays) {
+			Debug.Log (bay.transform.position);
+			Vector3 SpawnPos = bay.transform.position;
+			if (i != 0) {
+				GameObject NewAgent = Instantiate (SpawnedAgent, SpawnPos, SpawnedAgent.transform.rotation);
+				NewAgent.name = "Agent" + i;
+				// get marker material
+				GameObject marker = bay.gameObject;
+				Renderer m_MarkerRenderer = marker.GetComponent<Renderer> ();
+				Material m_MarkerMaterial = m_MarkerRenderer.material;
+				// apply to child of agent
+				GameObject m_RiggedAgent = NewAgent.transform.Find ("shadow_human_rigged_001_geo").gameObject;
+				Renderer m_RiggedAgentRenderer = m_RiggedAgent.GetComponent<SkinnedMeshRenderer> ();
+				m_RiggedAgentRenderer.material = marker.GetComponent<Renderer> ().material;
+			}
+			i += 1;
+			yield return null;
+		}
+		Debug.Log ("==Agent Spawn Complete==");
+		AgentSpawnComplete = true;
+	}
+
+	// spawn cubes
+	IEnumerator CubeSpawner (){
 		//float StartPosX = Random.Range(SpawnPosMinX, SpawnPosMaxX);
 		//float StartPosZ = Random.Range(SpawnPosMinZ, SpawnPosMaxZ);
 		float StartPosX = SpawnPosMinX;
@@ -59,7 +95,7 @@ public class Spawn : MonoBehaviour{
 			NewCube.name = "Cube" + i;
 			yield return new WaitForSeconds (SpawnWait);
 		}
-		Debug.Log("==Spawn Complete==");
-		SpawnComplete = true;
+		Debug.Log("==Cube Spawn Complete==");
+		CubeSpawnComplete = true;
 	}
 }

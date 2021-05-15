@@ -35,6 +35,7 @@ TagManager:
   - bay_agent_4
   - bay
   - central_bay
+  - marker
   layers:
   - Default
   - TransparentFX

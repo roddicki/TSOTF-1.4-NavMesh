@@ -374,13 +374,12 @@ public class Breathless : State {
 		name = STATE.BREATHLESS;
 		agent.speed = 0; //nav mesh
 		agent.isStopped = true;
-		// stop.. doesn't work
 		agent.SetDestination (Vector3.zero);
 	}
 
 	public override void Enter ()
 	{
-		Debug.Log (name.ToString ());
+		Debug.Log (name.ToString () + " " + npc.name);
 		base.Enter ();
 	}
 
@@ -408,13 +407,12 @@ public class Death : State {
 		name = STATE.DEATH;
 		agent.speed = 0; //nav mesh
 		agent.isStopped = true;
-		// stop.. doesn't work
 		agent.SetDestination (Vector3.zero);
 	}
 
 	public override void Enter ()
 	{
-		Debug.Log (name.ToString ());
+		Debug.Log (name.ToString () + " " + npc.name);
 		base.Enter ();
 	}
 
