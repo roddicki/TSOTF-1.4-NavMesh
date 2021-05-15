@@ -401,8 +401,6 @@ public class Breathless : State {
 		} 
 		else if (health.Health < 10.0f) {
 			int DeathPose = Random.Range(0,1);
-			PantingPose = 2;
-			DeathPose = 0;
 			anim.SetInteger("ProneInt", DeathPose);
 			anim.SetBool("IsDeath", true);
 			agent.isStopped = true;

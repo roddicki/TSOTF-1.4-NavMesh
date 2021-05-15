@@ -9,6 +9,7 @@ public class OrientCube : MonoBehaviour
     private GameObject cube;
     private Rigidbody CubeRbody;
 	private AI ai;
+    Animator anim;
 
 
 	// Start is called before the first frame update
@@ -16,6 +17,7 @@ public class OrientCube : MonoBehaviour
     {
         NearCube = false;
 		ai = GetComponent<AI> ();
+        anim = this.GetComponent<Animator> ();
 		//Debug.Log ("bay" + ai.bay.position);
     }
 
@@ -32,6 +34,7 @@ public class OrientCube : MonoBehaviour
     void OnCollisionEnter(Collision col){
         // Hit Cube.
         if (col.gameObject.CompareTag("cube")) {
+            //anim.SetBool("IsPush", true);
             cube = col.gameObject;
             Debug.Log("Hit " + cube.name);
             NearCube = true;
@@ -57,6 +60,7 @@ public class OrientCube : MonoBehaviour
             // face direction of travel
             // NOT WORKING
             if (CubeRbody.velocity != Vector3.zero) {
+                anim.SetBool("IsPush", true);
                 // Set constraints to keep hovering
                 CubeRbody.angularDrag = 2.0f;
                 // rotate to face bay (NOTE: check this works if bay changes!)
@@ -81,6 +85,7 @@ public class OrientCube : MonoBehaviour
             NearCube = false;
 			CubeRbody.constraints = RigidbodyConstraints.None;
 			cube.transform.SetParent (null);
+            anim.SetBool("IsPush", false);
 
 		}
     }
