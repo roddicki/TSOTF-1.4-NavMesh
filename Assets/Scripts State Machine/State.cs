@@ -377,14 +377,20 @@ public class Breathless : State {
 		agent.SetDestination (Vector3.zero);
 	}
 
+	public int PantingPose;
+
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString () + " " + npc.name);
+		PantingPose = Random.Range(0,3);
+		anim.SetInteger("PantingInt", PantingPose);
+		anim.SetBool("IsPanting", true);
 		base.Enter ();
 	}
 
 	public override void Update ()
 	{
+		
 		// health
 		if (health.Health < 10.0f) {
 			nextState = new Death (npc, agent, anim, cube, bay, health);
