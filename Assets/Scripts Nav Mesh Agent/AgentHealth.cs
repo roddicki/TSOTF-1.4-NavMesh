@@ -23,7 +23,7 @@ public class AgentHealth : MonoBehaviour
 	{
 		Health = 205.0f;
 		// get a random time limit before points are lost
-		Delay = 30.0f; //Random.Range (50.0f, 90.0f); 
+		Delay = Random.Range (50.0f, 90.0f); 
 		CountDown = true;
 		DelayTimerMuliplier = 20.0f;
 	}
