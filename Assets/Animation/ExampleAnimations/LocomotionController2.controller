@@ -8,9 +8,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
+  - m_ConditionMode: 6
     m_ConditionEvent: ProneInt
-    m_EventTreshold: 2
+    m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: IsDeath
     m_EventTreshold: 0
@@ -122,12 +122,12 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
+  - m_ConditionMode: 6
+    m_ConditionEvent: ProneInt
+    m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: IsDeath
     m_EventTreshold: 0
-  - m_ConditionMode: 6
-    m_ConditionEvent: ProneInt
-    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6914869499506218623}
   m_Solo: 0
@@ -259,11 +259,11 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: IsDeath
-    m_EventTreshold: 1
   - m_ConditionMode: 6
     m_ConditionEvent: ProneInt
+    m_EventTreshold: 1
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsDeath
     m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7227400031878173163}
@@ -317,11 +317,11 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: IsDeath
-    m_EventTreshold: 1
   - m_ConditionMode: 6
     m_ConditionEvent: ProneInt
+    m_EventTreshold: 1
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsDeath
     m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5274323102318267768}
@@ -799,12 +799,12 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
+  - m_ConditionMode: 6
+    m_ConditionEvent: ProneInt
+    m_EventTreshold: 1
   - m_ConditionMode: 1
     m_ConditionEvent: IsDeath
     m_EventTreshold: 1
-  - m_ConditionMode: 6
-    m_ConditionEvent: ProneInt
-    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5274323102318267768}
   m_Solo: 0
@@ -1565,12 +1565,12 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
+  - m_ConditionMode: 6
+    m_ConditionEvent: ProneInt
+    m_EventTreshold: 1
   - m_ConditionMode: 1
     m_ConditionEvent: IsDeath
     m_EventTreshold: 1
-  - m_ConditionMode: 6
-    m_ConditionEvent: ProneInt
-    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7227400031878173163}
   m_Solo: 0

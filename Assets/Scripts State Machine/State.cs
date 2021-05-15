@@ -400,6 +400,13 @@ public class Breathless : State {
 			stage = EVENT.EXIT;
 		} 
 		else if (health.Health < 10.0f) {
+			int DeathPose = Random.Range(0,1);
+			PantingPose = 2;
+			DeathPose = 0;
+			anim.SetInteger("ProneInt", DeathPose);
+			anim.SetBool("IsDeath", true);
+			agent.isStopped = true;
+			agent.speed = 0;
 			nextState = new Death (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
