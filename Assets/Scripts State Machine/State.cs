@@ -391,11 +391,19 @@ public class Breathless : State {
 	public override void Update ()
 	{
 		
-		// health
-		// if (health.Health < 10.0f) {
-		// 	nextState = new Death (npc, agent, anim, cube, bay, health);
-		// 	stage = EVENT.EXIT;
-		// }
+		// health 
+		if (health.Health > 200.0f) {
+			anim.SetBool("IsPanting", false);
+			agent.isStopped = false;
+			agent.speed = 2;
+			nextState = new Search (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		} 
+		else if (health.Health < 10.0f) {
+			nextState = new Death (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		}
+		
 	}
 
 	public override void Exit ()

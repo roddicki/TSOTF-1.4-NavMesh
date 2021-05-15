@@ -4270,7 +4270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DoSpawn: 1
   SpawnedCube: {fileID: 813623607}
-  NumCubes: 0
+  NumCubes: 5
   SpawnPosMaxX: 6
   SpawnPosMinX: -5
   SpawnPosMaxZ: 6
@@ -4611,8 +4611,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644750836}
-  m_LocalRotation: {x: -0.44376722, y: 0.018002894, z: -0.008917108, w: -0.8959169}
-  m_LocalPosition: {x: 1.1173322, y: 15.76335, z: -11.7189665}
+  m_LocalRotation: {x: -0.24894124, y: 0.20215279, z: -0.053213578, w: -0.9456907}
+  m_LocalPosition: {x: 7.7671022, y: 9.683016, z: -15.506763}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
