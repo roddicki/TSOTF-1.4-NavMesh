@@ -200,7 +200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &17434188
 Transform:
   m_ObjectHideFlags: 0
@@ -992,7 +992,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &124810633
 Transform:
   m_ObjectHideFlags: 0
@@ -1743,7 +1743,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &258817882
 Transform:
   m_ObjectHideFlags: 0
@@ -2085,7 +2085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &273958952
 Transform:
   m_ObjectHideFlags: 0
@@ -3216,7 +3216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &414844567
 Transform:
   m_ObjectHideFlags: 0
@@ -5020,7 +5020,8 @@ MonoBehaviour:
   SpawnPosMaxZ: 6
   SpawnPosMinZ: -5
   CubeSpawnComplete: 0
-  SpawnedAgent: {fileID: 1352734105}
+  AgentToSpawn: {fileID: 1352734105}
+  ModelToSpawn: {fileID: 1586792487}
   AgentSpawnComplete: 0
 --- !u!1 &595804610
 GameObject:
@@ -5042,7 +5043,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &595804611
 Transform:
   m_ObjectHideFlags: 0
@@ -5511,7 +5512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &646348490
 Transform:
   m_ObjectHideFlags: 0
@@ -6521,7 +6522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &813623608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7005,7 +7006,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &901885175
 Transform:
   m_ObjectHideFlags: 0
@@ -7134,7 +7135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &902009402
 Transform:
   m_ObjectHideFlags: 0
@@ -8486,7 +8487,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1020721074
 Transform:
   m_ObjectHideFlags: 0
@@ -11069,7 +11070,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1266028132
 Transform:
   m_ObjectHideFlags: 0
@@ -11690,7 +11691,7 @@ Animator:
   m_GameObject: {fileID: 1352734105}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0a9c78cbbc2f90bbdbb73f9a5cd876f6, type: 3}
-  m_Controller: {fileID: 9100000, guid: 689070ba6e69677448c86f114f128996, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4ff1f17465438493daaeed8275d7457c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -11899,7 +11900,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1354761763
 Transform:
   m_ObjectHideFlags: 0
@@ -13497,6 +13498,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 74.39124, y: 1263.8354, z: 69.79555}
   m_Center: {x: 1.5133709, y: 158.03006, z: 0.21166997}
+--- !u!1 &1586792487 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2424047411997743212, guid: 0a9c78cbbc2f90bbdbb73f9a5cd876f6,
+    type: 3}
+  m_PrefabInstance: {fileID: 491505207}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1607157771 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9f1c39d89ca2fee30ae9f04381f43930,
@@ -15653,7 +15660,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1894243473
 Transform:
   m_ObjectHideFlags: 0
@@ -16327,7 +16334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1988668723
 Transform:
   m_ObjectHideFlags: 0
@@ -17695,7 +17702,7 @@ GameObject:
   - component: {fileID: 1001806882}
   - component: {fileID: 919132149082972490}
   m_Layer: 0
-  m_Name: Agent0
+  m_Name: Agent0-test
   m_TagString: agent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -16,7 +16,8 @@ public class Spawn : MonoBehaviour{
 	public bool CubeSpawnComplete;
 
 	// agent
-	public GameObject SpawnedAgent;
+	public GameObject AgentToSpawn;
+	public GameObject ModelToSpawn;
 	public bool AgentSpawnComplete;
 
 
@@ -47,16 +48,17 @@ public class Spawn : MonoBehaviour{
 			Debug.Log (bay.transform.position);
 			Vector3 SpawnPos = bay.transform.position;
 			if (i != 0) {
-				GameObject NewAgent = Instantiate (SpawnedAgent, SpawnPos, SpawnedAgent.transform.rotation);
+				GameObject NewAgent = Instantiate (AgentToSpawn, SpawnPos, AgentToSpawn.transform.rotation);
 				NewAgent.name = "Agent" + i;
 				// get marker material
 				GameObject marker = bay.transform.Find ("marker").gameObject; 
 				Renderer m_MarkerRenderer = marker.GetComponent<Renderer> ();
 				Material m_MarkerMaterial = m_MarkerRenderer.material;
-				// apply to child of agent
-				GameObject m_RiggedAgent = NewAgent.transform.Find ("shadow_human_remodelled-5").gameObject.transform.Find ("shadow_human_rigged_001_geo").gameObject;
+				// apply material to agent mesh renderer (child of agent)
+				//GameObject m_RiggedAgent = NewAgent.transform.Find ("shadow_human_remodelled-5").gameObject.transform.Find ("shadow_human_rigged_001_geo").gameObject;
 				//GameObject m_RiggedAgent = NewAgent.transform.Find ("shadow_human_rigged_001_geo").gameObject;
-				Renderer m_RiggedAgentRenderer = m_RiggedAgent.GetComponent<SkinnedMeshRenderer> ();
+				//Renderer m_RiggedAgentRenderer = m_RiggedAgent.GetComponent<SkinnedMeshRenderer> ();
+				Renderer m_RiggedAgentRenderer = ModelToSpawn.GetComponent<SkinnedMeshRenderer> ();
 				m_RiggedAgentRenderer.material = m_MarkerRenderer.material; 
 			}
 			i += 1;
