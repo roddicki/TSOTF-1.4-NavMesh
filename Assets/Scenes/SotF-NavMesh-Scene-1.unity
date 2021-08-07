@@ -5485,8 +5485,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644750836}
-  m_LocalRotation: {x: 0.30960166, y: 0.3911128, z: -0.14161527, w: 0.8550571}
-  m_LocalPosition: {x: -20.581198, y: 21.182796, z: -20.017403}
+  m_LocalRotation: {x: 0.06809559, y: -0.25537065, z: 0.018029952, w: 0.9642737}
+  m_LocalPosition: {x: 3.1217382, y: 5.7463036, z: -15.147317}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7850,8 +7850,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0, y: -0.9073634, z: 0.4203471, w: 0}
-  m_LocalPosition: {x: -6.23, y: 22.77, z: 21.52}
+  m_LocalRotation: {x: 0.0680956, y: -0.25537053, z: 0.0180299, w: 0.96427375}
+  m_LocalPosition: {x: 3.1217382, y: 5.7463036, z: -15.147317}
   m_LocalScale: {x: 1.5, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -11595,6 +11595,7 @@ GameObject:
   - component: {fileID: 1352734110}
   - component: {fileID: 1352734112}
   - component: {fileID: 1352734117}
+  - component: {fileID: 1352734118}
   m_Layer: 0
   m_Name: Agent0
   m_TagString: agent
@@ -11691,7 +11692,7 @@ Animator:
   m_GameObject: {fileID: 1352734105}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0a9c78cbbc2f90bbdbb73f9a5cd876f6, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4ff1f17465438493daaeed8275d7457c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0be164f9c7d6ddd8fbb3ae223b95886b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -11785,6 +11786,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeRemaining: 20
   startTimer: 0
+--- !u!114 &1352734118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352734105}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d05ca3985f54806b38deab8012d7b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsPanting: 0
+  IsPushing: 0
+  AnimationSpeed: 0
+  Health: 0
+  Direction: 0
+  AnimationSpeedMultiplier: 0
 --- !u!1001 &1354589460
 PrefabInstance:
   m_ObjectHideFlags: 0
