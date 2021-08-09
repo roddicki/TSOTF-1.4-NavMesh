@@ -46,6 +46,10 @@ public class LocomotionSimpleAgentTwo : MonoBehaviour
 
     void OnAnimatorMove()
     {
-        transform.position = agent.nextPosition - 0.1f*worldDeltaPosition;;
+        if(anim != null)
+        {
+            transform.position = agent.nextPosition - 0.1f*worldDeltaPosition;
+        }
+        
     }
 }
