@@ -11593,9 +11593,9 @@ GameObject:
   - component: {fileID: 1352734107}
   - component: {fileID: 1352734114}
   - component: {fileID: 1352734110}
+  - component: {fileID: 1352734118}
   - component: {fileID: 1352734112}
   - component: {fileID: 1352734117}
-  - component: {fileID: 1352734118}
   m_Layer: 0
   m_Name: Agent0
   m_TagString: agent
@@ -11677,7 +11677,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352734105}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66fa8e4f2f6284241a0134cab40bcba0, type: 3}
   m_Name: 
@@ -11793,17 +11793,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352734105}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d05ca3985f54806b38deab8012d7b8, type: 3}
+  m_Script: {fileID: 11500000, guid: e75abb310d9679d19bcabcb8b605fdb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPanting: 0
-  IsPushing: 0
-  AnimationSpeed: 0
-  Health: 0
-  Direction: 0
-  AnimationSpeedMultiplier: 0
 --- !u!1001 &1354589460
 PrefabInstance:
   m_ObjectHideFlags: 0
