@@ -785,33 +785,57 @@ BlendTree:
     m_DirectBlendParameter: 
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: deb9495b91af84fa8afc979c2eefe55a, type: 3}
+    m_Motion: {fileID: 7400000, guid: b1a5e04ae51004842aba06704a6c2903, type: 3}
     m_Threshold: 2.8333342
-    m_Position: {x: 0.16276973, y: -2.3325398}
-    m_TimeScale: 1
+    m_Position: {x: 0.06, y: -1.33}
+    m_TimeScale: -1.3
     m_CycleOffset: 0
-    m_DirectBlendParameter: 
+    m_DirectBlendParameter: velx
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: b7f1e16718f0645ca9817a85885f9876, type: 3}
+    m_Motion: {fileID: 7400000, guid: 1cb8ed3cbba15f0479fbae54e0a963df, type: 3}
     m_Threshold: 3.000001
-    m_Position: {x: -2.56, y: -1.29}
-    m_TimeScale: 1
+    m_Position: {x: 0.19, y: -3.02}
+    m_TimeScale: -0.7
     m_CycleOffset: 0
     m_DirectBlendParameter: 
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 0c952f5584984473c90d8ceda78e4802, type: 3}
+    m_Motion: {fileID: 7400002, guid: 1c52c953c83c2254a9fa72d50250f028, type: 3}
     m_Threshold: 3.1666677
-    m_Position: {x: 2.68, y: -1.21}
-    m_TimeScale: 1
+    m_Position: {x: -1.18, y: -0.83}
+    m_TimeScale: -1.3
+    m_CycleOffset: 0
+    m_DirectBlendParameter: velx
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400002, guid: 1062212255550964e974f3ffb3cbaae3, type: 3}
+    m_Threshold: 3.3333344
+    m_Position: {x: -3.07, y: -1.69}
+    m_TimeScale: -0.7
+    m_CycleOffset: 0
+    m_DirectBlendParameter: 
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 1c52c953c83c2254a9fa72d50250f028, type: 3}
+    m_Threshold: 3.5000012
+    m_Position: {x: 1.25, y: -0.7}
+    m_TimeScale: -1.3
+    m_CycleOffset: 0
+    m_DirectBlendParameter: velx
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 1062212255550964e974f3ffb3cbaae3, type: 3}
+    m_Threshold: 3.666668
+    m_Position: {x: 3.15, y: -1.88}
+    m_TimeScale: -0.7
     m_CycleOffset: 0
     m_DirectBlendParameter: 
     m_Mirror: 0
   m_BlendParameter: velx
   m_BlendParameterY: vely
   m_MinThreshold: 0.16666667
-  m_MaxThreshold: 3.1666677
+  m_MaxThreshold: 3.666668
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 2
