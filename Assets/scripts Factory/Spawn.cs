@@ -20,12 +20,16 @@ public class Spawn : MonoBehaviour{
 	public GameObject ModelToSpawn;
 	public bool AgentSpawnComplete;
 
+	// ragdoll
+	public GameObject Ragdoll;
+
 
 	// Start is called before the first frame update
 	void Awake() {
 		SpawnWait = 0.01F;
 		if (DoSpawn){
 			StartCoroutine (AgentSpawner ());
+			//StartCoroutine (RagollSpawner ());
 			StartCoroutine (CubeSpawner ());
 		}
 
@@ -64,7 +68,25 @@ public class Spawn : MonoBehaviour{
 		}
 		Debug.Log ("==Agent Spawn Complete==");
 		AgentSpawnComplete = true;
+		// move this!!!!!
+		StartCoroutine (RagollSpawner ());
 	}
+
+
+	// spawn a ragdoll for each agent
+	IEnumerator RagollSpawner(){
+		// find all agents
+		GameObject[] agents = GameObject.FindGameObjectsWithTag ("agent");
+		int i = 0;
+		foreach (GameObject agent in agents){
+			Vector3 SpawnPos = agent.transform.position;
+			// Instantiate at ragdoll.
+			// To do make child of agent
+        	Instantiate(Ragdoll, SpawnPos, agent.transform.rotation);
+			yield return null;
+		}
+	}
+
 
 	// spawn cubes
 	IEnumerator CubeSpawner (){
