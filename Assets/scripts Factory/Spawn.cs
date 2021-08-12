@@ -61,7 +61,7 @@ public class Spawn : MonoBehaviour{
 				// apply material to the model that is a child of agent
 				GameObject m_RiggedAgent = NewAgent.transform.GetChild(0).gameObject.transform.Find (ModelToSpawn.name).gameObject; // works
 				Renderer m_RiggedAgentRenderer = m_RiggedAgent.GetComponent<SkinnedMeshRenderer> ();
-				m_RiggedAgentRenderer.material = m_MarkerRenderer.material; 
+				m_RiggedAgentRenderer.material = m_MarkerMaterial; 
 			}
 			i += 1;
 			yield return null;
@@ -82,7 +82,16 @@ public class Spawn : MonoBehaviour{
 			Vector3 SpawnPos = agent.transform.position;
 			// Instantiate at ragdoll.
 			// To do make child of agent
-        	Instantiate(Ragdoll, SpawnPos, agent.transform.rotation);
+        	GameObject NewRagdoll = Instantiate(Ragdoll, SpawnPos, agent.transform.rotation, agent.transform);
+			// change colour of ragdoll
+			// get colour from agent
+			Renderer m_AgentRenderer = agent.transform.GetChild(0).gameObject.transform.Find (ModelToSpawn.name).GetComponent<Renderer> ();
+			Material m_AgentMaterial = m_AgentRenderer.material;
+			// apply material 
+			GameObject m_Ragdoll = NewRagdoll.transform.Find (ModelToSpawn.name).gameObject; // works
+			Renderer m_RagdollRenderer = m_Ragdoll.GetComponent<SkinnedMeshRenderer> ();
+			m_RagdollRenderer.material = m_AgentMaterial; 
+			NewRagdoll.gameObject.SetActive(false);
 			yield return null;
 		}
 	}

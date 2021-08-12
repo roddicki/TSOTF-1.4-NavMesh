@@ -437,6 +437,14 @@ public class Death : State {
 
 	public override void Update ()
 	{
+		// activate ragdoll
+		// get ragdoll
+		GameObject m_Ragdoll = agent.transform.Find("Ragdoll(Clone)").gameObject;
+		// get agent model
+		GameObject m_AgentModel = agent.transform.Find("shadow_human_remodelled-5").gameObject;
+		// activate / deactivate
+		m_Ragdoll.gameObject.SetActive(true);
+		m_AgentModel.gameObject.SetActive(false);
 		//nextState = new Idle (npc, agent, anim, cube, bay, health);
 		//stage = EVENT.EXIT;
 	}
