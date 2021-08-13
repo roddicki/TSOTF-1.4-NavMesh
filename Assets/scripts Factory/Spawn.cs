@@ -91,6 +91,8 @@ public class Spawn : MonoBehaviour{
 			GameObject m_Ragdoll = NewRagdoll.transform.Find (ModelToSpawn.name).gameObject; // works
 			Renderer m_RagdollRenderer = m_Ragdoll.GetComponent<SkinnedMeshRenderer> ();
 			m_RagdollRenderer.material = m_AgentMaterial; 
+			// set ragdoll tag to find it later
+			NewRagdoll.tag = "ragdoll";
 			NewRagdoll.gameObject.SetActive(false);
 			yield return null;
 		}

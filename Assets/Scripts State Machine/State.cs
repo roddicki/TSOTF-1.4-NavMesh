@@ -435,27 +435,13 @@ public class Death : State {
 	{
 		Debug.Log (name.ToString () + " " + npc.name);
 		base.Enter ();
-		_ragdolled = false;
+		// delay ragdoll
+		//Invoke("ActivateRagdoll",5f);
+		ActivateRagdoll();
 	}
 
 	public override void Update ()
 	{
-		if (_ragdolled == false)
-		{
-			// activate ragdoll
-			// get ragdoll
-			GameObject m_Ragdoll = agent.transform.Find("Ragdoll(Clone)").gameObject;
-			// get agent model
-			GameObject m_AgentModel = agent.transform.Find("shadow_human_remodelled-5").gameObject;
-			// copy position
-			CopyTransformData(m_AgentModel.transform, m_Ragdoll.transform);
-			// activate / deactivate
-			m_Ragdoll.gameObject.SetActive(true);
-			agent.GetComponent<Animator>().enabled = false;
-			m_AgentModel.gameObject.SetActive(false);
-			agent.GetComponent<NavMeshAgent>().enabled = false;
-			_ragdolled = true;
-		}
 		
 		//nextState = new Idle (npc, agent, anim, cube, bay, health);
 		//stage = EVENT.EXIT;
@@ -467,7 +453,25 @@ public class Death : State {
 		base.Exit ();
 	}
 
-	// copy position
+	// activate ragdoll
+	private void ActivateRagdoll() 
+	{
+		// get ragdoll
+		GameObject m_Ragdoll = agent.transform.Find("Ragdoll(Clone)").gameObject;
+		// GameObject m_Ragdoll = agent.FindWithTag ("ragdoll").gameObject; // doesn't work
+		// get agent model
+		GameObject m_AgentModel = agent.transform.Find("shadow_human_remodelled-5").gameObject;
+		// copy position
+		CopyTransformData(m_AgentModel.transform, m_Ragdoll.transform);
+		// activate / deactivate
+		agent.GetComponent<CapsuleCollider>().enabled = false;
+		m_Ragdoll.gameObject.SetActive(true);
+		agent.GetComponent<Animator>().enabled = false;
+		m_AgentModel.gameObject.SetActive(false);
+		agent.GetComponent<NavMeshAgent>().enabled = false;
+	}
+
+	// copy agent position to ragdoll
 	private void CopyTransformData(Transform sourceTransform, Transform destinationTransform)
     {
         if (sourceTransform.childCount != destinationTransform.childCount)
@@ -479,14 +483,12 @@ public class Death : State {
         for (int i = 0; i < sourceTransform.childCount; i++)
         {
             var source = sourceTransform.GetChild(i);
-            Debug.Log(agent.name + " : " + sourceTransform.GetChild(i).name);
             var destination = destinationTransform.GetChild(i);
             destination.position = source.position;
             destination.rotation = source.rotation;
             var rb = destination.GetComponent<Rigidbody>();
             if (rb != null)
                 rb.velocity = Vector3.zero;
-            
             CopyTransformData(source, destination);
         }
     }
