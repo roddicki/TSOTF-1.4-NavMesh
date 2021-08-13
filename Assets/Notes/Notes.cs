@@ -2,16 +2,21 @@
 
 
 //GANTRY CRANE
-// make crane more efficient
+//- make crane more efficient
+//- fix pick up cube - change move position to parent transform
+
+//RESPAWN
+//- Destroy all cubes and agents and respawn
 
 //BAY
-//- hilite bay area on flash / goal / fade edges
+//- hilite fade edges
 
 //BAY MARKER
 //- correlate emmission material brightness with Agent health - dead agent = black marker
 //- design better marker
 
 //AGENT
+//- move ragdoll outside of parent agent
 //- fix jittering animations
 //- fix / new push animation
 //- fix PantingInt 2, ProneInt 1 & PantingInt 2, ProneInt 0
@@ -22,10 +27,6 @@
 
 //- change agent speed based on health
 //- add cooperation and compete coefficients to state (like health) .. 0.0 to 1.0 float
-
-
-//GANTRY
-//- fix pick up cube - change move position to parent transform
 
 //ADJUSTMENTS
 // previously Changed the cube from mass 1, Drag 0.5, TO mass 1.5, Drag 1  - to make it harder for the agent
