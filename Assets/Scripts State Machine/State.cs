@@ -429,20 +429,25 @@ public class Death : State {
 		agent.SetDestination (Vector3.zero);
 	}
 
-	private bool _ragdolled;
+	// timer variables
+	private float timeRemaining;
+	private bool startTimer;
 
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString () + " " + npc.name);
 		base.Enter ();
 		// delay ragdoll
-		//Invoke("ActivateRagdoll",5f);
-		ActivateRagdoll();
+		timeRemaining = Random.Range(2.0f, 15.0f);
+		startTimer = true;
 	}
 
 	public override void Update ()
 	{
-		
+		// timer delays ragdoll activation
+		if (Timer()) {
+			ActivateRagdoll();
+		}
 		//nextState = new Idle (npc, agent, anim, cube, bay, health);
 		//stage = EVENT.EXIT;
 	}
@@ -453,14 +458,43 @@ public class Death : State {
 		base.Exit ();
 	}
 
+
+	// timer
+	private bool  Timer()
+	{
+		if (startTimer) {
+            if (timeRemaining > 0) {
+                timeRemaining -= Time.deltaTime;
+				return false;
+            }
+            else {
+                timeRemaining = 0;
+                startTimer = false;
+				return true;
+            }
+        } 
+		else {
+			return false;
+		}
+	}
+
 	// activate ragdoll
 	private void ActivateRagdoll() 
 	{
 		// get ragdoll
-		GameObject m_Ragdoll = agent.transform.Find("Ragdoll(Clone)").gameObject;
-		// GameObject m_Ragdoll = agent.FindWithTag ("ragdoll").gameObject; // doesn't work
+		Debug.Log("NPC = " + npc.name);
+		//GameObject m_agent = GameObject.Find(npc.name);
+		GameObject m_Ragdoll = agent.transform.GetChild(1).gameObject; // doesn't work
+		if (m_Ragdoll.tag != "ragdoll") {
+			Debug.LogWarning("Ragdoll may not be present as a child of the agent.");
+            return;
+		}
 		// get agent model
 		GameObject m_AgentModel = agent.transform.Find("shadow_human_remodelled-5").gameObject;
+		if (m_AgentModel == null) {
+            Debug.LogWarning("model may not be present as a child of the agent.");
+            return;
+        }
 		// copy position
 		CopyTransformData(m_AgentModel.transform, m_Ragdoll.transform);
 		// activate / deactivate
