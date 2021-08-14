@@ -1,12 +1,11 @@
 ﻿// TO DO
 
+//RESPAWN
+//- Destroy all cubes and agents and respawn
 
 //GANTRY CRANE
 //- make crane more efficient
 //- fix pick up cube - change move position to parent transform
-
-//RESPAWN
-//- Destroy all cubes and agents and respawn
 
 //BAY
 //- hilite fade edges
@@ -16,7 +15,6 @@
 //- design better marker
 
 //AGENT
-//- move ragdoll outside of parent agent
 //- fix jittering animations
 //- fix / new push animation
 //- fix PantingInt 2, ProneInt 1 & PantingInt 2, ProneInt 0

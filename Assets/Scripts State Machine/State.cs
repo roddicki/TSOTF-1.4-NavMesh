@@ -503,6 +503,7 @@ public class Death : State {
 		agent.GetComponent<Animator>().enabled = false;
 		m_AgentModel.gameObject.SetActive(false);
 		agent.GetComponent<NavMeshAgent>().enabled = false;
+		m_Ragdoll.transform.parent = null;
 	}
 
 	// copy agent position to ragdoll
