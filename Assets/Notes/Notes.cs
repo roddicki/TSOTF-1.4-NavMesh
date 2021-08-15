@@ -1,5 +1,8 @@
 ﻿// TO DO
 
+//REORGANISE
+// amalagmate Spawner and GameManager
+
 //RESPAWN
 //- Destroy all cubes and agents and respawn
 
