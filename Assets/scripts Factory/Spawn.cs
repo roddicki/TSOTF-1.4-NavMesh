@@ -49,7 +49,7 @@ public class Spawn : MonoBehaviour{
 		GameObject[] bays = GameObject.FindGameObjectsWithTag ("bay");
 		int i = 0;
 		foreach (GameObject bay in bays) {
-			Debug.Log (bay.transform.position);
+			Debug.Log (bay.name + " - " + bay.transform.position);
 			Vector3 SpawnPos = bay.transform.position;
 			if (i != 0) {
 				GameObject NewAgent = Instantiate (AgentToSpawn, SpawnPos, AgentToSpawn.transform.rotation);
@@ -58,7 +58,7 @@ public class Spawn : MonoBehaviour{
 				GameObject marker = bay.transform.Find ("marker").gameObject; 
 				Renderer m_MarkerRenderer = marker.GetComponent<Renderer> ();
 				Material m_MarkerMaterial = m_MarkerRenderer.material;
-				// apply material to the model that is a child of agent
+				// apply material to the model shadow_human_rigged_001_geo that is a child of agent
 				GameObject m_RiggedAgent = NewAgent.transform.GetChild(0).gameObject.transform.Find (ModelToSpawn.name).gameObject; // works
 				Renderer m_RiggedAgentRenderer = m_RiggedAgent.GetComponent<SkinnedMeshRenderer> ();
 				m_RiggedAgentRenderer.material = m_MarkerMaterial; 
