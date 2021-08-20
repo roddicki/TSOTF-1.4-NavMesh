@@ -10,12 +10,9 @@ public class GoalDetect : MonoBehaviour
 	public GameObject Agent;
 	AgentHealth agentHealth;
     string[] agentName;
-	private bool AgentNotAttached;
-
 
 	void Start() {
 		// tie the bay to an agent with the same name
-		AgentNotAttached = true;
 		agentName = this.name.Split('-');
         //Debug.Log(agentName[0]);
         
@@ -25,17 +22,16 @@ public class GoalDetect : MonoBehaviour
 		//agentHealth = Agent.GetComponent<AgentHealth> ();
 	}
 
-	private void Update ()
+	// check agent still attached
+	void CheckAgentAttached()
 	{
-		// only GetComponent when Agent has been instantiated
-		if (AgentNotAttached && GameObject.Find (agentName [0]) != null) {
-			Agent = GameObject.Find (agentName [0]);
-			agentHealth = Agent.GetComponent<AgentHealth> ();
-			AgentNotAttached = false;
-		}
+		agentName = this.name.Split('-');
+		Agent = GameObject.Find (agentName [0]);
+		agentHealth = Agent.GetComponent<AgentHealth> ();
 	}
 
 	void OnTriggerEnter(Collider other) {
+		CheckAgentAttached();
 		// Touched goal and goal name
 		if (other.gameObject.CompareTag("cube")) {
             goal = true;
@@ -45,13 +41,12 @@ public class GoalDetect : MonoBehaviour
     }
 
     void OnTriggerExit(Collider other){
+		CheckAgentAttached();
         if (other.gameObject.CompareTag("cube")) 
         {
             ownGoal = true;
 			agentHealth.Health -= 100.0f;
         }
     }
-
     // change ground material when goal scored
-
 }

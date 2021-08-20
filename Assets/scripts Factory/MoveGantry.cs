@@ -40,7 +40,7 @@ public class MoveGantry : MonoBehaviour {
         CraneMagnet = GameObject.Find("CraneMagnet").GetComponent<CraneMagnet>();
 
         Cable = GameObject.Find("Cable").GetComponent<WinchCable>();
-        Spawn = GameObject.Find("Spawner").GetComponent<Spawn>();
+        Spawn = GameObject.Find("GameManager").GetComponent<Spawn>();
         CubeManager = GameObject.Find("GameManager").GetComponent<CubeManager>();
     }
 

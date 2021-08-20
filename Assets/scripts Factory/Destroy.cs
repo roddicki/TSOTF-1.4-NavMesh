@@ -4,17 +4,6 @@ using UnityEngine;
 
 public class Destroy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     // destroy cubes
     public void DestroyCubes()
@@ -34,14 +23,13 @@ public class Destroy : MonoBehaviour
     // destroy agents
     public void DestroyAgents()
     {
+        // get bay 0
+        GameObject Bay0 = GameObject.Find("Agent0-bay");
         // get all agents
         GameObject[] agents = GameObject.FindGameObjectsWithTag ("agent");
         // destroy all agents
         foreach (GameObject agent in agents) {
-            if (agent.name != "Agent0")
-            {
-                Destroy(agent);
-            }
+            Destroy(agent);
         }
     }
 }

@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
    
-    private Destroy destroy;
+    public Destroy destroy;
+    public Spawn spawn;
+    public float timeAllowed;
     public float timeRemaining;
     private bool startTimer;
 
     // Start is called before the first frame update
     void Start() {
-        destroy = GetComponent<Destroy>();
+        timeRemaining = timeAllowed;
 		startTimer = true;
     }
 
@@ -20,6 +22,10 @@ public class GameManager : MonoBehaviour {
         {
             destroy.DestroyCubes();
             destroy.DestroyAgents();
+            StartCoroutine (spawn.AgentSpawner ());
+			StartCoroutine (spawn.CubeSpawner ());
+            timeRemaining = timeAllowed;
+		    startTimer = true;
         }
        //Timer();
     }

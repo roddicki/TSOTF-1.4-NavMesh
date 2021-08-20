@@ -18,10 +18,9 @@ public class Spawn : MonoBehaviour{
 	// agent
 	public GameObject AgentToSpawn;
 	public GameObject ModelToSpawn;
-	public bool AgentSpawnComplete;
-
 	// ragdoll
 	public GameObject Ragdoll;
+	public bool AgentSpawnComplete;
 
 
 	// Start is called before the first frame update
@@ -44,25 +43,24 @@ public class Spawn : MonoBehaviour{
     }
 
 	// spawn an agent for each bay
-	IEnumerator AgentSpawner (){
-		// get location of each bay
+	public IEnumerator AgentSpawner (){
+		// get the gameobject / agent to spawn / model from the prefab in the public variable
 		GameObject[] bays = GameObject.FindGameObjectsWithTag ("bay");
 		int i = 0;
 		foreach (GameObject bay in bays) {
-			Debug.Log (bay.name + " - " + bay.transform.position);
 			Vector3 SpawnPos = bay.transform.position;
-			if (i != 0) {
-				GameObject NewAgent = Instantiate (AgentToSpawn, SpawnPos, AgentToSpawn.transform.rotation);
-				NewAgent.name = "Agent" + i;
-				// get marker material
-				GameObject marker = bay.transform.Find ("marker").gameObject; 
-				Renderer m_MarkerRenderer = marker.GetComponent<Renderer> ();
-				Material m_MarkerMaterial = m_MarkerRenderer.material;
-				// apply material to the model shadow_human_rigged_001_geo that is a child of agent
-				GameObject m_RiggedAgent = NewAgent.transform.GetChild(0).gameObject.transform.Find (ModelToSpawn.name).gameObject; // works
-				Renderer m_RiggedAgentRenderer = m_RiggedAgent.GetComponent<SkinnedMeshRenderer> ();
-				m_RiggedAgentRenderer.material = m_MarkerMaterial; 
-			}
+			//if (i != 0) {
+			GameObject NewAgent = Instantiate (AgentToSpawn, SpawnPos, AgentToSpawn.transform.rotation);
+			NewAgent.name = "Agent" + i;
+			// get marker material
+			GameObject marker = bay.transform.Find ("marker").gameObject; 
+			Renderer m_MarkerRenderer = marker.GetComponent<Renderer> ();
+			Material m_MarkerMaterial = m_MarkerRenderer.material;
+			// apply material to the model shadow_human_rigged_001_geo that is a child of agent
+			GameObject m_RiggedAgent = NewAgent.transform.GetChild(0).gameObject.transform.Find (ModelToSpawn.name).gameObject; // works
+			Renderer m_RiggedAgentRenderer = m_RiggedAgent.GetComponent<SkinnedMeshRenderer> ();
+			m_RiggedAgentRenderer.material = m_MarkerMaterial; 
+			//}
 			i += 1;
 			yield return null;
 		}
@@ -74,7 +72,7 @@ public class Spawn : MonoBehaviour{
 
 
 	// spawn a ragdoll for each agent
-	IEnumerator RagollSpawner(){
+	public IEnumerator RagollSpawner(){
 		// find all agents
 		GameObject[] agents = GameObject.FindGameObjectsWithTag ("agent");
 		int i = 0;
@@ -85,10 +83,10 @@ public class Spawn : MonoBehaviour{
         	GameObject NewRagdoll = Instantiate(Ragdoll, SpawnPos, agent.transform.rotation, agent.transform);
 			// change colour of ragdoll
 			// get colour from agent
-			Renderer m_AgentRenderer = agent.transform.GetChild(0).gameObject.transform.Find (ModelToSpawn.name).GetComponent<Renderer> ();
+			Renderer m_AgentRenderer = agent.transform.GetChild(0).gameObject.transform.Find("shadow_human_rigged_001_geo").GetComponent<Renderer> ();
 			Material m_AgentMaterial = m_AgentRenderer.material;
 			// apply material 
-			GameObject m_Ragdoll = NewRagdoll.transform.Find (ModelToSpawn.name).gameObject; // works
+			GameObject m_Ragdoll = NewRagdoll.transform.Find ("shadow_human_rigged_001_geo").gameObject; // works
 			Renderer m_RagdollRenderer = m_Ragdoll.GetComponent<SkinnedMeshRenderer> ();
 			m_RagdollRenderer.material = m_AgentMaterial; 
 			// set ragdoll tag to find it later
@@ -100,7 +98,7 @@ public class Spawn : MonoBehaviour{
 
 
 	// spawn cubes
-	IEnumerator CubeSpawner (){
+	public IEnumerator CubeSpawner (){
 		//float StartPosX = Random.Range(SpawnPosMinX, SpawnPosMaxX);
 		//float StartPosZ = Random.Range(SpawnPosMinZ, SpawnPosMaxZ);
 		float StartPosX = SpawnPosMinX;
