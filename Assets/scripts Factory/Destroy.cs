@@ -32,4 +32,13 @@ public class Destroy : MonoBehaviour
             Destroy(agent);
         }
     }
+
+    // destroy ragdolls
+    public void DestroyRagdolls() {
+        GameObject[] ragdolls = GameObject.FindGameObjectsWithTag ("ragdoll");
+        // destroy all ragdolls
+        foreach (GameObject ragdoll in ragdolls) {
+            Destroy(ragdoll);
+        }
+    }
 }

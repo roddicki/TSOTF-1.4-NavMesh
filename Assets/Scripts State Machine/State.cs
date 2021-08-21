@@ -482,8 +482,6 @@ public class Death : State {
 	private void ActivateRagdoll() 
 	{
 		// get ragdoll
-		Debug.Log("NPC = " + npc.name);
-		//GameObject m_agent = GameObject.Find(npc.name);
 		GameObject m_Ragdoll = agent.transform.GetChild(1).gameObject; // doesn't work
 		if (m_Ragdoll.tag != "ragdoll") {
 			Debug.LogWarning("Ragdoll may not be present as a child of the agent.");

@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour {
         {
             destroy.DestroyCubes();
             destroy.DestroyAgents();
+            destroy.DestroyRagdolls();
             StartCoroutine (spawn.AgentSpawner ());
 			StartCoroutine (spawn.CubeSpawner ());
             timeRemaining = timeAllowed;

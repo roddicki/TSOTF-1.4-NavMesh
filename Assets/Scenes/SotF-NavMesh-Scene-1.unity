@@ -156,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroy: {fileID: 9331727}
   spawn: {fileID: 9331728}
-  timeAllowed: 100
+  timeAllowed: 180
   timeRemaining: 0
 --- !u!4 &9331725
 Transform:
@@ -2662,6 +2662,7 @@ Transform:
   - {fileID: 139273834}
   - {fileID: 1148280596}
   - {fileID: 400524797}
+  - {fileID: 1067675829}
   m_Father: {fileID: 431565183}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8794,7 +8795,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 168004, guid: 7c2901cdfa15c492184561d2b3931a8e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 419476, guid: 7c2901cdfa15c492184561d2b3931a8e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11289,11 +11290,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1067675827}
   m_LocalRotation: {x: 0.8877426, y: -0.4140916, z: 0.10329984, w: 0.17254108}
-  m_LocalPosition: {x: 23.492817, y: 15.717162, z: -4.6388555}
+  m_LocalPosition: {x: 28.16009, y: 19.099821, z: -0.66267323}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_Father: {fileID: 284309898}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 156.928, y: -2.5239868, z: 49.498993}
 --- !u!1 &1093846325
 GameObject:
