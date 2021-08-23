@@ -10244,7 +10244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 296924896a9e53fe9afa255a6af47aa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GantryBusy: 0
+  GantryBusy: 1
 --- !u!65 &1022825540
 BoxCollider:
   m_ObjectHideFlags: 0
