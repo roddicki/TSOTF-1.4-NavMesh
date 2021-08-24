@@ -38,7 +38,7 @@ public class MoveCrane : MonoBehaviour {
         // if reached target x pos        
         if(Vector3.Distance(transform.position, targetZ) < 0.2f){
             //It is within range, do stuff
-            Debug.Log("crane arrived");
+            //Debug.Log("crane arrived");
             CraneArrived = true;
         } 
     }

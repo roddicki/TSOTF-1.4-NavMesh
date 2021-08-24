@@ -75,7 +75,7 @@ public class Cube : MonoBehaviour {
 			speed = 20.0f;
 		}
 		//Debug.Log ("distance=" + distance);
-		Debug.Log ("speed=" + speed);
+		//Debug.Log ("speed=" + speed);
 		// move cube
 		CubeRigidBody.MovePosition (transform.position + (direction * speed * Time.deltaTime));
 	}

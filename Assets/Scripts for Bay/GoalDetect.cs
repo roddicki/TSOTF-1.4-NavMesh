@@ -27,7 +27,10 @@ public class GoalDetect : MonoBehaviour
 	{
 		agentName = this.name.Split('-');
 		Agent = GameObject.Find (agentName [0]);
-		agentHealth = Agent.GetComponent<AgentHealth> ();
+		if (Agent != null) {
+			agentHealth = Agent.GetComponent<AgentHealth> ();
+		}
+		
 	}
 
 	void OnTriggerEnter(Collider other) {

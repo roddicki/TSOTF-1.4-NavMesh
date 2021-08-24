@@ -53,10 +53,13 @@ public class MoveGantry : MonoBehaviour {
             StartCoroutine(BeginCraneOperations());
             GantryBusy = true;
         }
+
         // check if any cubes moved
         CheckCubes();
         // get the location of the next Cube that has moved
-        getTargetCubeCoords();    
+        getTargetCubeCoords();  
+        
+          
     }
 
     // COROUTINES
@@ -116,7 +119,6 @@ public class MoveGantry : MonoBehaviour {
     }
 
     IEnumerator PickUpCube(){
-        Debug.Log("3. "+ TargetCube.name +" follow magnet");
         // tidy this
         TargetCubeCS.IsFollowingMagnet = true;
         yield break;
@@ -144,7 +146,7 @@ public class MoveGantry : MonoBehaviour {
         // reset Lower and Raise cable flags
         CraneMagnet.Collision = false;
         Cable.RaiseComplete = false;
-        Debug.Log("5. move to " + TargetCube.name + " start pos");
+        Debug.Log("5. move to TargetCube start pos");
         // Move to Cube start point
         while (GantryArrived == false || Crane.CraneArrived == false) {
             // move Gantry
@@ -171,12 +173,16 @@ public class MoveGantry : MonoBehaviour {
         // all cubes stop following
         // get all cubes
         Cubes = GameObject.FindGameObjectsWithTag("cube");
-        // stop target cube following
-        TargetCube.GetComponent<Cube>().IsFollowingMagnet = false;
-        // use gravity
-        TargetCube.GetComponent<Rigidbody>().useGravity = true; 
-        //unfreeze rotation
-	    TargetCube.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        // check target cube not destroyed
+        if (TargetCube != null){
+            // stop target cube following
+             TargetCube.GetComponent<Cube>().IsFollowingMagnet = false;
+            // use gravity
+            TargetCube.GetComponent<Rigidbody>().useGravity = true; 
+            //unfreeze rotation
+            TargetCube.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        }
+       
         // stop all cubes following
         for (int i = 0; i < Cubes.Length; i++) {
             // cube stop following
@@ -186,7 +192,7 @@ public class MoveGantry : MonoBehaviour {
             //unfreeze rotation
 	        Cubes[i].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
-        Debug.Log("LowerWinchDropOff loop finished for "+ TargetCube.name +"-follow me cancelled -use gravity");
+        Debug.Log("LowerWinchDropOff complete for -follow me cancelled -use gravity");
     }
 
     // Raise winch / magnet
@@ -202,7 +208,9 @@ public class MoveGantry : MonoBehaviour {
 
     // move cube to end of CubesOutside list (CubeManager script) so that the crane does not attempt to pick it up two times in a row
     IEnumerator CubeToListEnd(){
-        CubeManager.CubeToListEnd(TargetCube);
+        if (TargetCube != null) {
+            CubeManager.CubeToListEnd(TargetCube);
+        }
         yield break;
     }
 
@@ -233,9 +241,10 @@ public class MoveGantry : MonoBehaviour {
         // if CubesOutside is not empty
         if(CubesOut.Count > 0) {
             // get cube at top of CubesOutside list
-            Debug.Log("CHECK CUBES=" + CubesOut[0]);
             TargetCube = GameObject.Find(CubesOut[0]);
-            TargetCubeCS = GameObject.Find(CubesOut[0]).GetComponent<Cube>();
+            if (TargetCube != null) {
+                TargetCubeCS = GameObject.Find(CubesOut[0]).GetComponent<Cube>();
+            } 
         }
     }
 
@@ -249,7 +258,7 @@ public class MoveGantry : MonoBehaviour {
             TargetCubeXOrigin = TargetCube.GetComponent<Cube>().StartPos.x;
             TargetCubeYOrigin = TargetCube.GetComponent<Cube>().StartPos.y;
             TargetCubeZOrigin = TargetCube.GetComponent<Cube>().StartPos.z;
-            Debug.Log("TargetCube " + TargetCube.name);
+            //Debug.Log("TargetCube " + TargetCube.name);
         }
     }
 
@@ -330,7 +339,7 @@ public class MoveGantry : MonoBehaviour {
         // if reached target x pos        
         if(Vector3.Distance(transform.position, targetX) < 0.2f){
             //It is within ~0.1f range, do stuff
-            Debug.Log("Gantry arrived");
+            //Debug.Log("Gantry arrived");
             // stand in variable // need to have picked up the cube here
             GantryArrived = true;
             // check that the gantry is back at the cube origin point

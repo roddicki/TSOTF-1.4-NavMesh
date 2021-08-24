@@ -36,7 +36,6 @@ public class OrientCube : MonoBehaviour
         if (col.gameObject.CompareTag("cube")) {
             //anim.SetBool("IsPush", true);
             cube = col.gameObject;
-            Debug.Log("Hit " + cube.name);
             NearCube = true;
             CubeRbody = cube.GetComponent<Rigidbody>();
 		}

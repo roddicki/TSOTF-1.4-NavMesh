@@ -104,7 +104,7 @@ public class SetTarget : State {
 
 	public override void Enter ()
 	{
-		Debug.Log (name.ToString ());
+		Debug.Log (npc.name + " " + name.ToString ());
 		timeRemaining = npc.GetComponent<Timer>().timeRemaining;
 		bayCollider = bay.GetComponent<Collider> ();
 		// get central bay
@@ -135,6 +135,7 @@ public class SetTarget : State {
 			Debug.DrawRay (source, angle * 40, Color.red, 1.0f);
 			if (Physics.SphereCast (ray, 3.0f, out hit, 60)) {
 				Debug.DrawRay (source, angle * hit.distance, Color.red);
+				Debug.Log("RAYCAST HIT" + npc.name + " on " + hit.collider.name);
 				// if hit cube & hit cube not contained in bay
 				if (hit.collider.tag == "cube" && bayCollider.bounds.Contains(GameObject.Find (hit.collider.name).transform.position) == false) 
 				{
@@ -181,6 +182,7 @@ public class SetTarget : State {
 	// return random position to move to
 	Vector3 Wander()
 	{
+		Debug.Log(npc.name + " WANDER");
 		Vector3 randomDirection = Random.insideUnitSphere * 10;
 		randomDirection += agent.transform.position;
 		NavMeshHit hit;
@@ -191,7 +193,7 @@ public class SetTarget : State {
 }
 
 //------------------------------------------//
-// Search state
+// Search state - found a target moving to it
 public class Search: State 
 {
 	public Search (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
@@ -206,7 +208,7 @@ public class Search: State
 
 	public override void Enter ()
 	{
-		Debug.Log (name.ToString());
+		Debug.Log (npc.name + " " + name.ToString());
 		agent.speed = 4;
 		navMeshObstacle = cube.GetComponent<NavMeshObstacle> ();
 		navMeshObstacle.enabled = true;

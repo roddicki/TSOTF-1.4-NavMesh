@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
             timeRemaining = timeAllowed;
 		    startTimer = true;
         }
-       //Timer();
+        //Timer();
     }
 
     // timer

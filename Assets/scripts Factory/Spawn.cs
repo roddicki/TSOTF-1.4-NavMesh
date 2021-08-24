@@ -124,6 +124,7 @@ public class Spawn : MonoBehaviour{
 			//Vector3 SpawnPos = new Vector3(Random.Range(SpawnPosMinX, SpawnPosMaxX), 5, Random.Range(SpawnPosMinZ, SpawnPosMaxZ));
 			GameObject NewCube = Instantiate (SpawnedCube, SpawnPos, this.transform.rotation);
 			NewCube.name = "Cube" + i;
+			NewCube.layer = 0;
 			yield return new WaitForSeconds (SpawnWait);
 		}
 		Debug.Log("==Cube Spawn Complete==");
