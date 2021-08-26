@@ -71,7 +71,7 @@ public class MoveGantry : MonoBehaviour {
         // Lower winch / magnet
         yield return StartCoroutine(LowerWinchPickUp());
         // Pick up Cube
-        yield return StartCoroutine(PickUpCube());
+        //yield return StartCoroutine(PickUpCube());
         // Raise winch / magnet
         yield return StartCoroutine(RaiseWinchMagnet());
         // check cube is following
@@ -119,8 +119,12 @@ public class MoveGantry : MonoBehaviour {
     }
 
     IEnumerator PickUpCube(){
-        // tidy this
-        TargetCubeCS.IsFollowingMagnet = true;
+        // change target cube to the collisionObject in CraneMagnet
+        // if CraneMagnet.CollisionObject has tag of cube set it to be the Target cube
+        // set as kinematic
+        // make it a child of the CraneMagnet
+        //TargetCubeCS.IsFollowingMagnet = true;
+        //TargetCubeCS.ParentToMagnet();
         yield break;
     }
 
@@ -176,7 +180,7 @@ public class MoveGantry : MonoBehaviour {
         // check target cube not destroyed
         if (TargetCube != null){
             // stop target cube following
-             TargetCube.GetComponent<Cube>().IsFollowingMagnet = false;
+            //TargetCube.GetComponent<Cube>().IsFollowingMagnet = false;
             // use gravity
             TargetCube.GetComponent<Rigidbody>().useGravity = true; 
             //unfreeze rotation
@@ -186,7 +190,7 @@ public class MoveGantry : MonoBehaviour {
         // stop all cubes following
         for (int i = 0; i < Cubes.Length; i++) {
             // cube stop following
-            Cubes[i].GetComponent<Cube>().IsFollowingMagnet = false;
+            //Cubes[i].GetComponent<Cube>().IsFollowingMagnet = false;
             // use gravity
             Cubes[i].GetComponent<Rigidbody>().useGravity = true; 
             //unfreeze rotation

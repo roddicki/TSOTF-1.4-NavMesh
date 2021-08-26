@@ -8,10 +8,13 @@ public class CraneMagnet : MonoBehaviour {
     public bool Collision;
     
 
-    //When the magnet collides with the cube
+    //When the magnet collides with the anything 
     private void OnCollisionEnter(Collision collision) {
         Debug.Log("BANG - " + name + " collides with " + collision.gameObject.name);
-        Collision = true;
+        if (collision.gameObject.tag == "ground" || collision.gameObject.tag == "truss" || collision.gameObject.tag == "cube")
+        {
+            Collision = true;
+        }        
     }
 
 }

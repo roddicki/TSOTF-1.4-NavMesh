@@ -135,7 +135,6 @@ public class SetTarget : State {
 			Debug.DrawRay (source, angle * 40, Color.red, 1.0f);
 			if (Physics.SphereCast (ray, 3.0f, out hit, 60)) {
 				Debug.DrawRay (source, angle * hit.distance, Color.red);
-				Debug.Log("RAYCAST HIT" + npc.name + " on " + hit.collider.name);
 				// if hit cube & hit cube not contained in bay
 				if (hit.collider.tag == "cube" && bayCollider.bounds.Contains(GameObject.Find (hit.collider.name).transform.position) == false) 
 				{
@@ -182,7 +181,6 @@ public class SetTarget : State {
 	// return random position to move to
 	Vector3 Wander()
 	{
-		Debug.Log(npc.name + " WANDER");
 		Vector3 randomDirection = Random.insideUnitSphere * 10;
 		randomDirection += agent.transform.position;
 		NavMeshHit hit;
