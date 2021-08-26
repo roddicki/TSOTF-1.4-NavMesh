@@ -35,7 +35,6 @@ public class MoveGantry : MonoBehaviour {
         TargetCubeX = transform.position.x; 
         // get the Crane <MoveCrane>    
         Crane = GameObject.Find("Crane").GetComponent<MoveCrane>();
-        //Crane.Test("Hello from Gantry");
         // get the Crane Magnet
         CraneMagnet = GameObject.Find("CraneMagnet").GetComponent<CraneMagnet>();
 
@@ -66,30 +65,28 @@ public class MoveGantry : MonoBehaviour {
     IEnumerator BeginCraneOperations(){
         Debug.Log("BEGIN CraneOperations");
         Debug.Log("TargetCube="+TargetCube);
-        // move Gantry and Crane to cube
+        // 1. move Gantry and Crane to cube
         yield return StartCoroutine(MoveToCube());
-        // Lower winch / magnet
+        // 2. Lower winch / magnet
         yield return StartCoroutine(LowerWinchPickUp());
         // Pick up Cube
         //yield return StartCoroutine(PickUpCube());
-        // Raise winch / magnet
+        // 4. Raise winch / magnet
         yield return StartCoroutine(RaiseWinchMagnet());
         // check cube is following
-        if(CubeIsFollowing()){
-            // Move Gantry and Crane to cube start position
-            // reset Gantry and Crane 
-            yield return StartCoroutine(SetGantryCraneArrived());
-            // GantryArrived = false;
-            // Crane.CraneArrived = false;
-            yield return StartCoroutine(MoveToCubeStartPos());
-            // Lower winch / magnet
-            yield return StartCoroutine(LowerWinchDropOff());
-            // Raise winch / magnet
-            yield return StartCoroutine(RaiseWinchAfterDropOff());
-        };
+        //if(CubeIsFollowing()){
+        // Move Gantry and Crane to cube start position
+        yield return StartCoroutine(SetGantryCraneArrived());
+        // 5. GantryArrived = false;
+        yield return StartCoroutine(MoveToCubeStartPos());
+        // 6. Lower winch / magnet
+        yield return StartCoroutine(LowerWinchDropOff());
+        // 7. Raise winch / magnet
+        yield return StartCoroutine(RaiseWinchAfterDropOff());
+        //};
         // move cube to end of list
         yield return StartCoroutine(CubeToListEnd());
-        // reset
+        // 8. reset
         yield return StartCoroutine(Reset());
         Debug.Log("END CraneOperations");
         Debug.Log("...");
@@ -161,9 +158,12 @@ public class MoveGantry : MonoBehaviour {
         }
     } 
 
+    // NOT FECKIN WORKING
     // Lower winch / magnet
     IEnumerator LowerWinchDropOff() {
         Debug.Log("6. Lower winch drop off");
+        // unparent the magnet
+        TargetCubeCS.UnParentToMagnet();
         // lower winch until cube hits something
         CraneMagnet.Collision = false;
         TargetCubeCS.Collision = false;
@@ -198,6 +198,46 @@ public class MoveGantry : MonoBehaviour {
         }
         Debug.Log("LowerWinchDropOff complete for -follow me cancelled -use gravity");
     }
+
+    // Lower winch / magnet
+    // IEnumerator LowerWinchDropOff() {
+    //     Debug.Log("6. Lower winch drop off");
+    //     // unparent the magnet
+    //     TargetCubeCS.UnParentToMagnet();
+    //     // lower winch until cube hits something
+    //     CraneMagnet.Collision = false;
+    //     TargetCubeCS.Collision = false;
+    //     // Lower CraneMagnet until cube collides with ground or it collides with ground
+    //     while (CraneMagnet.Collision == false && TargetCubeCS.Collision == false && NearCubes() == false && NearGround() == false) {
+    //         Debug.Log("lowering"+TargetCube.name);
+    //         Cable.LowerCable();
+    //         yield return null;
+    //     }
+    //     // winch drop off complete - drop all cubes
+    //     // all cubes stop following
+    //     // get all cubes
+    //     Cubes = GameObject.FindGameObjectsWithTag("cube");
+    //     // check target cube not destroyed
+    //     if (TargetCube != null){
+    //         // stop target cube following
+    //         //TargetCube.GetComponent<Cube>().IsFollowingMagnet = false;
+    //         // use gravity
+    //         TargetCube.GetComponent<Rigidbody>().useGravity = true; 
+    //         //unfreeze rotation
+    //         TargetCube.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+    //     }
+       
+    //     // stop all cubes following
+    //     for (int i = 0; i < Cubes.Length; i++) {
+    //         // cube stop following
+    //         //Cubes[i].GetComponent<Cube>().IsFollowingMagnet = false;
+    //         // use gravity
+    //         Cubes[i].GetComponent<Rigidbody>().useGravity = true; 
+    //         //unfreeze rotation
+	//         Cubes[i].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+    //     }
+    //     Debug.Log("LowerWinchDropOff complete for -follow me cancelled -use gravity");
+    // }
 
     // Raise winch / magnet
     IEnumerator RaiseWinchAfterDropOff() {

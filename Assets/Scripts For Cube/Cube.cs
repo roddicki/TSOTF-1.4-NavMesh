@@ -49,9 +49,18 @@ public class Cube : MonoBehaviour {
 
 	public void ParentToMagnet()
 	{
-		Debug.Log("parent to magnet");
+		foreach (Transform child in CraneMagnet.transform)
+		{
+			if (child.gameObject.tag == "cube")
+			{
+				Debug.Log("children= "+child.gameObject.name);
+				//return;
+			}
+		}
+		// if magnet doesn't already have a cube following
+		Debug.Log("parent " + this.name + " to magnet");
 		// disable gravity and make kinematic
-		CubeRigidBody.useGravity = false;
+		//CubeRigidBody.useGravity = false;
 		CubeRigidBody.isKinematic = true;
 		// parent
 		this.transform.parent = CraneMagnet.transform;
@@ -61,12 +70,12 @@ public class Cube : MonoBehaviour {
 
 	public void UnParentToMagnet()
 	{
-		Debug.Log("UNparent to magnet");
+		Debug.Log(this.name + " UNparent to magnet");
+		// un parent
+		this.transform.parent = null;
 		// disable gravity and make kinematic
 		CubeRigidBody.useGravity = true;
 		CubeRigidBody.isKinematic = false;
-		// parent
-		this.transform.parent = null;
 	}
 
 
@@ -77,7 +86,10 @@ public class Cube : MonoBehaviour {
 		// if cube hits magnet 
 		if (collision.gameObject.tag == "cranemagnet") {
 			ParentToMagnet();
-		} else {
+		} 
+		// else if parented to CraneMagnet
+		else if(this.transform.parent != null)
+		{
 			UnParentToMagnet();
 		}
 	}
