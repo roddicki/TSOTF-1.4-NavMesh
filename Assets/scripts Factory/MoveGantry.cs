@@ -63,8 +63,8 @@ public class MoveGantry : MonoBehaviour {
 
     // COROUTINES
     IEnumerator BeginCraneOperations(){
-        Debug.Log("BEGIN CraneOperations");
-        Debug.Log("TargetCube="+TargetCube);
+        Debug.Log("CRANE BEGIN CraneOperations");
+        Debug.Log("CRANE TargetCube="+TargetCube);
         // 1. move Gantry and Crane to cube
         yield return StartCoroutine(MoveToCube());
         // 2. Lower winch / magnet
@@ -88,14 +88,14 @@ public class MoveGantry : MonoBehaviour {
         yield return StartCoroutine(CubeToListEnd());
         // 8. reset
         yield return StartCoroutine(Reset());
-        Debug.Log("END CraneOperations");
+        Debug.Log("END CRANE CraneOperations");
         Debug.Log("...");
         yield break;
     }
 
     // Move Gantry and Crane to cube
     IEnumerator MoveToCube() {
-        Debug.Log("1.move to cube new pos");
+        Debug.Log("1. CRANE move to cube new pos");
         // move the Gantry
         while (GantryArrived == false || Crane.CraneArrived == false) {
             MoveToNewPos(TargetCubeX);
@@ -106,7 +106,7 @@ public class MoveGantry : MonoBehaviour {
 
     // Lower winch / magnet
     IEnumerator LowerWinchPickUp() {
-        Debug.Log("2. Lower winch, pick up");
+        Debug.Log("2. CRANE Lower winch, pick up");
         CraneMagnet.Collision = false;
         // Lower cable and magnet until collides with a cube or ground
         while (CraneMagnet.Collision == false) {
@@ -127,7 +127,7 @@ public class MoveGantry : MonoBehaviour {
 
     // Raise winch / magnet
     IEnumerator RaiseWinchMagnet() {
-        Debug.Log("4. Raise winch");
+        Debug.Log("4. CRANE Raise winch");
         Cable.RaiseComplete = false;
         // Raise Cable and Magnet
         while (Cable.RaiseComplete == false) {
@@ -147,7 +147,7 @@ public class MoveGantry : MonoBehaviour {
         // reset Lower and Raise cable flags
         CraneMagnet.Collision = false;
         Cable.RaiseComplete = false;
-        Debug.Log("5. move to TargetCube start pos");
+        Debug.Log("5. CRANE move to TargetCube start pos");
         // Move to Cube start point
         while (GantryArrived == false || Crane.CraneArrived == false) {
             // move Gantry
@@ -161,42 +161,21 @@ public class MoveGantry : MonoBehaviour {
     // NOT FECKIN WORKING
     // Lower winch / magnet
     IEnumerator LowerWinchDropOff() {
-        Debug.Log("6. Lower winch drop off");
-        // unparent the magnet
-        TargetCubeCS.UnParentToMagnet();
-        // lower winch until cube hits something
-        CraneMagnet.Collision = false;
-        TargetCubeCS.Collision = false;
-        // Lower CraneMagnet until cube collides with ground or it collides with ground
-        while (CraneMagnet.Collision == false && TargetCubeCS.Collision == false && NearCubes() == false && NearGround() == false) {
-            Debug.Log("lowering"+TargetCube.name);
-            Cable.LowerCable();
-            yield return null;
-        }
-        // winch drop off complete - drop all cubes
-        // all cubes stop following
-        // get all cubes
-        Cubes = GameObject.FindGameObjectsWithTag("cube");
-        // check target cube not destroyed
-        if (TargetCube != null){
-            // stop target cube following
-            //TargetCube.GetComponent<Cube>().IsFollowingMagnet = false;
-            // use gravity
-            TargetCube.GetComponent<Rigidbody>().useGravity = true; 
-            //unfreeze rotation
-            TargetCube.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        }
-       
+        Debug.Log("6. CRANE Lower winch drop off");
         // stop all cubes following
+        Cubes = GameObject.FindGameObjectsWithTag("cube");
         for (int i = 0; i < Cubes.Length; i++) {
-            // cube stop following
-            //Cubes[i].GetComponent<Cube>().IsFollowingMagnet = false;
+            // un parent
+            Cubes[i].transform.parent = null;
             // use gravity
             Cubes[i].GetComponent<Rigidbody>().useGravity = true; 
-            //unfreeze rotation
-	        Cubes[i].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            // non kinematic
+            Cubes[i].GetComponent<Rigidbody>().isKinematic = false;
+            // set not following bool
+            Cubes[i].GetComponent<Cube>().IsFollowingMagnet = false;
         }
-        Debug.Log("LowerWinchDropOff complete for -follow me cancelled -use gravity");
+        Debug.Log("CRANE LowerWinchDropOff complete for -follow me cancelled -use gravity");
+        yield return null;
     }
 
     // Lower winch / magnet
@@ -241,7 +220,7 @@ public class MoveGantry : MonoBehaviour {
 
     // Raise winch / magnet
     IEnumerator RaiseWinchAfterDropOff() {
-        Debug.Log("7. Raise winch");
+        Debug.Log("7. CRANE Raise winch");
         Cable.RaiseComplete = false;
         // Raise Cable and Magnet
         while (Cable.RaiseComplete == false) {
@@ -260,14 +239,14 @@ public class MoveGantry : MonoBehaviour {
 
     // reset 
     IEnumerator Reset() {
-        Debug.Log("8. Reset");
+        Debug.Log("8. CRANE Reset");
         // reset cube ready for next cube that is moved
         if (TargetCube != null) {
             // reset TargetCube 
             TargetCube = null;
         }
         //ResetCube();
-        Debug.Log("TargetCube="+TargetCube);
+        Debug.Log("CRANE Reset TargetCube="+TargetCube);
         GantryArrived = false;
         Crane.CraneArrived = false;
         // operations complete release gantry for further tasks
@@ -339,7 +318,7 @@ public class MoveGantry : MonoBehaviour {
            } 
         }
         if(i > 0) {
-            Debug.Log("ground close by - drop off");
+            Debug.Log("CRANE ground close by - drop off");
             return true;
         } else {
             return false;
@@ -358,7 +337,7 @@ public class MoveGantry : MonoBehaviour {
            }  
         }
         if(i > 2) {
-            Debug.Log("Cubes close by - drop off");
+            Debug.Log("CRANE Cubes close by - drop off");
             return true;
         } else {
             return false;
