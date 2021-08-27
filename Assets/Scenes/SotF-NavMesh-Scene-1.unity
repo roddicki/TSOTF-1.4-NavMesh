@@ -245,7 +245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &17434188
 Transform:
   m_ObjectHideFlags: 0
@@ -2269,7 +2269,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &258817882
 Transform:
   m_ObjectHideFlags: 0
@@ -8324,7 +8324,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &901885175
 Transform:
   m_ObjectHideFlags: 0
@@ -8881,7 +8881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19890136, guid: 7c2901cdfa15c492184561d2b3931a8e, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 19890136, guid: 7c2901cdfa15c492184561d2b3931a8e, type: 3}
       propertyPath: InitialModule.rotation3D
@@ -12077,7 +12077,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 773901bfbc29549fc95d6c671d43dbbb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 773901bfbc29549fc95d6c671d43dbbb,
         type: 3}
@@ -13002,7 +13002,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1266028132
 Transform:
   m_ObjectHideFlags: 0
@@ -14064,7 +14064,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1354761763
 Transform:
   m_ObjectHideFlags: 0
@@ -17634,6 +17634,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: marker
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 773901bfbc29549fc95d6c671d43dbbb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 773901bfbc29549fc95d6c671d43dbbb, type: 3}
