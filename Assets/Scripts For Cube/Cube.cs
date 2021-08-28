@@ -47,14 +47,15 @@ public class Cube : MonoBehaviour {
      	LastPos = curPos;
     }
 
+	// follow magnet
 	public void ParentToMagnet()
 	{
-		// CraneMagnet has 1 child
+		// If CraneMagnet has 1 child parent to magnet
 		if (CraneMagnet.transform.childCount < 2) {
 			// if magnet doesn't already have a cube following
 			Debug.Log ("CRANE parent " + this.name + " to magnet");
 			// disable gravity and make kinematic
-			//CubeRigidBody.useGravity = false;
+			CubeRigidBody.useGravity = false;
 			CubeRigidBody.isKinematic = true;
 			// parent
 			this.transform.parent = CraneMagnet.transform;
@@ -64,17 +65,6 @@ public class Cube : MonoBehaviour {
 		}
 	}
 
-	// public void UnParentToMagnet()
-	// {
-	// 	Debug.Log(this.name + " UNparent to magnet");
-	// 	// un parent
-	// 	this.transform.parent = null;
-	// 	// disable gravity and make non kinematic
-	// 	CubeRigidBody.useGravity = true;
-	// 	CubeRigidBody.isKinematic = false;
-	// }
-
-
 	// COLLISION USED TO DROP OFF CUBE ON CONTACT WITH GROUND (OR OTHER CUBE)
 	// When the cube collides 
 	private void OnCollisionEnter (Collision collision) {
@@ -83,11 +73,6 @@ public class Cube : MonoBehaviour {
 		if (collision.gameObject.tag == "cranemagnet" && IsFollowingMagnet == false) {
 			ParentToMagnet();
 		} 
-		// else if parented to CraneMagnet
-		// else if(this.transform.parent != null)
-		// {
-		// 	UnParentToMagnet();
-		// }
 	}
 
 
