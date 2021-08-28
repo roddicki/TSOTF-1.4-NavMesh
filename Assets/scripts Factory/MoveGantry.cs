@@ -19,6 +19,7 @@ public class MoveGantry : MonoBehaviour {
     public bool GantryBusy;
     private bool GantryArrived;
     private CraneMagnet CraneMagnet;
+	private GameObject craneMagnet;
     private WinchCable Cable;
     private Spawn Spawn;
     private CubeManager CubeManager;
@@ -35,10 +36,11 @@ public class MoveGantry : MonoBehaviour {
         TargetCubeX = transform.position.x; 
         // get the Crane <MoveCrane>    
         Crane = GameObject.Find("Crane").GetComponent<MoveCrane>();
-        // get the Crane Magnet
-        CraneMagnet = GameObject.Find("CraneMagnet").GetComponent<CraneMagnet>();
-
-        Cable = GameObject.Find("Cable").GetComponent<WinchCable>();
+		// get the Crane Magnet
+		craneMagnet = GameObject.Find ("CraneMagnet");
+		CraneMagnet = craneMagnet.GetComponent<CraneMagnet>();
+		 
+		Cable = GameObject.Find("Cable").GetComponent<WinchCable>();
         Spawn = GameObject.Find("GameManager").GetComponent<Spawn>();
         CubeManager = GameObject.Find("GameManager").GetComponent<CubeManager>();
     }
@@ -162,19 +164,53 @@ public class MoveGantry : MonoBehaviour {
     // Lower winch / magnet
     IEnumerator LowerWinchDropOff() {
         Debug.Log("6. CRANE Lower winch drop off");
-        // stop all cubes following
-        Cubes = GameObject.FindGameObjectsWithTag("cube");
-        for (int i = 0; i < Cubes.Length; i++) {
-            // un parent
-            Cubes[i].transform.parent = null;
-            // use gravity
-            Cubes[i].GetComponent<Rigidbody>().useGravity = true; 
-            // non kinematic
-            Cubes[i].GetComponent<Rigidbody>().isKinematic = false;
-            // set not following bool
-            Cubes[i].GetComponent<Cube>().IsFollowingMagnet = false;
-        }
-        Debug.Log("CRANE LowerWinchDropOff complete for -follow me cancelled -use gravity");
+		// stop all cubes following
+		//foreach (Transform child in craneMagnet.transform) {
+		//	if (child.gameObject.tag == "cube") {
+		//		Debug.Log ("CRANE carrying " + child.gameObject.name);
+		//		// un parent
+		//		child.gameObject.transform.parent = null;
+		//		Rigidbody rb = child.gameObject.GetComponent<Rigidbody> ();
+		//		// use gravity
+		//		rb.useGravity = true;
+		//		// non kinematic
+		//		rb.isKinematic = false;
+		//		// set not following bool
+		//		child.gameObject.GetComponent<Cube> ().IsFollowingMagnet = false;
+		//	}
+		//}
+		//while(craneMagnet.gameObject.FindWithTag("cube"))
+		//{ 
+			
+		//}
+
+		for (int i = 0; i < craneMagnet.transform.childCount; i++) {
+			Transform child = craneMagnet.transform.GetChild (i);
+			Debug.Log ("CRANE Magnet child " + i + "/" + craneMagnet.transform.childCount + " : " + child.gameObject.name);
+			//if (child.tag == "cube") {
+			//	// un parent
+			//	child.gameObject.transform.parent = null;
+			//	Rigidbody rb = child.gameObject.GetComponent<Rigidbody> ();
+			//	// use gravity
+			//	rb.useGravity = true;
+			//	// non kinematic
+			//	rb.isKinematic = false;
+			//	// set not following bool
+			//	child.gameObject.GetComponent<Cube> ().IsFollowingMagnet = false;
+			//}
+		}
+		//Cubes = GameObject.FindGameObjectsWithTag("cube");
+        //for (int i = 0; i < Cubes.Length; i++) {
+        //    // un parent
+        //    Cubes[i].transform.parent = null;
+        //    // use gravity
+        //    Cubes[i].GetComponent<Rigidbody>().useGravity = true; 
+        //    // non kinematic
+        //    Cubes[i].GetComponent<Rigidbody>().isKinematic = false;
+        //    // set not following bool
+        //    Cubes[i].GetComponent<Cube>().IsFollowingMagnet = false;
+        //}
+        Debug.Log("CRANE LowerWinchDropOff complete");
         yield return null;
     }
 

@@ -49,24 +49,19 @@ public class Cube : MonoBehaviour {
 
 	public void ParentToMagnet()
 	{
-		foreach (Transform child in CraneMagnet.transform)
-		{
-			if (child.gameObject.tag == "cube")
-			{
-				Debug.Log("children= "+child.gameObject.name);
-				//return;
-			}
+		// CraneMagnet has 1 child
+		if (CraneMagnet.transform.childCount < 2) {
+			// if magnet doesn't already have a cube following
+			Debug.Log ("CRANE parent " + this.name + " to magnet");
+			// disable gravity and make kinematic
+			//CubeRigidBody.useGravity = false;
+			CubeRigidBody.isKinematic = true;
+			// parent
+			this.transform.parent = CraneMagnet.transform;
+			// move to magnet
+			this.transform.position = CraneMagnet.transform.position + followingOffset;
+			IsFollowingMagnet = true;
 		}
-		// if magnet doesn't already have a cube following
-		Debug.Log("CRANE parent " + this.name + " to magnet");
-		// disable gravity and make kinematic
-		//CubeRigidBody.useGravity = false;
-		CubeRigidBody.isKinematic = true;
-		// parent
-		this.transform.parent = CraneMagnet.transform;
-		// move to magnet
-		this.transform.position = CraneMagnet.transform.position + followingOffset;
-		IsFollowingMagnet = true;
 	}
 
 	// public void UnParentToMagnet()

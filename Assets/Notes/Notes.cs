@@ -1,16 +1,5 @@
 ﻿// TO DO
 
-//REORGANISE
-// amalagmate Spawner and GameManager
-
-//RESPAWN
-//- Destroy all cubes and agents and respawn
-
-
-//GANTRY CRANE
-//- make crane more efficient
-//- fix pick up cube - change move position to parent transform
-
 //BAY
 //- hilite fade edges
 
@@ -19,11 +8,9 @@
 //- design better marker
 
 //AGENT
-//- fix jittering animations
 //- fix / new push animation
 //- fix PantingInt 2, ProneInt 1 & PantingInt 2, ProneInt 0
 //- keep rigid body constraints until PUSH is over - hmm have I done this..? good enough
-//- add ragdoll state to dead agents
 
 // create 100% cooperative states
 
