@@ -75,17 +75,17 @@ public class MoveGantry : MonoBehaviour {
         yield return StartCoroutine(CheckPickedUpCube());
         // 4. Raise winch / magnet
         yield return StartCoroutine(RaiseWinchMagnet());
-        // check cube is following
-        //if(CubeIsFollowing()){
-        // Move Gantry and Crane to cube start position
-        yield return StartCoroutine(SetGantryCraneArrived());
-        // 5. GantryArrived = false;
-        yield return StartCoroutine(MoveToCubeStartPos());
-        // 6. Lower winch / magnet
-        yield return StartCoroutine(LowerWinchDropOff());
-        // 7. Raise winch / magnet
-        yield return StartCoroutine(RaiseWinchAfterDropOff());
-        //};
+        // if magnet has more than one child - cube is parented
+        if(craneMagnet.transform.childCount > 1){
+            // Move Gantry and Crane to cube start position
+            yield return StartCoroutine(SetGantryCraneArrived());
+            // 5. GantryArrived = false;
+            yield return StartCoroutine(MoveToCubeStartPos());
+            // 6. Lower winch / magnet
+            yield return StartCoroutine(LowerWinchDropOff());
+            // 7. Raise winch / magnet
+            yield return StartCoroutine(RaiseWinchAfterDropOff());
+        };
         // move cube to end of list
         yield return StartCoroutine(CubeToListEnd());
         // 8. reset
@@ -227,6 +227,19 @@ public class MoveGantry : MonoBehaviour {
         Debug.Log("8. CRANE Reset");
         // reset cube ready for next cube that is moved
         if (TargetCube != null) {
+            // make sure Target is unparented
+            // un parent
+            TargetCube.transform.parent = null;
+            Rigidbody rb = TargetCube.GetComponent<Rigidbody> ();
+            // use gravity
+            rb.useGravity = true;
+            // non kinematic
+            rb.isKinematic = false;
+            //unfreeze any rotation
+            rb.constraints = RigidbodyConstraints.None;
+            // set not following bool
+            yield return new WaitForSeconds(0.1f);
+            TargetCube.GetComponent<Cube> ().IsFollowingMagnet = false;
             // reset TargetCube 
             TargetCube = null;
         }

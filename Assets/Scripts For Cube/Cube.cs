@@ -26,7 +26,7 @@ public class Cube : MonoBehaviour {
         LastPos = transform.position;
 		StartPos = CreateStartPos(transform.position);
         //Collision = false;
-		followingOffset = new Vector3(0f,-1.8f,0f);
+		followingOffset = new Vector3(0f,-1.58f,0f);
         IsFollowingMagnet = false;
         Collision = false;
     }
