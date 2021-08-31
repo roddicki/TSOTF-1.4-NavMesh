@@ -432,6 +432,7 @@ public class Death : State {
 	// timer variables
 	private float timeRemaining;
 	private bool startTimer;
+	private GameObject m_Ragdoll;
 
 	public override void Enter ()
 	{
@@ -447,6 +448,7 @@ public class Death : State {
 		// timer delays ragdoll activation
 		if (Timer()) {
 			ActivateRagdoll();
+			ToDeathColor();
 		}
 		//nextState = new Idle (npc, agent, anim, cube, bay, health);
 		//stage = EVENT.EXIT;
@@ -482,7 +484,7 @@ public class Death : State {
 	private void ActivateRagdoll() 
 	{
 		// get ragdoll
-		GameObject m_Ragdoll = agent.transform.GetChild(1).gameObject; // doesn't work
+		m_Ragdoll = agent.transform.GetChild(1).gameObject; 
 		if (m_Ragdoll.tag != "ragdoll") {
 			Debug.LogWarning("Ragdoll may not be present as a child of the agent.");
             return;
@@ -525,6 +527,28 @@ public class Death : State {
             CopyTransformData(source, destination);
         }
     }
+
+	// change agent color to death color
+	private void ToDeathColor()
+	{
+		// get ragdoll instance and color
+		Debug.Log("TpDeathColor");
+		GameObject m_RagdollModel = m_Ragdoll.transform.Find ("shadow_human_rigged_001_geo").gameObject; 
+		Renderer m_RagdollRenderer = m_RagdollModel.GetComponent<SkinnedMeshRenderer> ();
+		Color ragDollColor = m_RagdollRenderer.GetComponent<Renderer> ().material.color;
+		// death color
+		Color deathColor = new Color (0.7f, 0.7f, 0.7f, 1.0f);
+		
+		float t = 0;
+		float duration = 5.0f;
+		// Transition until complete
+		// slow down this loop
+		while (t < 0.85f) {
+			Debug.Log("transition "+ npc.name);
+			t += Time.deltaTime / duration; // Divided by 5 to make it 5 seconds.
+			m_RagdollRenderer.GetComponent<Renderer> ().material.color = Color.Lerp (ragDollColor, deathColor, t);
+		}
+	}
 
 
 }

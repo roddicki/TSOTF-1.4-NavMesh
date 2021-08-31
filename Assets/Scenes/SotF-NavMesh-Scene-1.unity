@@ -156,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroy: {fileID: 9331727}
   spawn: {fileID: 9331728}
-  timeAllowed: 120
+  timeAllowed: 200
   timeRemaining: 0
 --- !u!4 &9331725
 Transform:
