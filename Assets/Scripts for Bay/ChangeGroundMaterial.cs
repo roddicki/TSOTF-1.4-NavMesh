@@ -13,9 +13,10 @@ public class ChangeGroundMaterial : MonoBehaviour
     Renderer m_GroundRenderer;
 	Renderer m_MarkerRenderer;
 	GoalDetect GoalDetect;
+	// death
 
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
         // Get the ground renderer so we can change the material when a goal is scored
         m_GroundRenderer = ground.GetComponent<Renderer>();
@@ -25,14 +26,15 @@ public class ChangeGroundMaterial : MonoBehaviour
 		m_MarkerMaterial = m_MarkerRenderer.material;
 		// get goal detect script
 		GoalDetect = GetComponent<GoalDetect>();
-    }
+	}
 
-    void OnTriggerEnter(Collider other) 
+	void OnTriggerEnter(Collider other) 
     {
         // Touched goal and goal name
         if (other.gameObject.CompareTag("cube")) {
             // Swap ground material for a bit to indicate we scored.
             StartCoroutine(GoalScoredSwapGroundMaterial(goalScoredMaterial, goalScoredMarkerMaterial, 0.5f));
+			//StartCoroutine (DeathColor ());
         }
     }
 
@@ -41,9 +43,12 @@ public class ChangeGroundMaterial : MonoBehaviour
     {
         m_GroundRenderer.material = groundMaterial;
 		m_MarkerRenderer.material = markerMaterial;
-		yield return new WaitForSeconds(time); // Wait for 2 sec
+		yield return new WaitForSeconds(time); // Wait for 0.5 sec
         m_GroundRenderer.material = m_GroundMaterial;
-		yield return new WaitForSeconds (time*2.0f); // Wait for 2 sec
+		yield return new WaitForSeconds (time*2.0f); // Wait for 1 sec
 		m_MarkerRenderer.material = m_MarkerMaterial;
 	}
+
+
+
 }

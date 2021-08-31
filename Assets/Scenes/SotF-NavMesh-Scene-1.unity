@@ -245,7 +245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &17434188
 Transform:
   m_ObjectHideFlags: 0
@@ -2269,7 +2269,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &258817882
 Transform:
   m_ObjectHideFlags: 0
@@ -6005,6 +6005,7 @@ GameObject:
   - component: {fileID: 601522385}
   - component: {fileID: 601522384}
   - component: {fileID: 601522383}
+  - component: {fileID: 601522388}
   m_Layer: 2
   m_Name: Agent1-bay
   m_TagString: bay
@@ -6120,6 +6121,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 601522381}
   m_Mesh: {fileID: 4300000, guid: 52a603d2dd6a4d8408cf838e55897b48, type: 3}
+--- !u!114 &601522388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601522381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 402a113adf3fc4087ad4873656c0fffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  marker: {fileID: 518249083}
 --- !u!1 &617213730 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: be560a80f9b471a8b98099b8d4614467,
@@ -8324,7 +8338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &901885175
 Transform:
   m_ObjectHideFlags: 0
@@ -13002,7 +13016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1266028132
 Transform:
   m_ObjectHideFlags: 0
@@ -14064,7 +14078,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1354761763
 Transform:
   m_ObjectHideFlags: 0
@@ -19741,12 +19755,12 @@ PrefabInstance:
     - target: {fileID: 224464518060652966, guid: 1177133a709aac84289a7d57c5ea92c3,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -112.6001
+      value: -112.59961
       objectReference: {fileID: 0}
     - target: {fileID: 224464518060652966, guid: 1177133a709aac84289a7d57c5ea92c3,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -65.69995
+      value: -65.700195
       objectReference: {fileID: 0}
     - target: {fileID: 224524334641143448, guid: 1177133a709aac84289a7d57c5ea92c3,
         type: 3}
