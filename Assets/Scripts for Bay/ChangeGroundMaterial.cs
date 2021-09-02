@@ -34,7 +34,6 @@ public class ChangeGroundMaterial : MonoBehaviour
         if (other.gameObject.CompareTag("cube")) {
             // Swap ground material for a bit to indicate we scored.
             StartCoroutine(GoalScoredSwapGroundMaterial(goalScoredMaterial, goalScoredMarkerMaterial, 0.5f));
-			//StartCoroutine (DeathColor ());
         }
     }
 

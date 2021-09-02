@@ -433,6 +433,8 @@ public class Death : State {
 	private float timeRemaining;
 	private bool startTimer;
 	private GameObject m_Ragdoll;
+	// death color script - to run a coroutine
+	private DeathColor deathColor;
 
 	public override void Enter ()
 	{
@@ -441,14 +443,15 @@ public class Death : State {
 		// delay ragdoll
 		timeRemaining = Random.Range(2.0f, 15.0f);
 		startTimer = true;
+		deathColor = npc.GetComponent<DeathColor> ();
 	}
 
 	public override void Update ()
 	{
 		// timer delays ragdoll activation
 		if (Timer()) {
-			ActivateRagdoll();
-			ToDeathColor();
+			ActivateRagdoll ();
+			deathColor.StartCoroutine (deathColor.IniateDeathColor (m_Ragdoll, npc.name));
 		}
 		//nextState = new Idle (npc, agent, anim, cube, bay, health);
 		//stage = EVENT.EXIT;
@@ -529,26 +532,26 @@ public class Death : State {
     }
 
 	// change agent color to death color
-	private void ToDeathColor()
-	{
-		// get ragdoll instance and color
-		Debug.Log("TpDeathColor");
-		GameObject m_RagdollModel = m_Ragdoll.transform.Find ("shadow_human_rigged_001_geo").gameObject; 
-		Renderer m_RagdollRenderer = m_RagdollModel.GetComponent<SkinnedMeshRenderer> ();
-		Color ragDollColor = m_RagdollRenderer.GetComponent<Renderer> ().material.color;
-		// death color
-		Color deathColor = new Color (0.7f, 0.7f, 0.7f, 1.0f);
+	//private void ToDeathColor()
+	//{
+	//	// get ragdoll instance and color
+	//	Debug.Log("TpDeathColor");
+	//	GameObject m_RagdollModel = m_Ragdoll.transform.Find ("shadow_human_rigged_001_geo").gameObject; 
+	//	Renderer m_RagdollRenderer = m_RagdollModel.GetComponent<SkinnedMeshRenderer> ();
+	//	Color ragDollColor = m_RagdollRenderer.GetComponent<Renderer> ().material.color;
+	//	// death color
+	//	Color deathColor = new Color (0.7f, 0.7f, 0.7f, 1.0f);
 		
-		float t = 0;
-		float duration = 5.0f;
-		// Transition until complete
-		// slow down this loop
-		while (t < 0.85f) {
-			Debug.Log("transition "+ npc.name);
-			t += Time.deltaTime / duration; // Divided by 5 to make it 5 seconds.
-			m_RagdollRenderer.GetComponent<Renderer> ().material.color = Color.Lerp (ragDollColor, deathColor, t);
-		}
-	}
+	//	float t = 0;
+	//	float duration = 5.0f;
+	//	// Transition until complete
+	//	// slow down this loop
+	//	while (t < 0.85f) {
+	//		Debug.Log("transition "+ npc.name);
+	//		t += Time.deltaTime / duration; // Divided by 5 to make it 5 seconds.
+	//		m_RagdollRenderer.GetComponent<Renderer> ().material.color = Color.Lerp (ragDollColor, deathColor, t);
+	//	}
+	//}
 
 
 }

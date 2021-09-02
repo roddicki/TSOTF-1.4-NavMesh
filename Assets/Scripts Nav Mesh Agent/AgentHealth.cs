@@ -21,7 +21,7 @@ public class AgentHealth : MonoBehaviour
 	// if at any time the agents score drops below 100 points they go into dying mode
 	private void Start ()
 	{
-		Health = 0f; //205.0f;
+		Health = 205.0f;
 		// get a random time limit before points are lost
 		Delay = Random.Range (50.0f, 90.0f); 
 		CountDown = true;
