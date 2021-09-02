@@ -156,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroy: {fileID: 9331727}
   spawn: {fileID: 9331728}
-  timeAllowed: 200
+  timeAllowed: 180
   timeRemaining: 0
 --- !u!4 &9331725
 Transform:
@@ -6134,6 +6134,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   marker: {fileID: 518249083}
+  markerColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
 --- !u!1 &617213730 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: be560a80f9b471a8b98099b8d4614467,

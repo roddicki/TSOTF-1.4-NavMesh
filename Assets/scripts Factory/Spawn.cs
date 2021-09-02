@@ -21,14 +21,17 @@ public class Spawn : MonoBehaviour{
 	// ragdoll
 	public GameObject Ragdoll;
 	public bool AgentSpawnComplete;
-
+	// marker color
+	// Dictionary<keytype, objectType> dictionaryName;
+    Dictionary <string, Color> markerColors = new Dictionary<string, Color>();
 
 	// Start is called before the first frame update
 	void Awake() {
+		GetMarkerColor();
 		SpawnWait = 0.01F;
 		if (DoSpawn){
 			StartCoroutine (AgentSpawner ());
-			//StartCoroutine (RagollSpawner ());
+			//StartCoroutine (RagollSpawner ()); // ragdolls are spawned from AgentSpawner
 			StartCoroutine (CubeSpawner ());
 		}
 
@@ -37,30 +40,40 @@ public class Spawn : MonoBehaviour{
 
 	}
 
-    // Update is called once per frame
-    void Update() {
-        
-    }
+	// create list of bay names and marker colors
+	private void GetMarkerColor() {
+		GameObject [] bays = GameObject.FindGameObjectsWithTag("bay");
+		foreach (GameObject bay in bays)
+		{
+			// get marker material
+			GameObject marker = bay.transform.Find ("marker").gameObject; 
+			Renderer m_MarkerRenderer = marker.GetComponent<Renderer> ();
+			Material m_MarkerMaterial = m_MarkerRenderer.material;
+			Debug.Log(m_MarkerMaterial.color);
+			// add to dictionary
+			markerColors.Add(bay.name, m_MarkerMaterial.color);
+		}   
+	}
 
 	// spawn an agent for each bay
-	public IEnumerator AgentSpawner (){
+	public IEnumerator AgentSpawner () {
 		// get the gameobject / agent to spawn / model from the prefab in the public variable
 		GameObject[] bays = GameObject.FindGameObjectsWithTag ("bay");
 		int i = 0;
 		foreach (GameObject bay in bays) {
 			Vector3 SpawnPos = bay.transform.position;
-			//if (i != 0) {
 			GameObject NewAgent = Instantiate (AgentToSpawn, SpawnPos, AgentToSpawn.transform.rotation);
 			NewAgent.name = "Agent" + i;
-			// get marker material
+
+			// set marker material
 			GameObject marker = bay.transform.Find ("marker").gameObject; 
 			Renderer m_MarkerRenderer = marker.GetComponent<Renderer> ();
-			Material m_MarkerMaterial = m_MarkerRenderer.material;
-			// apply material to the model shadow_human_rigged_001_geo that is a child of agent
+			m_MarkerRenderer.material.color = markerColors[bay.name];
+			Debug.Log(bay.name +" "+ markerColors[bay.name] +" "+ NewAgent.name);
+			// set material of the model shadow_human_rigged_001_geo that is a child of agent
 			GameObject m_RiggedAgent = NewAgent.transform.GetChild(0).gameObject.transform.Find (ModelToSpawn.name).gameObject; // works
 			Renderer m_RiggedAgentRenderer = m_RiggedAgent.GetComponent<SkinnedMeshRenderer> ();
-			m_RiggedAgentRenderer.material = m_MarkerMaterial; 
-			//}
+			m_RiggedAgentRenderer.material.color = markerColors[bay.name]; 
 			i += 1;
 			yield return null;
 		}
