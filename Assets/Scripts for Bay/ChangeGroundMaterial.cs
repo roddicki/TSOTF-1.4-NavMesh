@@ -13,7 +13,8 @@ public class ChangeGroundMaterial : MonoBehaviour
     Renderer m_GroundRenderer;
 	Renderer m_MarkerRenderer;
 	GoalDetect GoalDetect;
-	// death
+	// dead or alive
+	private AI aI;
 
 	// Start is called before the first frame update
 	void Start()
@@ -30,8 +31,16 @@ public class ChangeGroundMaterial : MonoBehaviour
 
 	void OnTriggerEnter(Collider other) 
     {
-        // Touched goal and goal name
-        if (other.gameObject.CompareTag("cube")) {
+		// assign aI to the agent AI component to get its current state (and if Death) 
+		// assign here not in Start to be sure agent is instantiated
+		if (aI == null) {
+			// find agent that belongs to bay - name contains bay name
+			string [] bayName = ground.name.Split ("-" [0]);
+			GameObject agent = GameObject.Find (bayName [0]);
+			aI = agent.GetComponent<AI> ();
+		}
+		// if cube touched goal and agent not dead
+		if (other.gameObject.CompareTag("cube") && aI.currentState.ToString() != "Death" ) {
             // Swap ground material for a bit to indicate we scored.
             StartCoroutine(GoalScoredSwapGroundMaterial(goalScoredMaterial, goalScoredMarkerMaterial, 0.5f));
         }
@@ -42,9 +51,8 @@ public class ChangeGroundMaterial : MonoBehaviour
     {
         m_GroundRenderer.material = groundMaterial;
 		m_MarkerRenderer.material = markerMaterial;
-		yield return new WaitForSeconds(time); // Wait for 0.5 sec
+		yield return new WaitForSeconds(time * 2.0f); // Wait for 0.5 sec
         m_GroundRenderer.material = m_GroundMaterial;
-		yield return new WaitForSeconds (time*2.0f); // Wait for 1 sec
 		m_MarkerRenderer.material = m_MarkerMaterial;
 	}
 

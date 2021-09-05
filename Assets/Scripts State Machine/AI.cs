@@ -10,7 +10,7 @@ public class AI : MonoBehaviour
 	Animator anim;
 	private GameObject cube;
 	public GameObject bay;
-	State currentState;
+	public State currentState;
 	private AgentHealth health;
 
 	// Start is called before the first frame update

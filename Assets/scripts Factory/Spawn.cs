@@ -49,7 +49,6 @@ public class Spawn : MonoBehaviour{
 			GameObject marker = bay.transform.Find ("marker").gameObject; 
 			Renderer m_MarkerRenderer = marker.GetComponent<Renderer> ();
 			Material m_MarkerMaterial = m_MarkerRenderer.material;
-			Debug.Log(m_MarkerMaterial.color);
 			// add to dictionary
 			markerColors.Add(bay.name, m_MarkerMaterial.color);
 		}   
@@ -69,7 +68,6 @@ public class Spawn : MonoBehaviour{
 			GameObject marker = bay.transform.Find ("marker").gameObject; 
 			Renderer m_MarkerRenderer = marker.GetComponent<Renderer> ();
 			m_MarkerRenderer.material.color = markerColors[bay.name];
-			Debug.Log(bay.name +" "+ markerColors[bay.name] +" "+ NewAgent.name);
 			// set material of the model shadow_human_rigged_001_geo that is a child of agent
 			GameObject m_RiggedAgent = NewAgent.transform.GetChild(0).gameObject.transform.Find (ModelToSpawn.name).gameObject; // works
 			Renderer m_RiggedAgentRenderer = m_RiggedAgent.GetComponent<SkinnedMeshRenderer> ();
