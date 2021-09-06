@@ -102,6 +102,9 @@ public class SetBehaviour: State
 
 	public override void Update ()
 	{
+		// set agent behaviour here
+		// Steal - take cubes from another bay?
+		// RobinHood - take cunes from wealthy
 		nextState = new SetTarget (npc, agent, anim, cube, bay, health);
 		stage = EVENT.EXIT;
 	}
@@ -168,9 +171,7 @@ public class SetTargetSteal : State {
 				// if hit cube & hit cube not contained in own bay
 				if (hit.collider.tag == "cube" && bayCollider.bounds.Contains(GameObject.Find (hit.collider.name).transform.position) == false) 
 				{
-					// take cubes from another bay?
-
-					// if cube is in a bay?
+					// if cube is in a bay
 					// how many cubes in that bay?
 					Debug.Log (hit.collider.name);
 					// set as target cube
@@ -280,10 +281,6 @@ public class SetTarget : State {
 				// if hit cube & hit cube not contained in own bay
 				if (hit.collider.tag == "cube" && bayCollider.bounds.Contains(GameObject.Find (hit.collider.name).transform.position) == false) 
 				{
-					// take cubes from another bay?
-
-					// if cube is in a bay?
-					// how many cubes in that bay?
 					Debug.Log (hit.collider.name);
 					// set as target cube
 					cube = GameObject.Find (hit.collider.name);
