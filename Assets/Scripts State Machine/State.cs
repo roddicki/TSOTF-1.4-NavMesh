@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class State
 {
     public enum STATE {
-		IDLE, SOCIAL, SETTARGET, SEARCH, PUSH, STOP, BREATHLESS, DEATH
+		IDLE, SOCIAL, SETTARGET, SETTARGETSTEAL, SEARCH, PUSH, STOP, BREATHLESS, DEATH
 	};
 
 	public enum EVENT {
@@ -88,6 +88,118 @@ public class Idle: State
 }
 
 //------------------------------------------//
+// SetTargetSteal state
+public class SetTargetSteal : State {
+
+	public SetTargetSteal (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
+	{
+		name = STATE.SETTARGETSTEAL;
+		agent.speed = 2; //nav mesh
+		agent.isStopped = false;
+	}
+
+	public Collider bayCollider;
+	public Collider centralBayCollider;
+	public float timeRemaining;
+	// behaviour
+	private AgentBehaviour agentBehaviour;
+
+	public override void Enter ()
+	{
+		Debug.Log (npc.name + " " + name.ToString ());
+		timeRemaining = npc.GetComponent<Timer>().timeRemaining;
+		bayCollider = bay.GetComponent<Collider> ();
+		// get central bay
+		centralBayCollider = GameObject.Find ("Ground Decal Square").GetComponent<Collider> ();
+		base.Enter ();
+		// set wandering destination toward navmeshcentre
+		agent.SetDestination (RandomPointInBounds (centralBayCollider.bounds));
+		// assign behaviour
+		agentBehaviour = npc.GetComponent<AgentBehaviour>();
+	}
+
+	public override void Update ()
+	{
+		// wander
+		if (agent.pathPending != true && agent.remainingDistance < 1) {
+			agent.SetDestination (Wander());
+		}
+
+		// find cube
+		RaycastHit hit;
+		Vector3 source = new Vector3 (agent.transform.position.x, agent.transform.position.y + 1.5f, agent.transform.position.z);
+		Vector3 [] angles = new Vector3 [3];
+
+		angles [0] = agent.transform.TransformDirection ((Vector3.forward + Vector3.right).normalized);
+		angles [1] = agent.transform.TransformDirection (Vector3.forward);
+		angles [2] = agent.transform.TransformDirection ((Vector3.forward - Vector3.right).normalized);
+
+		foreach (Vector3 angle in angles) {
+			Ray ray = new Ray (source, angle);
+			//Debug.DrawRay (source, angle * 40, Color.red, 1.0f);
+			// got a hit
+			if (Physics.SphereCast (ray, 3.0f, out hit, 60)) {
+				Debug.DrawRay (source, angle * hit.distance, Color.red);
+				// if hit cube & hit cube not contained in own bay
+				if (hit.collider.tag == "cube" && bayCollider.bounds.Contains(GameObject.Find (hit.collider.name).transform.position) == false) 
+				{
+					// take cubes from another bay?
+
+					// if cube is in a bay?
+					// how many cubes in that bay?
+					Debug.Log (hit.collider.name);
+					// set as target cube
+					cube = GameObject.Find (hit.collider.name);
+					// start timer in Timer.cs
+					npc.GetComponent<Timer>().timeRemaining = 20;
+					npc.GetComponent<Timer>().startTimer = true;
+					// goto next state
+					nextState = new Search (npc, agent, anim, cube, bay, health);
+					stage = EVENT.EXIT;
+				}
+			}
+		}
+
+		// health
+		if (health.Health < 105.0f) {
+			nextState = new Breathless (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		}
+
+	}
+
+	public override void Exit ()
+	{
+		//anim.ResetTrigger ("isWalking");
+		base.Exit ();
+	}
+
+	// find cube
+
+
+	// return random point in central bay
+	Vector3 RandomPointInBounds (Bounds bounds)
+	{
+		return new Vector3 (
+			Random.Range (bounds.min.x, bounds.max.x),
+			Random.Range (bounds.min.y, bounds.max.y),
+			Random.Range (bounds.min.z, bounds.max.z)
+		);
+	}
+
+	// return random position to move to
+	Vector3 Wander()
+	{
+		Vector3 randomDirection = Random.insideUnitSphere * 10;
+		randomDirection += agent.transform.position;
+		NavMeshHit hit;
+		NavMesh.SamplePosition (randomDirection, out hit, 10, 1);
+		Vector3 finalPosition = hit.position;
+		return finalPosition;
+	}
+}
+
+//------------------------------------------//
 // SetTarget state
 public class SetTarget : State {
 
@@ -136,12 +248,17 @@ public class SetTarget : State {
 
 		foreach (Vector3 angle in angles) {
 			Ray ray = new Ray (source, angle);
-			Debug.DrawRay (source, angle * 40, Color.red, 1.0f);
+			//Debug.DrawRay (source, angle * 40, Color.red, 1.0f);
+			// got a hit
 			if (Physics.SphereCast (ray, 3.0f, out hit, 60)) {
 				Debug.DrawRay (source, angle * hit.distance, Color.red);
-				// if hit cube & hit cube not contained in bay
+				// if hit cube & hit cube not contained in own bay
 				if (hit.collider.tag == "cube" && bayCollider.bounds.Contains(GameObject.Find (hit.collider.name).transform.position) == false) 
 				{
+					// take cubes from another bay?
+
+					// if cube is in a bay?
+					// how many cubes in that bay?
 					Debug.Log (hit.collider.name);
 					// set as target cube
 					cube = GameObject.Find (hit.collider.name);
