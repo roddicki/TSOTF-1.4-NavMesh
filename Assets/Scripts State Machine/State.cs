@@ -101,6 +101,8 @@ public class SetTarget : State {
 	public Collider bayCollider;
 	public Collider centralBayCollider;
 	public float timeRemaining;
+	// behaviour
+	private AgentBehaviour agentBehaviour;
 
 	public override void Enter ()
 	{
@@ -112,6 +114,8 @@ public class SetTarget : State {
 		base.Enter ();
 		// set wandering destination toward navmeshcentre
 		agent.SetDestination (RandomPointInBounds (centralBayCollider.bounds));
+		// assign behaviour
+		agentBehaviour = npc.GetComponent<AgentBehaviour>();
 	}
 
 	public override void Update ()
@@ -531,27 +535,6 @@ public class Death : State {
         }
     }
 
-	// change agent color to death color
-	//private void ToDeathColor()
-	//{
-	//	// get ragdoll instance and color
-	//	Debug.Log("TpDeathColor");
-	//	GameObject m_RagdollModel = m_Ragdoll.transform.Find ("shadow_human_rigged_001_geo").gameObject; 
-	//	Renderer m_RagdollRenderer = m_RagdollModel.GetComponent<SkinnedMeshRenderer> ();
-	//	Color ragDollColor = m_RagdollRenderer.GetComponent<Renderer> ().material.color;
-	//	// death color
-	//	Color deathColor = new Color (0.7f, 0.7f, 0.7f, 1.0f);
-		
-	//	float t = 0;
-	//	float duration = 5.0f;
-	//	// Transition until complete
-	//	// slow down this loop
-	//	while (t < 0.85f) {
-	//		Debug.Log("transition "+ npc.name);
-	//		t += Time.deltaTime / duration; // Divided by 5 to make it 5 seconds.
-	//		m_RagdollRenderer.GetComponent<Renderer> ().material.color = Color.Lerp (ragDollColor, deathColor, t);
-	//	}
-	//}
 
 
 }

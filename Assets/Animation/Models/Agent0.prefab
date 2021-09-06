@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 7846002215328713069}
   - component: {fileID: 7846002215328713064}
   - component: {fileID: -9154588992265765870}
+  - component: {fileID: 1714240433645257022}
   m_Layer: 0
   m_Name: Agent0
   m_TagString: agent
@@ -209,7 +210,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4df6e26d0ca54f5484ae3c93197b153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 
+--- !u!114 &1714240433645257022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7846002215328713044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b01e12adac961c678072e0c28973605, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Steal: 0
+  RobinHood: 0
+  Help: 0
+  Compete: 0
+  Greed: 0
 --- !u!1001 &7846002214302800634
 PrefabInstance:
   m_ObjectHideFlags: 0
