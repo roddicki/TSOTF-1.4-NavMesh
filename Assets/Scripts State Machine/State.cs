@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class State
 {
     public enum STATE {
-		IDLE, SOCIAL, SETTARGET, SETTARGETSTEAL, SEARCH, PUSH, STOP, BREATHLESS, DEATH
+		IDLE, SETBEHAVIOUR, SETTARGET, SETTARGETSTEAL, SEARCH, PUSH, STOP, BREATHLESS, DEATH
 	};
 
 	public enum EVENT {
@@ -67,7 +67,6 @@ public class Idle: State
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString());
-		//anim.SetTrigger ("isIdle");
 		base.Enter ();
 	}
 
@@ -75,14 +74,40 @@ public class Idle: State
 	{
 		if(Random.Range(0, 100) < 10) 
 		{
-			nextState = new SetTarget (npc, agent, anim, cube, bay, health);
+			nextState = new SetBehaviour (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
 	}
 
 	public override void Exit ()
 	{
-		//anim.ResetTrigger ("isIdle");
+		base.Exit ();
+	}
+}
+
+//------------------------------------------//
+// SetBehaviour state
+public class SetBehaviour: State 
+{
+	public SetBehaviour (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base(_npc, _agent, _anim, _cube, _bay, _health)
+	{
+		name = STATE.SETBEHAVIOUR;
+	}
+
+	public override void Enter ()
+	{
+		Debug.Log (name.ToString());
+		base.Enter ();
+	}
+
+	public override void Update ()
+	{
+		nextState = new SetTarget (npc, agent, anim, cube, bay, health);
+		stage = EVENT.EXIT;
+	}
+
+	public override void Exit ()
+	{
 		base.Exit ();
 	}
 }
@@ -350,7 +375,7 @@ public class Search: State
 		timeRemaining = npc.GetComponent<Timer>().timeRemaining;
 		if (timeRemaining == 0)
 		{
-			nextState = new SetTarget (npc, agent, anim, cube, bay, health);
+			nextState = new SetBehaviour (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
 
@@ -409,7 +434,7 @@ public class Push : State {
 		timeRemaining = npc.GetComponent<Timer>().timeRemaining;
 		if (timeRemaining == 0)
 		{
-			nextState = new SetTarget (npc, agent, anim, cube, bay, health);
+			nextState = new SetBehaviour (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
 
@@ -476,7 +501,7 @@ public class Stop : State {
 
 	public override void Update ()
 	{
-		nextState = new SetTarget (npc, agent, anim, cube, bay, health);
+		nextState = new SetBehaviour (npc, agent, anim, cube, bay, health);
 		stage = EVENT.EXIT;
 	}
 
