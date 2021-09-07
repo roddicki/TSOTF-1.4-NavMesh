@@ -174,7 +174,7 @@ public class SetTargetSteal : State {
 			// got a hit
 			if (Physics.SphereCast (ray, 3.0f, out hit, 60)) {
 				Debug.DrawRay (source, angle * hit.distance, Color.red);
-				// if hit is cube in a bay & hit cube not contained in own bay  
+				// if hit is cube in a bay & hit cube not contained in own bay - stealing
 				if (hit.collider.tag == "cube" && IsInBay(hit.collider.name) && bayCollider.bounds.Contains(GameObject.Find (hit.collider.name).transform.position) == false) 
 				{
 					// THIS WORKS BUT - needs some sort of exit if no cubes to steal. eg exit after x attemptes
