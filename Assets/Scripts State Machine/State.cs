@@ -94,9 +94,15 @@ public class SetBehaviour: State
 		name = STATE.SETBEHAVIOUR;
 	}
 
+	// behaviour coefficients
+	private AgentBehaviour agentBehaviour;
+
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString());
+		// assign behaviour
+		agentBehaviour = npc.GetComponent<AgentBehaviour>();
+		Debug.Log("AgentBehaviour help: "+ agentBehaviour.Help);
 		base.Enter ();
 	}
 
@@ -130,8 +136,6 @@ public class SetTargetSteal : State {
 	public Collider centralBayCollider;
 	public GameObject [] allBays;
 	public float timeRemaining;
-	// behaviour
-	private AgentBehaviour agentBehaviour;
 
 	public override void Enter ()
 	{
@@ -146,8 +150,6 @@ public class SetTargetSteal : State {
 		base.Enter ();
 		// set wandering destination toward navmeshcentre
 		agent.SetDestination (RandomPointInBounds (centralBayCollider.bounds));
-		// assign behaviour
-		agentBehaviour = npc.GetComponent<AgentBehaviour>();
 	}
 
 	public override void Update ()
@@ -172,16 +174,11 @@ public class SetTargetSteal : State {
 			// got a hit
 			if (Physics.SphereCast (ray, 3.0f, out hit, 60)) {
 				Debug.DrawRay (source, angle * hit.distance, Color.red);
-				// if hit cube & hit cube not contained in own bay
-				if (hit.collider.tag == "cube" && bayCollider.bounds.Contains(GameObject.Find (hit.collider.name).transform.position) == false) 
+				// if hit is cube in a bay & hit cube not contained in own bay  
+				if (hit.collider.tag == "cube" && IsInBay(hit.collider.name) && bayCollider.bounds.Contains(GameObject.Find (hit.collider.name).transform.position) == false) 
 				{
-					// is cube in any bay
-					if (IsInBay(hit.collider.name))
-					{
-						Debug.Log("IN A BAY, A STEAL");
-					}
-					
-					Debug.Log (hit.collider.name);
+					// THIS WORKS BUT - needs some sort of exit if no cubes to steal. eg exit after x attemptes
+					Debug.Log(hit.collider.name + "IN A BAY, A STEAL");
 					// set as target cube
 					cube = GameObject.Find (hit.collider.name);
 					// start timer in Timer.cs
