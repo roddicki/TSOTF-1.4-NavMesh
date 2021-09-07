@@ -105,7 +105,7 @@ public class SetBehaviour: State
 		// set agent behaviour here
 		// Steal - take cubes from another bay?
 		// RobinHood - take cunes from wealthy
-		nextState = new SetTarget (npc, agent, anim, cube, bay, health);
+		nextState = new SetTargetSteal (npc, agent, anim, cube, bay, health);
 		stage = EVENT.EXIT;
 	}
 
@@ -128,6 +128,7 @@ public class SetTargetSteal : State {
 
 	public Collider bayCollider;
 	public Collider centralBayCollider;
+	public GameObject [] allBays;
 	public float timeRemaining;
 	// behaviour
 	private AgentBehaviour agentBehaviour;
@@ -136,7 +137,10 @@ public class SetTargetSteal : State {
 	{
 		Debug.Log (npc.name + " " + name.ToString ());
 		timeRemaining = npc.GetComponent<Timer>().timeRemaining;
+		// get own bay
 		bayCollider = bay.GetComponent<Collider> ();
+		// get all bays
+		allBays = GameObject.FindGameObjectsWithTag("bay");
 		// get central bay
 		centralBayCollider = GameObject.Find ("Ground Decal Square").GetComponent<Collider> ();
 		base.Enter ();
@@ -171,8 +175,12 @@ public class SetTargetSteal : State {
 				// if hit cube & hit cube not contained in own bay
 				if (hit.collider.tag == "cube" && bayCollider.bounds.Contains(GameObject.Find (hit.collider.name).transform.position) == false) 
 				{
-					// if cube is in a bay
-					// how many cubes in that bay?
+					// is cube in any bay
+					if (IsInBay(hit.collider.name))
+					{
+						Debug.Log("IN A BAY, A STEAL");
+					}
+					
 					Debug.Log (hit.collider.name);
 					// set as target cube
 					cube = GameObject.Find (hit.collider.name);
@@ -222,6 +230,22 @@ public class SetTargetSteal : State {
 		NavMesh.SamplePosition (randomDirection, out hit, 10, 1);
 		Vector3 finalPosition = hit.position;
 		return finalPosition;
+	}
+
+	// is cube in a bay
+	bool IsInBay(string cubeName)
+	{
+		foreach (GameObject bay in allBays)
+		{
+			// get collider
+			Collider bayBoxCollider = bay.GetComponent<Collider>();
+			// if in a bay
+			if (bayBoxCollider.bounds.Contains(GameObject.Find (cubeName).transform.position))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }
 
