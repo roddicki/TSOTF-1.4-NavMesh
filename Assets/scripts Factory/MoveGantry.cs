@@ -90,14 +90,14 @@ public class MoveGantry : MonoBehaviour {
         yield return StartCoroutine(CubeToListEnd());
         // 8. reset
         yield return StartCoroutine(Reset());
-        Debug.Log("END CRANE CraneOperations");
-        Debug.Log("...");
+        // Debug.Log("END CRANE CraneOperations");
+        // Debug.Log("...");
         yield break;
     }
 
     // Move Gantry and Crane to cube
     IEnumerator MoveToCube() {
-        Debug.Log("1. CRANE move to cube new pos");
+        // Debug.Log("1. CRANE move to cube new pos");
         // move the Gantry
         while (GantryArrived == false || Crane.CraneArrived == false) {
             MoveToNewPos(TargetCubeX);
@@ -108,7 +108,7 @@ public class MoveGantry : MonoBehaviour {
 
     // Lower winch / magnet
     IEnumerator LowerWinchPickUp() {
-        Debug.Log("2. CRANE Lower winch, pick up");
+        // Debug.Log("2. CRANE Lower winch, pick up");
         CraneMagnet.Collision = false;
         // Lower cable and magnet until collides with a cube or ground
         while (CraneMagnet.Collision == false) {
@@ -119,7 +119,7 @@ public class MoveGantry : MonoBehaviour {
 
     // check target cube is set to the cube being carried
     IEnumerator CheckPickedUpCube(){
-        Debug.Log("3. CRANE Check targetcube = " + TargetCube);
+        // Debug.Log("3. CRANE Check targetcube = " + TargetCube);
         // change target cube to the child of the CraneMagnet
         foreach(Transform child in craneMagnet.transform)
         {
@@ -128,13 +128,13 @@ public class MoveGantry : MonoBehaviour {
                 TargetCube = child.gameObject;
             }
         }
-        Debug.Log("3. CRANE new targetcube = " + TargetCube);
+        // Debug.Log("3. CRANE new targetcube = " + TargetCube);
         yield break;
     }
 
     // Raise winch / magnet
     IEnumerator RaiseWinchMagnet() {
-        Debug.Log("4. CRANE Raise winch");
+        // Debug.Log("4. CRANE Raise winch");
         Cable.RaiseComplete = false;
         // Raise Cable and Magnet
         while (Cable.RaiseComplete == false) {
@@ -154,7 +154,7 @@ public class MoveGantry : MonoBehaviour {
         // reset Lower and Raise cable flags
         CraneMagnet.Collision = false;
         Cable.RaiseComplete = false;
-        Debug.Log("5. CRANE move to TargetCube start pos");
+        // Debug.Log("5. CRANE move to TargetCube start pos");
         // Move to Cube start point
         while (GantryArrived == false || Crane.CraneArrived == false) {
             // move Gantry
@@ -182,7 +182,7 @@ public class MoveGantry : MonoBehaviour {
         {
             if (cube.tag == "cube")
             {
-                Debug.Log ("6. CRANE Drop off " + cube.gameObject.name);
+                // Debug.Log ("6. CRANE Drop off " + cube.gameObject.name);
                 // un parent
 				cube.gameObject.transform.parent = null;
 				Rigidbody rb = cube.gameObject.GetComponent<Rigidbody> ();
@@ -204,7 +204,7 @@ public class MoveGantry : MonoBehaviour {
 
     // Raise winch / magnet
     IEnumerator RaiseWinchAfterDropOff() {
-        Debug.Log("7. CRANE Raise winch");
+        // Debug.Log("7. CRANE Raise winch");
         Cable.RaiseComplete = false;
         // Raise Cable and Magnet
         while (Cable.RaiseComplete == false) {
@@ -224,7 +224,7 @@ public class MoveGantry : MonoBehaviour {
 
     // reset 
     IEnumerator Reset() {
-        Debug.Log("8. CRANE Reset");
+        // Debug.Log("8. CRANE Reset");
         // reset cube ready for next cube that is moved
         if (TargetCube != null) {
             // make sure Target is unparented
@@ -316,7 +316,7 @@ public class MoveGantry : MonoBehaviour {
            } 
         }
         if(i > 0) {
-            Debug.Log("CRANE ground close by - drop off");
+            // Debug.Log("CRANE ground close by - drop off");
             return true;
         } else {
             return false;
@@ -335,7 +335,7 @@ public class MoveGantry : MonoBehaviour {
            }  
         }
         if(i > 2) {
-            Debug.Log("CRANE Cubes close by - drop off");
+            // Debug.Log("CRANE Cubes close by - drop off");
             return true;
         } else {
             return false;

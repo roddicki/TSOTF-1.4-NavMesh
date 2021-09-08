@@ -55,7 +55,7 @@ public class State
 }
 
 
-//------------------------------------------//
+//=================================================================================================================//
 // Idle state
 public class Idle: State 
 {
@@ -74,7 +74,7 @@ public class Idle: State
 	{
 		if(Random.Range(0, 100) < 10) 
 		{
-			nextState = new SetBehaviour (npc, agent, anim, cube, bay, health);
+			nextState = new SetTarget (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
 	}
@@ -85,7 +85,7 @@ public class Idle: State
 	}
 }
 
-//------------------------------------------//
+//=================================================================================================================//
 // SetBehaviour state
 public class SetBehaviour: State 
 {
@@ -121,7 +121,7 @@ public class SetBehaviour: State
 	}
 }
 
-//------------------------------------------//
+//=================================================================================================================//
 // SetTargetSteal state
 public class SetTargetSteal : State {
 
@@ -135,12 +135,17 @@ public class SetTargetSteal : State {
 	public Collider bayCollider;
 	public Collider centralBayCollider;
 	public GameObject [] allBays;
-	public float timeRemaining;
+	//public float timeRemaining;
+	private Timer timer;
 
 	public override void Enter ()
 	{
 		Debug.Log (npc.name + " " + name.ToString ());
-		timeRemaining = npc.GetComponent<Timer>().timeRemaining;
+		//timeRemaining = npc.GetComponent<Timer>().timeRemaining;
+		timer = npc.GetComponent<Timer>();
+		// start timer - 10s to find a cube to steal
+		timer.timeRemaining = 10.0f;
+		timer.startTimer = true;
 		// get own bay
 		bayCollider = bay.GetComponent<Collider> ();
 		// get all bays
@@ -154,9 +159,17 @@ public class SetTargetSteal : State {
 
 	public override void Update ()
 	{
-		// wander
-		if (agent.pathPending != true && agent.remainingDistance < 1) {
+		// wander to find cube while timer running
+		if (agent.pathPending != true && agent.remainingDistance < 1 && timer.timeRemaining > 0) {
 			agent.SetDestination (Wander());
+		} 
+		// timer run out stop trying to steal and go to Set Target
+		else if (timer.timeRemaining <= 0){
+			Debug.Log(npc.name + "out of Time change to SETTARGET");
+			timer.startTimer = false;
+			// goto next state
+			nextState = new SetTarget (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
 		}
 
 		// find cube
@@ -177,13 +190,11 @@ public class SetTargetSteal : State {
 				// if hit is cube in a bay & hit cube not contained in own bay - stealing
 				if (hit.collider.tag == "cube" && IsInBay(hit.collider.name) && bayCollider.bounds.Contains(GameObject.Find (hit.collider.name).transform.position) == false) 
 				{
-					// THIS WORKS BUT - needs some sort of exit if no cubes to steal. eg exit after x attemptes
-					Debug.Log(hit.collider.name + "IN A BAY, A STEAL");
 					// set as target cube
 					cube = GameObject.Find (hit.collider.name);
 					// start timer in Timer.cs
-					npc.GetComponent<Timer>().timeRemaining = 20;
-					npc.GetComponent<Timer>().startTimer = true;
+					timer.timeRemaining = 20;
+					timer.startTimer = true;
 					// goto next state
 					nextState = new Search (npc, agent, anim, cube, bay, health);
 					stage = EVENT.EXIT;
@@ -246,7 +257,9 @@ public class SetTargetSteal : State {
 	}
 }
 
-//------------------------------------------//
+
+
+//=================================================================================================================//
 // SetTarget state
 public class SetTarget : State {
 
@@ -354,7 +367,7 @@ public class SetTarget : State {
 	}
 }
 
-//------------------------------------------//
+//=================================================================================================================//
 // Search state - found a target moving to it
 public class Search: State 
 {
@@ -417,7 +430,7 @@ public class Search: State
 	}
 }
 
-//------------------------------------------//
+//=================================================================================================================//
 // push state
 public class Push : State {
 
@@ -490,7 +503,7 @@ public class Push : State {
 }
 
 
-//------------------------------------------//
+//=================================================================================================================//
 // stop state
 public class Stop : State {
 	public Stop (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base(_npc, _agent, _anim, _cube, _bay, _health)
@@ -530,7 +543,7 @@ public class Stop : State {
 	}
 }
 
-//------------------------------------------//
+//=================================================================================================================//
 // Breathless state
 public class Breathless : State {
 	public Breathless (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
@@ -582,7 +595,7 @@ public class Breathless : State {
 	}
 }
 
-//------------------------------------------//
+//=================================================================================================================//
 // Death state
 public class Death : State {
 	public Death (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
