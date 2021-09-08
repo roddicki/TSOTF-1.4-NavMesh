@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class State
 {
     public enum STATE {
-		IDLE, SETBEHAVIOUR, SETTARGET, SETTARGETSTEAL, SEARCH, PUSH, STOP, BREATHLESS, DEATH
+		IDLE, SETBEHAVIOUR, SETTARGETHONEST, SETTARGET, SETTARGETSTEAL, SEARCH, PUSH, STOP, BREATHLESS, DEATH
 	};
 
 	public enum EVENT {
@@ -111,7 +111,7 @@ public class SetBehaviour: State
 		// set agent behaviour here
 		// Steal - take cubes from another bay?
 		// RobinHood - take cunes from wealthy
-		nextState = new SetTargetSteal (npc, agent, anim, cube, bay, health);
+		nextState = new SetTargetHonest (npc, agent, anim, cube, bay, health);
 		stage = EVENT.EXIT;
 	}
 
@@ -257,6 +257,141 @@ public class SetTargetSteal : State {
 	}
 }
 
+//=================================================================================================================//
+// SetTargetHonest state
+public class SetTargetHonest : State {
+
+	public SetTargetHonest (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
+	{
+		name = STATE.SETTARGETHONEST;
+		agent.speed = 2; //nav mesh
+		agent.isStopped = false;
+	}
+
+	public Collider bayCollider;
+	public Collider centralBayCollider;
+	public GameObject [] allBays;
+	//public float timeRemaining;
+	private Timer timer;
+
+	public override void Enter ()
+	{
+		Debug.Log (npc.name + " " + name.ToString ());
+		//timeRemaining = npc.GetComponent<Timer>().timeRemaining;
+		timer = npc.GetComponent<Timer>();
+		// start timer - 20s to find a cube to collect
+		timer.timeRemaining = 20.0f;
+		timer.startTimer = true;
+		// get own bay
+		bayCollider = bay.GetComponent<Collider> ();
+		// get all bays
+		allBays = GameObject.FindGameObjectsWithTag("bay");
+		// get central bay
+		centralBayCollider = GameObject.Find ("Ground Decal Square").GetComponent<Collider> ();
+		base.Enter ();
+		// set wandering destination toward navmeshcentre
+		agent.SetDestination (RandomPointInBounds (centralBayCollider.bounds));
+	}
+
+	public override void Update ()
+	{
+		// wander to find cube while timer running
+		if (agent.pathPending != true && agent.remainingDistance < 1 && timer.timeRemaining > 0) {
+			agent.SetDestination (Wander());
+		} 
+		// timer run out stop trying to steal and go to Set Target
+		else if (timer.timeRemaining <= 0){
+			Debug.Log(npc.name + "out of Time change to SETTARGET");
+			timer.startTimer = false;
+			// goto next state
+			nextState = new SetTarget (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		}
+
+		// find cube
+		RaycastHit hit;
+		Vector3 source = new Vector3 (agent.transform.position.x, agent.transform.position.y + 1.5f, agent.transform.position.z);
+		Vector3 [] angles = new Vector3 [3];
+
+		angles [0] = agent.transform.TransformDirection ((Vector3.forward + Vector3.right).normalized);
+		angles [1] = agent.transform.TransformDirection (Vector3.forward);
+		angles [2] = agent.transform.TransformDirection ((Vector3.forward - Vector3.right).normalized);
+
+		foreach (Vector3 angle in angles) {
+			Ray ray = new Ray (source, angle);
+			//Debug.DrawRay (source, angle * 40, Color.red, 1.0f);
+			// got a hit
+			if (Physics.SphereCast (ray, 3.0f, out hit, 60)) {
+				Debug.DrawRay (source, angle * hit.distance, Color.red);
+				// if hit is cube in a bay & hit cube not contained in own bay - stealing
+				if (hit.collider.tag == "cube" && IsInBay(hit.collider.name) == false && bayCollider.bounds.Contains(GameObject.Find (hit.collider.name).transform.position) == false) 
+				{
+					// set as target cube
+					cube = GameObject.Find (hit.collider.name);
+					// start timer in Timer.cs
+					timer.timeRemaining = 20;
+					timer.startTimer = true;
+					// goto next state
+					nextState = new Search (npc, agent, anim, cube, bay, health);
+					stage = EVENT.EXIT;
+				}
+			}
+		}
+
+		// health
+		if (health.Health < 105.0f) {
+			nextState = new Breathless (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		}
+
+	}
+
+	public override void Exit ()
+	{
+		//anim.ResetTrigger ("isWalking");
+		base.Exit ();
+	}
+
+	// find cube
+
+
+	// return random point in central bay
+	Vector3 RandomPointInBounds (Bounds bounds)
+	{
+		return new Vector3 (
+			Random.Range (bounds.min.x, bounds.max.x),
+			Random.Range (bounds.min.y, bounds.max.y),
+			Random.Range (bounds.min.z, bounds.max.z)
+		);
+	}
+
+	// return random position to move to
+	Vector3 Wander()
+	{
+		Vector3 randomDirection = Random.insideUnitSphere * 10;
+		randomDirection += agent.transform.position;
+		NavMeshHit hit;
+		NavMesh.SamplePosition (randomDirection, out hit, 10, 1);
+		Vector3 finalPosition = hit.position;
+		return finalPosition;
+	}
+
+	// is cube in a bay
+	bool IsInBay(string cubeName)
+	{
+		foreach (GameObject bay in allBays)
+		{
+			// get collider
+			Collider bayBoxCollider = bay.GetComponent<Collider>();
+			// if in a bay
+			if (bayBoxCollider.bounds.Contains(GameObject.Find (cubeName).transform.position))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+}
 
 
 //=================================================================================================================//

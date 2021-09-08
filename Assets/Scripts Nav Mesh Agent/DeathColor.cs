@@ -14,7 +14,7 @@ public class DeathColor : MonoBehaviour
 		// death color
 		deathColor = new Color (0.5f, 0.5f, 0.5f, 1.0f);
 		// duration of color change
-		duration = 15.0f;
+		duration = 7.0f;
 	}
 
 
