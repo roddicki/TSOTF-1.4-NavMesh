@@ -110,6 +110,7 @@ public class Spawn : MonoBehaviour{
 
 	// spawn cubes
 	public IEnumerator CubeSpawner (){
+		CubeSpawnComplete = false;
 		//float StartPosX = Random.Range(SpawnPosMinX, SpawnPosMaxX);
 		//float StartPosZ = Random.Range(SpawnPosMinZ, SpawnPosMaxZ);
 		float StartPosX = SpawnPosMinX;

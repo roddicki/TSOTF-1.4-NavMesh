@@ -40,11 +40,15 @@ public class DeathColor : MonoBehaviour
 		}
 
 		float t = 0;
-		// Transition until 0.85 complete
-		while (t < 0.85f) {
+		// Transition until 0.75 complete leave the agents with some color
+		while (t < 0.75f) {
 			yield return null;
 			t += Time.deltaTime / duration; // Divided by 5 to make it 5 seconds.
 			m_RagdollRenderer.GetComponent<Renderer> ().material.color = Color.Lerp (ragDollColor, deathColor, t);
+		}
+		while (t < 0.99f) {
+			yield return null;
+			t += Time.deltaTime / duration; // Divided by 5 to make it 5 seconds.
 			marker.GetComponent<Renderer> ().material.color = Color.Lerp (ragDollColor, deathColor, t);
 		}
 	}

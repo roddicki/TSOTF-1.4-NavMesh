@@ -64,15 +64,20 @@ public class Idle: State
 		name = STATE.IDLE;
 	}
 
+	// get spawn script
+	private Spawn spawn;
+
 	public override void Enter ()
 	{
 		Debug.Log (name.ToString());
+		spawn = GameObject.Find("GameManager").GetComponent<Spawn>();
+		Debug.Log("IDLE and CubeSpawnComplete=" + spawn.CubeSpawnComplete);
 		base.Enter ();
 	}
 
 	public override void Update ()
 	{
-		if(Random.Range(0, 100) < 10) 
+		if( (Random.Range(0, 100) < 10) && spawn.CubeSpawnComplete) 
 		{
 			nextState = new SetTarget (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
@@ -102,7 +107,7 @@ public class SetBehaviour: State
 		Debug.Log (name.ToString());
 		// assign behaviour
 		agentBehaviour = npc.GetComponent<AgentBehaviour>();
-		Debug.Log("AgentBehaviour help: "+ agentBehaviour.Help);
+		CubesCollected();
 		base.Enter ();
 	}
 
@@ -112,6 +117,7 @@ public class SetBehaviour: State
 		// Steal - take cubes from another bay?
 		// RobinHood - take cunes from wealthy
 		nextState = new SetTargetHonest (npc, agent, anim, cube, bay, health);
+		//nextState = new SetTargetSteal (npc, agent, anim, cube, bay, health);
 		stage = EVENT.EXIT;
 	}
 
@@ -119,6 +125,24 @@ public class SetBehaviour: State
 	{
 		base.Exit ();
 	}
+
+	// get number of cubes in bay
+	void CubesCollected() 
+	{
+		Debug.Log(npc.name +" health:"+ health.Health + " Delay:" + health.Delay); // works
+		// Do this using AgentHealth 100 = 1 cube
+		// if (health.Delay > 0)
+		// {
+		// 	//Debug.Log(npc.name +" health: "+ float.Parse(health.Health) - 200.0f);
+		// 	//Debug.Log(float.Parse(health.Health));
+		// }
+		// else
+		// {
+		// 	Debug.Log(npc.name +" health: "+ health.Health);
+		// }
+		
+	}
+
 }
 
 //=================================================================================================================//
@@ -143,8 +167,8 @@ public class SetTargetSteal : State {
 		Debug.Log (npc.name + " " + name.ToString ());
 		//timeRemaining = npc.GetComponent<Timer>().timeRemaining;
 		timer = npc.GetComponent<Timer>();
-		// start timer - 10s to find a cube to steal
-		timer.timeRemaining = 10.0f;
+		// start timer - 7s to find a cube to steal
+		timer.timeRemaining = 7.0f;
 		timer.startTimer = true;
 		// get own bay
 		bayCollider = bay.GetComponent<Collider> ();
