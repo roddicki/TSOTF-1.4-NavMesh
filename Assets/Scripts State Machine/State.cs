@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class State
 {
     public enum STATE {
-		IDLE, SETBEHAVIOUR, SETTARGETHONEST, SETTARGET, SETTARGETSTEAL, SEARCH, PUSH, STOP, BREATHLESS, DEATH
+		IDLE, SETBEHAVIOUR, ABSTAIN, SETTARGETHONEST, SETTARGET, SETTARGETSTEAL, SEARCH, PUSH, STOP, BREATHLESS, DEATH
 	};
 
 	public enum EVENT {
@@ -69,7 +69,7 @@ public class Idle: State
 
 	public override void Enter ()
 	{
-		Debug.Log (name.ToString());
+		Debug.Log (npc.name + " " + name.ToString ());
 		spawn = GameObject.Find("GameManager").GetComponent<Spawn>();
 		Debug.Log("IDLE and CubeSpawnComplete=" + spawn.CubeSpawnComplete);
 		base.Enter ();
@@ -104,7 +104,7 @@ public class SetBehaviour: State
 
 	public override void Enter ()
 	{
-		Debug.Log (name.ToString());
+		Debug.Log (npc.name + " " + name.ToString ());
 		// assign behaviour
 		agentBehaviour = npc.GetComponent<AgentBehaviour>();
 		CubesCollected();
@@ -114,11 +114,25 @@ public class SetBehaviour: State
 	public override void Update ()
 	{
 		// set agent behaviour here
-		// Steal - take cubes from another bay?
-		// RobinHood - take cunes from wealthy
-		nextState = new SetTargetHonest (npc, agent, anim, cube, bay, health);
-		//nextState = new SetTargetSteal (npc, agent, anim, cube, bay, health);
-		stage = EVENT.EXIT;
+
+		// Abstain
+		// if cubes collected > 4 go to state Abstain 
+		// Abstain: Move to own bay - wait - ext back to sSetBehaviour to check on status
+		if (CubesCollected() > 3)
+		{
+			nextState = new Abstain (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		}
+		else {
+			// Steal - take cubes from another bay?
+			// RobinHood - take cunes from wealthy
+			nextState = new SetTargetHonest (npc, agent, anim, cube, bay, health);
+
+			//nextState = new SetTargetSteal (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		}
+
+		
 	}
 
 	public override void Exit ()
@@ -126,24 +140,64 @@ public class SetBehaviour: State
 		base.Exit ();
 	}
 
-	// get number of cubes in bay
-	void CubesCollected() 
+	// get number of cubes in the agents bay // to help get the health of each agent
+	int CubesCollected() 
 	{
 		Debug.Log(npc.name +" health:"+ health.Health + " Delay:" + health.Delay); // works
 		// Do this using AgentHealth 100 = 1 cube
-		// if (health.Delay > 0)
-		// {
-		// 	//Debug.Log(npc.name +" health: "+ float.Parse(health.Health) - 200.0f);
-		// 	//Debug.Log(float.Parse(health.Health));
-		// }
-		// else
-		// {
-		// 	Debug.Log(npc.name +" health: "+ health.Health);
-		// }
-		
+		int cubes;
+		if (health.Delay > 0.0f)
+		{
+			cubes = Mathf.RoundToInt( (health.Health - 200.0f)/100.0f );
+		}
+		else
+		{
+			cubes = Mathf.RoundToInt( (health.Health)/100.0f );
+		}
+		Debug.Log(npc.name +" cubes: "+ cubes);
+		return cubes;
 	}
 
 }
+
+//=================================================================================================================//
+// Abstain state
+public class Abstain: State 
+{
+	public Abstain (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base(_npc, _agent, _anim, _cube, _bay, _health)
+	{
+		name = STATE.ABSTAIN;
+	}
+
+	// get spawn script
+	private Spawn spawn;
+
+	public override void Enter ()
+	{
+		Debug.Log (npc.name + " " + name.ToString ());
+		// move to own bay 
+		agent.SetDestination (bay.transform.position);
+		base.Enter ();
+	}
+
+	public override void Update ()
+	{
+		// health
+		if (health.Health < 105.0f) {
+			nextState = new Breathless (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		} else {
+			nextState = new SetBehaviour (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		}
+	}
+
+	public override void Exit ()
+	{
+		base.Exit ();
+	}
+}
+
 
 //=================================================================================================================//
 // SetTargetSteal state
