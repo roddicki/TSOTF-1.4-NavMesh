@@ -100,14 +100,14 @@ public class SetBehaviour: State
 	}
 
 	// behaviour coefficients
-	private AgentBehaviour agentBehaviour;
+	private AgentBehaviour Behaviour;
 
 	public override void Enter ()
 	{
 		Debug.Log (npc.name + " " + name.ToString ());
 		// assign behaviour
-		agentBehaviour = npc.GetComponent<AgentBehaviour>();
-		CubesCollected();
+		Behaviour = npc.GetComponent<AgentBehaviour>();
+		CubesCollected(health, npc);
 		base.Enter ();
 	}
 
@@ -115,23 +115,29 @@ public class SetBehaviour: State
 	{
 		// set agent behaviour here
 
-		// Abstain
-		// if cubes collected > 4 go to state Abstain 
-		// Abstain: Move to own bay - wait - ext back to sSetBehaviour to check on status
-		if (CubesCollected() > 3)
+		// if Charity
+		if (CubesCollected(health, npc) > 3 && Behaviour.Charity > 0.5f)
+		{
+			ChooseBay();
+			nextState = new Abstain (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		}
+		// Abstain if cubes collected > 3 
+		else if (CubesCollected(health, npc) > 3)
 		{
 			nextState = new Abstain (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
 		else {
-			// Steal - take cubes from another bay?
-			// RobinHood - take cunes from wealthy
 			nextState = new SetTargetHonest (npc, agent, anim, cube, bay, health);
-
-			//nextState = new SetTargetSteal (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
 
+		// Steal - take cubes from another bay
+		//nextState = new SetTargetSteal (npc, agent, anim, cube, bay, health);
+		//stage = EVENT.EXIT;
+
+		// RobinHood - take cunes from wealthy
 		
 	}
 
@@ -141,9 +147,8 @@ public class SetBehaviour: State
 	}
 
 	// get number of cubes in the agents bay // to help get the health of each agent
-	int CubesCollected() 
+	int CubesCollected(AgentHealth health, GameObject npc) 
 	{
-		Debug.Log(npc.name +" health:"+ health.Health + " Delay:" + health.Delay); // works
 		// Do this using AgentHealth 100 = 1 cube
 		int cubes;
 		if (health.Delay > 0.0f)
@@ -154,8 +159,43 @@ public class SetBehaviour: State
 		{
 			cubes = Mathf.RoundToInt( (health.Health)/100.0f );
 		}
-		Debug.Log(npc.name +" cubes: "+ cubes);
+		//Debug.Log(npc.name +" cubes: "+ cubes);
 		return cubes;
+	}
+
+
+	// choose a bay to give aid too
+	void ChooseBay()
+	{
+		GameObject [] agents = GameObject.FindGameObjectsWithTag("agent");
+		// create list of all bays with less than 2 cubes
+		// randomnly choose one and assign as this agents bay
+		List<GameObject> bays = new List<GameObject>();
+		// find no of cubes for each bay
+		foreach (var agent in agents)
+		{
+			AgentHealth health = agent.GetComponent<AgentHealth> ();
+			int cubes = CubesCollected(health, agent);
+			Debug.Log(agent.name+ " HAS " +cubes+ " CUBES");
+			// get the bay name
+			GameObject bay = GameObject.Find(agent.name+ "-bay");
+			// if less than 2 cubes and a different agent add to the list
+			if (cubes < 2 && agent.name != npc.name)
+			{
+				bays.Add(bay);
+			}
+		}
+		// choose bay to give aid too
+		int chosenBay = Random.Range(0, bays.Count);
+		if (bays.Count > 0)
+		{
+			Debug.Log(bays[chosenBay].name + " - chosen by " + npc.name);
+		}
+		
+		foreach (var bay in bays)
+		{
+			Debug.Log(bay.name);
+		}
 	}
 
 }
@@ -182,6 +222,7 @@ public class Abstain: State
 
 	public override void Update ()
 	{
+
 		// health
 		if (health.Health < 105.0f) {
 			nextState = new Breathless (npc, agent, anim, cube, bay, health);
