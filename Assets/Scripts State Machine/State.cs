@@ -107,7 +107,8 @@ public class SetBehaviour: State
 		Debug.Log (npc.name + " " + name.ToString ());
 		// assign behaviour
 		Behaviour = npc.GetComponent<AgentBehaviour>();
-		CubesCollected(health, npc);
+		// set bay to original agents bay TO DO
+
 		base.Enter ();
 	}
 
@@ -119,7 +120,7 @@ public class SetBehaviour: State
 		if (CubesCollected(health, npc) > 3 && Behaviour.Charity > 0.5f)
 		{
 			ChooseBay();
-			nextState = new Abstain (npc, agent, anim, cube, bay, health);
+			nextState = new SetTargetHonest (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
 		// Abstain if cubes collected > 3 
@@ -137,8 +138,7 @@ public class SetBehaviour: State
 		//nextState = new SetTargetSteal (npc, agent, anim, cube, bay, health);
 		//stage = EVENT.EXIT;
 
-		// RobinHood - take cunes from wealthy
-		
+		// RobinHood - take cubes from wealthy
 	}
 
 	public override void Exit ()
@@ -176,26 +176,22 @@ public class SetBehaviour: State
 		{
 			AgentHealth health = agent.GetComponent<AgentHealth> ();
 			int cubes = CubesCollected(health, agent);
-			Debug.Log(agent.name+ " HAS " +cubes+ " CUBES");
 			// get the bay name
-			GameObject bay = GameObject.Find(agent.name+ "-bay");
-			// if less than 2 cubes and a different agent add to the list
-			if (cubes < 2 && agent.name != npc.name)
+			GameObject chosenBay = GameObject.Find(agent.name+ "-bay");
+			// if less than 2 cubes and not this agents bay and agent not dead add to the list
+			if (cubes < 2 && agent.name != npc.name && npc.activeInHierarchy)
 			{
-				bays.Add(bay);
+				bays.Add(chosenBay);
 			}
 		}
 		// choose bay to give aid too
-		int chosenBay = Random.Range(0, bays.Count);
+		int randomNo = Random.Range(0, bays.Count);
 		if (bays.Count > 0)
 		{
-			Debug.Log(bays[chosenBay].name + " - chosen by " + npc.name);
+			Debug.Log(bays[randomNo].name + " chosen by " + npc.name);
+			bay = bays[randomNo];
 		}
-		
-		foreach (var bay in bays)
-		{
-			Debug.Log(bay.name);
-		}
+
 	}
 
 }

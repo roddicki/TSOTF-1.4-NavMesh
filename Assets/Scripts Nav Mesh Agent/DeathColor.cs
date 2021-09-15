@@ -14,7 +14,7 @@ public class DeathColor : MonoBehaviour
 		// death color
 		deathColor = new Color (0.5f, 0.5f, 0.5f, 1.0f);
 		// duration of color change
-		duration = 7.0f;
+		duration = 5.0f;
 	}
 
 
@@ -45,6 +45,7 @@ public class DeathColor : MonoBehaviour
 			yield return null;
 			t += Time.deltaTime / duration; // Divided by 5 to make it 5 seconds.
 			m_RagdollRenderer.GetComponent<Renderer> ().material.color = Color.Lerp (ragDollColor, deathColor, t);
+			marker.GetComponent<Renderer> ().material.color = Color.Lerp (ragDollColor, deathColor, t);
 		}
 		while (t < 0.99f) {
 			yield return null;
