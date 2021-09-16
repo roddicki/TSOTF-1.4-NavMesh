@@ -5,11 +5,12 @@ using UnityEngine.AI;
 
 public class AI : MonoBehaviour
 {
-	GameObject npc;
+	public GameObject npc;
 	NavMeshAgent agent;
 	Animator anim;
 	private GameObject cube;
 	public GameObject bay;
+	public GameObject currentBay;
 	public State currentState;
 	private AgentHealth health;
 

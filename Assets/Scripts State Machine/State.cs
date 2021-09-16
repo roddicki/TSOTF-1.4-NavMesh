@@ -101,12 +101,16 @@ public class SetBehaviour: State
 
 	// behaviour coefficients
 	private AgentBehaviour Behaviour;
+	private AI ai;
 
 	public override void Enter ()
 	{
 		Debug.Log (npc.name + " " + name.ToString ());
 		// assign behaviour
 		Behaviour = npc.GetComponent<AgentBehaviour>();
+		ai = npc.GetComponent<AI>();
+		ai.currentBay = bay; // set currentBay for OrientCube.cs
+		Debug.Log (npc + "CURRENT BAY: " + ai.currentBay);
 		// set bay to original agents bay TO DO
 
 		base.Enter ();
@@ -188,8 +192,9 @@ public class SetBehaviour: State
 		int randomNo = Random.Range(0, bays.Count);
 		if (bays.Count > 0)
 		{
-			Debug.Log(bays[randomNo].name + " chosen by " + npc.name);
+			Debug.Log(bays[randomNo].name + " targeting " + npc.name);
 			bay = bays[randomNo];
+			ai.currentBay = bays[randomNo];
 		}
 
 	}
