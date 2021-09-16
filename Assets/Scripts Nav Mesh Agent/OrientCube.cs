@@ -55,11 +55,10 @@ public class OrientCube : MonoBehaviour
     }
 
     // orient cube between agent and bay
-    void OrientCubeTowardAgent(){
+    void OrientCubeTowardBay(){
         // If Agent is defined and close to this cube
         if (cube != null && Vector3.Distance(cube.transform.position, transform.position) <= 1.2f) {
             // face direction of travel
-            // NOT WORKING
             if (CubeRbody.velocity != Vector3.zero) {
                 anim.SetBool("IsPush", true);
                 // Set constraints to keep hovering

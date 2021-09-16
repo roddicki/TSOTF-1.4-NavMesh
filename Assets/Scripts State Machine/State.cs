@@ -109,10 +109,8 @@ public class SetBehaviour: State
 		// assign behaviour
 		Behaviour = npc.GetComponent<AgentBehaviour>();
 		ai = npc.GetComponent<AI>();
-		ai.currentBay = bay; // set currentBay for OrientCube.cs
-		Debug.Log (npc + "CURRENT BAY: " + ai.currentBay);
-		// set bay to original agents bay TO DO
-
+		// reset bay to agent name
+		ResetBay(); // set currentBay for OrientCube.cs so it is not null
 		base.Enter ();
 	}
 
@@ -121,19 +119,25 @@ public class SetBehaviour: State
 		// set agent behaviour here
 
 		// if Charity
-		if (CubesCollected(health, npc) > 3 && Behaviour.Charity > 0.5f)
+		if (CubesCollected(health, npc) > 2 && Behaviour.Charity > 0.5f)
 		{
 			ChooseBay();
+			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
+			CubesInBays();
 			nextState = new SetTargetHonest (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
 		// Abstain if cubes collected > 3 
-		else if (CubesCollected(health, npc) > 3)
+		else if (CubesCollected(health, npc) > 2)
 		{
+			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
+			CubesInBays();
 			nextState = new Abstain (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
 		else {
+			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
+			CubesInBays();
 			nextState = new SetTargetHonest (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
@@ -192,11 +196,36 @@ public class SetBehaviour: State
 		int randomNo = Random.Range(0, bays.Count);
 		if (bays.Count > 0)
 		{
-			Debug.Log(bays[randomNo].name + " targeting " + npc.name);
+			//Debug.Log(npc.name+ " HELPING " +bays[randomNo].name);
 			bay = bays[randomNo];
 			ai.currentBay = bays[randomNo];
 		}
 
+	}
+
+	void ResetBay()
+	{
+		// getbay
+		bay = GameObject.Find(npc.name+ "-bay");
+		ai.currentBay = GameObject.Find(npc.name+ "-bay");
+	}
+
+	// current state of bays
+	void CubesInBays()
+	{
+		GameObject [] agents = GameObject.FindGameObjectsWithTag("agent");
+		// create list of all bays with less than 2 cubes
+		// randomnly choose one and assign as this agents bay
+		List<GameObject> bays = new List<GameObject>();
+		// find no of cubes for each bay
+		foreach (var agent in agents)
+		{
+			AgentHealth health = agent.GetComponent<AgentHealth> ();
+			int cubes = CubesCollected(health, agent);
+			// get the bay name
+			GameObject chosenBay = GameObject.Find(agent.name+ "-bay");
+			Debug.Log(" -- " +chosenBay.name+ " HAS " + cubes+ " TARGETING");
+		}
 	}
 
 }
