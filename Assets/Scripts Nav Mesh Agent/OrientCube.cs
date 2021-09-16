@@ -26,7 +26,7 @@ public class OrientCube : MonoBehaviour
     {
         if (NearCube)
         {
-            OrientCubeTowardAgent();
+            OrientCubeTowardBay();
         }
     }
 
@@ -53,7 +53,7 @@ public class OrientCube : MonoBehaviour
     }
 
     // push cube
-    void OrientCubeTowardAgent(){
+    void OrientCubeTowardBay(){
         // If Agent is defined and close to this cube
         if (cube != null && Vector3.Distance(cube.transform.position, transform.position) <= 1.2f) {
             // face direction of travel
@@ -63,6 +63,7 @@ public class OrientCube : MonoBehaviour
                 // Set constraints to keep hovering
                 CubeRbody.angularDrag = 2.0f;
                 // rotate to face bay (NOTE: check this works if bay changes!)
+                Debug.Log("BAY " +ai.bay.name+ " with " +ai.npc.name);
                 var qTo = Quaternion.LookRotation(ai.bay.transform.position - cube.transform.position);
                 CubeRbody.MoveRotation(qTo);
 

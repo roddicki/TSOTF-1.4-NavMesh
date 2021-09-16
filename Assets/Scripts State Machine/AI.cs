@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class AI : MonoBehaviour
 {
-	GameObject npc;
+	public GameObject npc;
 	NavMeshAgent agent;
 	Animator anim;
 	private GameObject cube;

@@ -188,7 +188,7 @@ public class SetBehaviour: State
 		int randomNo = Random.Range(0, bays.Count);
 		if (bays.Count > 0)
 		{
-			Debug.Log(bays[randomNo].name + " chosen by " + npc.name);
+			Debug.Log("BAY "+bays[randomNo].name + " chosen by " + npc.name);
 			bay = bays[randomNo];
 		}
 
