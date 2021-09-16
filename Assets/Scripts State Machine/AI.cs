@@ -10,6 +10,7 @@ public class AI : MonoBehaviour
 	Animator anim;
 	private GameObject cube;
 	public GameObject bay;
+	public GameObject currentBay;
 	public State currentState;
 	private AgentHealth health;
 

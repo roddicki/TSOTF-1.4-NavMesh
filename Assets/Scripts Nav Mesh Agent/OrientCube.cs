@@ -9,6 +9,7 @@ public class OrientCube : MonoBehaviour
     private GameObject cube;
     private Rigidbody CubeRbody;
 	private AI ai;
+	//public GameObject currentBay;
     Animator anim;
 
 
@@ -17,7 +18,8 @@ public class OrientCube : MonoBehaviour
     {
         NearCube = false;
 		ai = GetComponent<AI> ();
-        anim = this.GetComponent<Animator> ();
+		//currentBay = ai.bay;
+		anim = this.GetComponent<Animator> ();
 		//Debug.Log ("bay" + ai.bay.position);
     }
 
@@ -52,8 +54,8 @@ public class OrientCube : MonoBehaviour
 		}
     }
 
-    // push cube
-    void OrientCubeTowardBay(){
+    // orient cube between agent and bay
+    void OrientCubeTowardAgent(){
         // If Agent is defined and close to this cube
         if (cube != null && Vector3.Distance(cube.transform.position, transform.position) <= 1.2f) {
             // face direction of travel
@@ -62,9 +64,12 @@ public class OrientCube : MonoBehaviour
                 anim.SetBool("IsPush", true);
                 // Set constraints to keep hovering
                 CubeRbody.angularDrag = 2.0f;
-                // rotate to face bay (NOTE: check this works if bay changes!)
-                Debug.Log("BAY " +ai.bay.name+ " with " +ai.npc.name);
-                var qTo = Quaternion.LookRotation(ai.bay.transform.position - cube.transform.position);
+				// rotate to face bay (NOTE: the bay changes!)
+				GameObject targetBay = ai.bay;
+				if(ai.currentBay != null) {
+					targetBay = ai.currentBay;
+				}
+				var qTo = Quaternion.LookRotation(targetBay.transform.position - cube.transform.position);
                 CubeRbody.MoveRotation(qTo);
 
 				// Set constraints 
@@ -72,12 +77,6 @@ public class OrientCube : MonoBehaviour
 
 				//
 				cube.transform.SetParent (this.transform.parent);
-				// position in front of the agent
-				//CubeRbody.MovePosition(this.transform.position + transform.forward);
-				// use force
-				//CubeRbody.AddForce (((this.transform.position + transform.forward) - cube.transform.position) * 1000.5f);
-				//CubeRbody.AddForce ((ai.transform.position - cube.transform.position) * 1000.5f);
-				//CubeRbody.AddForce (((this.transform.position + ((ai.bay.transform.position - this.transform.position).normalized * 1)) - cube.transform.position) * 35.0f);
 			}
 		}
         // agent is no longer close to cube - reset everything
