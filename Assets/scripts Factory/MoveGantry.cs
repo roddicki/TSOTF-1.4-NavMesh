@@ -239,7 +239,9 @@ public class MoveGantry : MonoBehaviour {
             rb.constraints = RigidbodyConstraints.None;
             // set not following bool
             yield return new WaitForSeconds(0.1f);
-            TargetCube.GetComponent<Cube> ().IsFollowingMagnet = false;
+            if (TargetCube != null) {
+                TargetCube.GetComponent<Cube> ().IsFollowingMagnet = false;
+            }
             // reset TargetCube 
             TargetCube = null;
         }

@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 9331724}
   - component: {fileID: 9331727}
   - component: {fileID: 9331728}
+  - component: {fileID: 9331729}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -156,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroy: {fileID: 9331727}
   spawn: {fileID: 9331728}
-  timeAllowed: 180
+  timeAllowed: 240
   timeRemaining: 0
 --- !u!4 &9331725
 Transform:
@@ -225,6 +226,19 @@ MonoBehaviour:
     type: 3}
   Ragdoll: {fileID: 4128150650933995716, guid: 11a69e0da2bd6ff449a884a19c08f326, type: 3}
   AgentSpawnComplete: 0
+--- !u!114 &9331729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9331723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a053190213f1059e96b62c851f77cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deaths: 0
 --- !u!1 &17434187
 GameObject:
   m_ObjectHideFlags: 0

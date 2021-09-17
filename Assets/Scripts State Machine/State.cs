@@ -896,6 +896,8 @@ public class Death : State {
 	private GameObject m_Ragdoll;
 	// death color script - to run a coroutine
 	private DeathColor deathColor;
+	// agent data
+	private AgentData agentData;
 
 	public override void Enter ()
 	{
@@ -905,6 +907,8 @@ public class Death : State {
 		timeRemaining = Random.Range(2.0f, 15.0f);
 		startTimer = true;
 		deathColor = npc.GetComponent<DeathColor> ();
+		agentData = GameObject.Find("GameManager").GetComponent<AgentData> ();
+		agentData.deaths += 1;
 	}
 
 	public override void Update ()
