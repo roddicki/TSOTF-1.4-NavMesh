@@ -91,7 +91,7 @@ public class Idle: State
 }
 
 //=================================================================================================================//
-// SetBehaviour state
+// SetBehaviour state - define which state the agent moves to next based on its AgentBehaviour coefficients
 public class SetBehaviour: State 
 {
 	public SetBehaviour (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base(_npc, _agent, _anim, _cube, _bay, _health)
@@ -117,8 +117,9 @@ public class SetBehaviour: State
 	public override void Update ()
 	{
 		// set agent behaviour here
+		// if Competitive / cube nearby during 'search' find another cube.
 
-		// if Charity
+		// if Charity - choose another bay to assist other agents
 		if (CubesCollected(health, npc) > 2 && Behaviour.Charity > 0.5f)
 		{
 			ChooseBay();
@@ -224,14 +225,14 @@ public class SetBehaviour: State
 			int cubes = CubesCollected(health, agent);
 			// get the bay name
 			GameObject chosenBay = GameObject.Find(agent.name+ "-bay");
-			Debug.Log(" -- " +chosenBay.name+ " HAS " + cubes+ " TARGETING");
+			//Debug.Log(" -- " +chosenBay.name+ " HAS " + cubes+ " TARGETING");
 		}
 	}
 
 }
 
 //=================================================================================================================//
-// Abstain state
+// Abstain state - go to bay and idle
 public class Abstain: State 
 {
 	public Abstain (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base(_npc, _agent, _anim, _cube, _bay, _health)
@@ -271,7 +272,7 @@ public class Abstain: State
 
 
 //=================================================================================================================//
-// SetTargetSteal state
+// SetTargetSteal state - find a target (cube) in another agents bay
 public class SetTargetSteal : State {
 
 	public SetTargetSteal (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
@@ -407,7 +408,7 @@ public class SetTargetSteal : State {
 }
 
 //=================================================================================================================//
-// SetTargetHonest state
+// SetTargetHonest state - find a target (cube) not in another agents bay
 public class SetTargetHonest : State {
 
 	public SetTargetHonest (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
@@ -544,7 +545,7 @@ public class SetTargetHonest : State {
 
 
 //=================================================================================================================//
-// SetTarget state
+// SetTarget state - find any target (cube) 
 public class SetTarget : State {
 
 	public SetTarget (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
@@ -599,7 +600,7 @@ public class SetTarget : State {
 				// if hit cube & hit cube not contained in own bay
 				if (hit.collider.tag == "cube" && bayCollider.bounds.Contains(GameObject.Find (hit.collider.name).transform.position) == false) 
 				{
-					Debug.Log (hit.collider.name);
+					//Debug.Log (hit.collider.name);
 					// set as target cube
 					cube = GameObject.Find (hit.collider.name);
 					// start timer in Timer.cs
@@ -664,10 +665,13 @@ public class Search: State
 	public NavMeshObstacle navMeshObstacle;
 	// timer variable
 	public float timeRemaining;
+	private AgentBehaviour Behaviour;
 
 	public override void Enter ()
 	{
 		Debug.Log (npc.name + " " + name.ToString());
+		// get behaviours
+		Behaviour = npc.GetComponent<AgentBehaviour>();
 		agent.speed = 4;
 		navMeshObstacle = cube.GetComponent<NavMeshObstacle> ();
 		navMeshObstacle.enabled = true;
@@ -676,17 +680,25 @@ public class Search: State
 
 	public override void Update ()
 	{
+		// if not Competitive && near the target && another agent is nearby
+		// go back to SetBehaviour to target another cube
+
 		// set destination / target
 		// set destination just behind cube
 		agent.SetDestination (cube.transform.position  - ((bay.transform.position - cube.transform.position).normalized * 2));
 		// conditions for moving to next state
+		// if path resolved and agent has moved to target but another agent nearby
+		if (agent.pathPending != true && agent.remainingDistance < 1 && NearbyAgents(npc.transform.position, 1.3f) ) {
+			nextState = new SetBehaviour (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+		} 
 		// if path resolved and agent has moved to target
-		if (agent.pathPending != true && agent.remainingDistance < 1) {
+		else if (agent.pathPending != true && agent.remainingDistance < 1) {
 			nextState = new Push (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		} 
 
-		// if still trying to get to cube give up after timer ends
+		// if still trying to get to cube give up after timer ends SetTargetHonest
 		timeRemaining = npc.GetComponent<Timer>().timeRemaining;
 		if (timeRemaining == 0)
 		{
@@ -712,10 +724,26 @@ public class Search: State
 		//anim.ResetTrigger ("isWalking");
 		base.Exit ();
 	}
+
+	// get any nearby agents
+	bool NearbyAgents(Vector3 center, float radius)
+	{
+		Collider[] hitColliders = Physics.OverlapSphere(center, radius);
+        foreach (var hitCollider in hitColliders)
+        {
+			// if object tagged agent and not self is nearby
+			if (hitCollider.tag == "agent" && hitCollider.name != npc.name)
+			{
+				Debug.Log(" - "+npc.name+ " FOUND "+hitCollider.name+" NEARBY");
+				return true;
+			}
+        }
+		return false;
+	}
 }
 
 //=================================================================================================================//
-// push state
+// push state - push cube to bay
 public class Push : State {
 
 

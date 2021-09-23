@@ -25,7 +25,7 @@ public class AgentBehaviour : MonoBehaviour
     // 0.0 compete - leave cubes if another agent is near cube / pushing cube
     // 0.5 compete - ignore if another agent is near cube 
     // 1.0 compete - target cubes if another agent is nearby / pushing a cube
-    public float Competitiveness;
+    public float Competitive;
 
     // stockpile / abstain
     // 0.0 - don't collect anymore cubes after stockpiled 3
@@ -43,7 +43,7 @@ public class AgentBehaviour : MonoBehaviour
         Dishonesty = 0.0f;
         RobinHood = false;
         Charity = 1.0f;
-        Competitiveness = 0.5f;
+        Competitive = 0.0f;
         Greed = 0.0f;
     }
 
