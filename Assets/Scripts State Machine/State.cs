@@ -666,12 +666,15 @@ public class Search: State
 	// timer variable
 	public float timeRemaining;
 	private AgentBehaviour Behaviour;
+	private bool IsCompetitive;
 
 	public override void Enter ()
 	{
 		Debug.Log (npc.name + " " + name.ToString());
 		// get behaviours
 		Behaviour = npc.GetComponent<AgentBehaviour>();
+		// is competitive
+		IsCompetitive = GetCompetitiveness (Behaviour.Competitive);
 		agent.speed = 4;
 		navMeshObstacle = cube.GetComponent<NavMeshObstacle> ();
 		navMeshObstacle.enabled = true;
@@ -688,7 +691,8 @@ public class Search: State
 		agent.SetDestination (cube.transform.position  - ((bay.transform.position - cube.transform.position).normalized * 2));
 		// conditions for moving to next state
 		// if path resolved and agent has moved to target but another agent nearby
-		if (agent.pathPending != true && agent.remainingDistance < 1 && NearbyAgents(npc.transform.position, 1.3f) ) {
+		if (agent.pathPending != true && agent.remainingDistance < 1 && NearbyAgents(npc.transform.position, 1.3f) && IsCompetitive == false) {
+			Debug.Log (" - " + npc.name + " FOUND AGENT NEARBY"); 
 			nextState = new SetBehaviour (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		} 
@@ -725,6 +729,18 @@ public class Search: State
 		base.Exit ();
 	}
 
+	// determine if competitive
+	bool GetCompetitiveness (float Compete) 
+	{ 
+		if (Compete > 0.5) 
+		{
+			return true;
+		} else 
+		{
+			return false;
+		}
+	}
+
 	// get any nearby agents
 	bool NearbyAgents(Vector3 center, float radius)
 	{
@@ -734,7 +750,7 @@ public class Search: State
 			// if object tagged agent and not self is nearby
 			if (hitCollider.tag == "agent" && hitCollider.name != npc.name)
 			{
-				Debug.Log(" - "+npc.name+ " FOUND "+hitCollider.name+" NEARBY");
+				//Debug.Log(" - "+npc.name+ " FOUND "+hitCollider.name+" NEARBY");
 				return true;
 			}
         }
