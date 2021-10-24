@@ -1,0 +1,74 @@
+{
+    "time": 1634989222892406000,
+    "uktime": "2021 10 23 12:40:22",
+    "agent1": {
+        "dishonesty": 0,
+        "robinHood": "false",
+        "charity": 1.0,
+        "competitiveness": 0,
+        "greed": 0
+    },
+    "agent2": {
+        "dishonesty": 0,
+        "robinHood": "false",
+        "charity": 1.0,
+        "competitiveness": 0,
+        "greed": 0
+    },
+    "agent3": {
+        "dishonesty": 0,
+        "robinHood": "false",
+        "charity": 1.0,
+        "competitiveness": 0,
+        "greed": 0
+    },
+    "agent4": {
+        "dishonesty": 0,
+        "robinHood": "false",
+        "charity": 1.0,
+        "competitiveness": 0,
+        "greed": 0
+    },
+    "agent5": {
+        "dishonesty": 0,
+        "robinHood": "false",
+        "charity": 1.0,
+        "competitiveness": 0,
+        "greed": 0
+    },
+    "agent6": {
+        "dishonesty": 0,
+        "robinHood": "false",
+        "charity": 1.0,
+        "competitiveness": 0,
+        "greed": 0
+    },
+    "agent7": {
+        "dishonesty": 0,
+        "robinHood": "false",
+        "charity": 1.0,
+        "competitiveness": 0,
+        "greed": 0
+    },
+    "agent8": {
+        "dishonesty": 0,
+        "robinHood": "false",
+        "charity": 1.0,
+        "competitiveness": 0,
+        "greed": 0
+    },
+    "agent9": {
+        "dishonesty": 0,
+        "robinHood": "false",
+        "charity": 1.0,
+        "competitiveness": 0,
+        "greed": 0
+    },
+    "agent10": {
+        "dishonesty": 0,
+        "robinHood": "false",
+        "charity": 1.0,
+        "competitiveness": 0,
+        "greed": 0
+    }
+}

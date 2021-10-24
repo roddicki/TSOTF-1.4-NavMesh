@@ -43,7 +43,7 @@ public class AgentBehaviour : MonoBehaviour
         Dishonesty = 0.0f;
         RobinHood = false;
         Charity = 1.0f;
-        Competitive = 1.0f;
+        Competitive = 0.0f;
         Greed = 0.0f;
     }
 
