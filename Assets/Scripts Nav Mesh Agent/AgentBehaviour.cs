@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class AgentBehaviour : MonoBehaviour
@@ -34,13 +35,20 @@ public class AgentBehaviour : MonoBehaviour
     // 1.0 - collect as many cubes as possible
     public float Greed;
 
+	public string path;
+	public string jsonString;
 
 
-    // Start is called before the first frame update
-    void Start()
+
+	// Start is called before the first frame update
+	void Start()
     {
-        // test values
-        Dishonesty = 0.0f;
+		path = Application.streamingAssetsPath + "/agents.json";
+		jsonString = File.ReadAllText (path);
+		Agents Test = JsonUtility.FromJson<Agents> (jsonString);
+		Debug.Log (Test.uktime);
+		// test values
+		Dishonesty = 0.0f;
         RobinHood = false;
         Charity = 1.0f;
         Competitive = 0.0f;
@@ -52,4 +60,12 @@ public class AgentBehaviour : MonoBehaviour
     {
         
     }
+}
+
+
+[System.Serializable]
+public class Agents 
+{
+	public string uktime;
+	public string time;
 }
