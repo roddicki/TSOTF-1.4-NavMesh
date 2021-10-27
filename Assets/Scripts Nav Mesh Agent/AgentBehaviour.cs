@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class AgentBehaviour : MonoBehaviour
 {
+    
+    // this class reads the json file in streaming assets and set the behaviour coefficients for each agent.
+    // this script needs to be attached to the agents
+    // this reloads the json file every spawn
+
     // behaviour coefficients 
     // steal
     // 0.0 - take cubes from another bay 0% of the time
@@ -43,29 +48,59 @@ public class AgentBehaviour : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-		path = Application.streamingAssetsPath + "/agents.json";
-		jsonString = File.ReadAllText (path);
-		Agents Test = JsonUtility.FromJson<Agents> (jsonString);
-		Debug.Log (Test.uktime);
-		// test values
+        // default test values
 		Dishonesty = 0.0f;
         RobinHood = false;
         Charity = 1.0f;
         Competitive = 0.0f;
         Greed = 0.0f;
+
+        // get the json data from Agents.json
+		path = Application.streamingAssetsPath + "/Agents.json";
+		jsonString = File.ReadAllText (path);
+        // use custom class below to access json data
+		Agents jsonData = JsonUtility.FromJson<Agents> (jsonString);
+		// get the behaviour coefficients from the json list
+        SetAgentBehaviours(jsonData.agent);		
     }
 
-    // Update is called once per frame
-    void Update()
+
+    void SetAgentBehaviours(List<AgentObjects> agentsList)
     {
-        
+        // loop through the json list
+        foreach(AgentObjects agent in agentsList)
+        {
+            // if agent.name == this gameobject name // set vars / behaviour coefficients
+            if (agent.name == gameObject.name)
+            {
+                Debug.Log (agent.name + " dishonesty:"+agent.dishonesty+ " charity:"+agent.charity);
+                Dishonesty = agent.dishonesty;
+                RobinHood = agent.robinHood;
+                Charity = agent.charity;
+                Competitive = agent.competitiveness;
+                Greed = agent.greed;
+            }
+            
+        }
     }
 }
 
-
+// custom class to access json data
 [System.Serializable]
 public class Agents 
 {
 	public string uktime;
 	public string time;
+    public List<AgentObjects> agent;
+}
+// custom class to access array in json data
+[System.Serializable]
+public class AgentObjects 
+{
+	public string name;
+	public float dishonesty;
+    public bool robinHood;
+    public float charity;
+    public float competitiveness;
+    public float greed;
 }

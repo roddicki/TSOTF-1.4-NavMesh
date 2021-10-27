@@ -136,7 +136,6 @@ GameObject:
   - component: {fileID: 9331727}
   - component: {fileID: 9331728}
   - component: {fileID: 9331729}
-  - component: {fileID: 9331730}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -240,25 +239,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deaths: 0
---- !u!114 &9331730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9331723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b01e12adac961c678072e0c28973605, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Dishonesty: 0
-  RobinHood: 0
-  Charity: 0
-  Competitive: 0
-  Greed: 0
-  path: 
-  jsonString: 
 --- !u!1 &17434187
 GameObject:
   m_ObjectHideFlags: 0
