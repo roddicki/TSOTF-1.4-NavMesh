@@ -128,7 +128,7 @@ public class SetBehaviour: State
 			nextState = new SetTargetHonest (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
-		// Abstain if cubes collected > 3 
+		// Abstain / don't stockpile if cubes collected > 3 
 		else if (CubesCollected(health, npc) > 2)
 		{
 			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);

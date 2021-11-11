@@ -31,8 +31,8 @@
       "dishonesty": 0,
       "robinHood": "false",
       "charity": 1.0,
-      "competitiveness": 0,
-      "greed": 0
+      "competitiveness": 0.5,
+      "greed": 0.5
     },
     {
       "name": "Agent4",
