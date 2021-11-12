@@ -92,6 +92,8 @@ public class Idle: State
 
 //=================================================================================================================//
 // SetBehaviour state - define which state the agent moves to next based on its AgentBehaviour coefficients
+// set states for Charity, Dishonesty, Greed
+// Competitive coefficient set in Search State on line 658
 public class SetBehaviour: State 
 {
 	public SetBehaviour (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base(_npc, _agent, _anim, _cube, _bay, _health)
@@ -128,7 +130,7 @@ public class SetBehaviour: State
 			nextState = new SetTargetHonest (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
-		// Abstain / don't stockpile if cubes collected > 3 
+		// Greed / Abstain / don't stockpile if cubes collected > 3 
 		else if (CubesCollected(health, npc) > 2)
 		{
 			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
@@ -143,7 +145,7 @@ public class SetBehaviour: State
 			stage = EVENT.EXIT;
 		}
 
-		// Steal - take cubes from another bay
+		// Dishonesty / Steal - take cubes from another bay
 		//nextState = new SetTargetSteal (npc, agent, anim, cube, bay, health);
 		//stage = EVENT.EXIT;
 
@@ -653,7 +655,8 @@ public class SetTarget : State {
 }
 
 //=================================================================================================================//
-// Search state - found a target moving to it
+// Search state - found a target moving to it 
+// set behaviour for Competitive coefficient (leave / or not a cube if other agents are trying to get it)
 public class Search: State 
 {
 	public Search (GameObject _npc, NavMeshAgent _agent, Animator _anim, GameObject _cube, GameObject _bay, AgentHealth _health) : base (_npc, _agent, _anim, _cube, _bay, _health)
