@@ -105,6 +105,9 @@ public class SetBehaviour: State
 	private AgentBehaviour Behaviour;
 	private AI ai;
 
+	// behaviour logic
+	// 
+
 	public override void Enter ()
 	{
 		Debug.Log (npc.name + " " + name.ToString ());
