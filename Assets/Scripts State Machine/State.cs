@@ -121,7 +121,7 @@ public class SetBehaviour: State
 		ResetBay(); // set currentBay for OrientCube.cs so it is not null
 		dishonesty = false;
 		charity = true;
-		greed = true;
+		greed = false;
 		base.Enter ();
 	}
 
@@ -148,6 +148,7 @@ public class SetBehaviour: State
 			}
 			
 		}
+
 		// dishonesty == false charity == false Greed == true
 		// Don't steal, don't choose another bay / help other agents, don't abstain
 		else if (dishonesty == false && charity == false && greed == true)
@@ -159,6 +160,7 @@ public class SetBehaviour: State
 			stage = EVENT.EXIT;
 			
 		}
+
 		// dishonesty == false charity == true Greed == true
 		// Don't steal, if self has > 2 cubes choose another bay, don't abstain keep collecting
 		else if (dishonesty == false && charity == true && greed == true)
@@ -173,8 +175,28 @@ public class SetBehaviour: State
 			nextState = new SetTargetHonest (npc, agent, anim, cube, bay, health);
 			stage = EVENT.EXIT;
 		}
+
 		// dishonesty == false charity == true  Greed == false
 		// Don't steal, if self has > 2 cubes choose another bay, abstain if self has > 2 cubes
+		else if (dishonesty == false && charity == true && greed == false)
+		{
+			ChooseBay();
+			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
+			CountCubesInEachBay();
+			// if one bay has less than 2 cubes choose it and assist / collect
+
+			// else if agent has more than 2 cubes abstain
+			if (CubesCollected(health, npc) > 2)
+			{
+				nextState = new Abstain (npc, agent, anim, cube, bay, health);
+				stage = EVENT.EXIT;
+			}
+			// carry on collecting
+			else {
+				nextState = new SetTargetHonest (npc, agent, anim, cube, bay, health);
+				stage = EVENT.EXIT;
+			}
+		}
 
 		// dishonesty == true charity == true Greed == true
 		// Take from any bay, if self has > 2 cubes choose another bay, don't abstain keep collecting
@@ -233,7 +255,7 @@ public class SetBehaviour: State
 	// get number of cubes in the agents bay // to help get the health of each agent
 	int CubesCollected(AgentHealth health, GameObject npc) 
 	{
-		// Do this using AgentHealth 100 = 1 cube
+		// Use AgentHealth to calculate how many cubes they have - 100 = 1 cube
 		int cubes;
 		if (health.Delay > 0.0f)
 		{
