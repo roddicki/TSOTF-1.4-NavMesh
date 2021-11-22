@@ -180,13 +180,18 @@ public class SetBehaviour: State
 		// Don't steal, if self has > 2 cubes choose another bay, abstain if self has > 2 cubes
 		else if (dishonesty == false && charity == true && greed == false)
 		{
-			ChooseBay();
 			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
 			CountCubesInEachBay();
-			// if one bay has less than 2 cubes choose it and assist / collect
-
+			// if if agent has more than 2 cubes AND one bay has less than 2 cubes choose it and assist / collect
+			if (CubesCollected(health, npc) > 2 && AgentsNeedHelp())
+			{
+				Debug.Log("AGENTS NEED HELP: "+AgentsNeedHelp());
+				ChooseBay();
+				nextState = new SetTargetHonest (npc, agent, anim, cube, bay, health);
+				stage = EVENT.EXIT;
+			}
 			// else if agent has more than 2 cubes abstain
-			if (CubesCollected(health, npc) > 2)
+			else if (CubesCollected(health, npc) > 2 && AgentsNeedHelp() == false)
 			{
 				nextState = new Abstain (npc, agent, anim, cube, bay, health);
 				stage = EVENT.EXIT;
@@ -301,6 +306,7 @@ public class SetBehaviour: State
 
 	}
 
+	// set the Target bay back to the agent name
 	void ResetBay()
 	{
 		// getbay
@@ -308,8 +314,8 @@ public class SetBehaviour: State
 		ai.currentBay = GameObject.Find(npc.name+ "-bay");
 	}
 
-	// current state of bays
-	void CountCubesInEachBay()
+	// some bays have less than 2 cubes - true / false
+	bool AgentsNeedHelp()
 	{
 		GameObject [] agents = GameObject.FindGameObjectsWithTag("agent");
 		// create list of all bays with less than 2 cubes
@@ -322,7 +328,29 @@ public class SetBehaviour: State
 			int cubes = CubesCollected(health, agent);
 			// get the bay name
 			GameObject chosenBay = GameObject.Find(agent.name+ "-bay");
-			//Debug.Log(" -- " +chosenBay.name+ " HAS " + cubes+ " TARGETING");
+			// if less than 2 cubes and not this agents bay and agent not dead add to the list
+			if (cubes < 2 && agent.name != npc.name && npc.activeInHierarchy)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// current state of bays
+	void CountCubesInEachBay()
+	{
+		GameObject [] agents = GameObject.FindGameObjectsWithTag("agent");
+		// create list of all bays with less than 2 cubes
+		List<GameObject> bays = new List<GameObject>();
+		// find no of cubes for each bay
+		foreach (var agent in agents)
+		{
+			AgentHealth health = agent.GetComponent<AgentHealth> ();
+			int cubes = CubesCollected(health, agent);
+			// get the bay name
+			GameObject chosenBay = GameObject.Find(agent.name+ "-bay");
+			//Debug.Log(" -- " +chosenBay.name+ " HAS " + cubes+ " CUBES");
 		}
 	}
 
