@@ -119,9 +119,9 @@ public class SetBehaviour: State
 		ai = npc.GetComponent<AI>();
 		// reset bay to agent name
 		ResetBay(); // set currentBay for OrientCube.cs so it is not null
-		dishonesty = false;
-		charity = true;
-		greed = false;
+		dishonesty = true;
+		charity = false;
+		greed = true;
 		base.Enter ();
 	}
 
@@ -205,18 +205,90 @@ public class SetBehaviour: State
 
 		// dishonesty == true charity == true Greed == true
 		// Take from any bay, if self has > 2 cubes choose another bay, don't abstain keep collecting
+		else if (dishonesty == true && charity == true && greed == true)
+		{
+			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
+			CountCubesInEachBay();
+			// if if agent has more than 2 cubes AND one bay has less than 2 cubes choose it and assist / collect by stealing
+			if (CubesCollected(health, npc) > 2 && AgentsNeedHelp())
+			{
+				Debug.Log("AGENTS NEED HELP: "+AgentsNeedHelp());
+				ChooseBay();
+				nextState = new SetTargetSteal (npc, agent, anim, cube, bay, health);
+				stage = EVENT.EXIT;
+			}
+			// else carry on collecting
+			else 
+			{
+				nextState = new SetTargetSteal (npc, agent, anim, cube, bay, health);
+				stage = EVENT.EXIT;
+			}
+		}
 
 		// dishonesty == true charity == true Greed == false
 		// Take from any bay, if self has > 2 cubes choose another bay, abstain if self has > 2 cube
+		else if (dishonesty == true && charity == true && greed == false)
+		{
+			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
+			CountCubesInEachBay();
+			// if if agent has more than 2 cubes AND one bay has less than 2 cubes choose it and assist / collect by stealing
+			if (CubesCollected(health, npc) > 2 && AgentsNeedHelp())
+			{
+				Debug.Log("AGENTS NEED HELP: "+AgentsNeedHelp());
+				ChooseBay();
+				nextState = new SetTargetSteal (npc, agent, anim, cube, bay, health);
+				stage = EVENT.EXIT;
+			}
+			// else if agent has more than 2 cubes abstain
+			else if (CubesCollected(health, npc) > 2 && AgentsNeedHelp() == false)
+			{
+				nextState = new Abstain (npc, agent, anim, cube, bay, health);
+				stage = EVENT.EXIT;
+			}
+			// else carry on collecting
+			else 
+			{
+				nextState = new SetTargetSteal (npc, agent, anim, cube, bay, health);
+				stage = EVENT.EXIT;
+			}
+		}
 
 		// dishonesty == true charity == false Greed == false
 		// Take from any bay, don't choose another bay / help other agents, don't abstain
 		// , abstain if self has > 2 cubes
+		else if (dishonesty == true && charity == false && greed == false)
+		{
+			Debug.Log(npc.name+ " true / false / false ");
+			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
+			CountCubesInEachBay();
+			// if if agent has more than 2 cubes abstain 
+			if (CubesCollected(health, npc) > 2)
+			{
+				nextState = new Abstain (npc, agent, anim, cube, bay, health);
+				stage = EVENT.EXIT;
+			}
+			// else carry on collecting / stealing
+			else 
+			{
+				nextState = new SetTargetSteal (npc, agent, anim, cube, bay, health);
+				stage = EVENT.EXIT;
+			}
+		}
 
 		// dishonesty == true charity == false Greed == true
 		// Take from any bay, don't choose another bay / help other agents, don't abstain
 		// , don't abstain 
-
+		else if (dishonesty == true && charity == false && greed == true)
+		{
+			Debug.Log(npc.name+ " true / false / true ");
+			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
+			CountCubesInEachBay();
+			// if if agent has more than 2 cubes abstain 
+			// keep collecting and stealing
+			nextState = new SetTargetSteal (npc, agent, anim, cube, bay, health);
+			stage = EVENT.EXIT;
+			
+		}
 
 
 
