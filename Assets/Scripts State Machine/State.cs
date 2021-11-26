@@ -136,13 +136,13 @@ public class SetBehaviour: State
 		Debug.Log (npc.name + " TrueResults " + TrueResults);
 		Debug.Log (npc.name + " FalseResults " + FalseResults);
 		// change to a float // not working
-		float fractionResult = FalseResults / 200;// not working
+		float fractionResult = FalseResults / 200.0f;// not working
 		Debug.Log (npc.name + " fractionResult " + fractionResult);
 
 
-		dishonesty = true;
-		charity = false;
-		greed = true;
+		dishonesty = false;
+		charity = true;
+		greed = false;
 		base.Enter ();
 	}
 
@@ -154,7 +154,7 @@ public class SetBehaviour: State
 		// Don't steal, don't help / choose another bay, abstain if self has > 2 cubes
 		if (dishonesty == false && charity == false && greed == false)
 		{
-			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
+			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name + "\ndishonesty-" + dishonesty + " charity-" + charity + " greed-" + greed);
 			CountCubesInEachBay();
 			// if more than 2 cubes abstain
 			if (CubesCollected(health, npc) > 2)
@@ -174,7 +174,7 @@ public class SetBehaviour: State
 		// Don't steal, don't choose another bay / help other agents, don't abstain
 		else if (dishonesty == false && charity == false && greed == true)
 		{
-			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
+			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name + " \ndishonesty-" + dishonesty + " charity-" + charity + " greed-" + greed);
 			CountCubesInEachBay();
 			// if more than 2 cubes abstain
 			nextState = new SetTargetHonest (npc, agent, anim, cube, bay, health);
@@ -186,6 +186,7 @@ public class SetBehaviour: State
 		// Don't steal, if self has > 2 cubes choose another bay, don't abstain keep collecting
 		else if (dishonesty == false && charity == true && greed == true)
 		{
+			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name + " \ndishonesty-" + dishonesty + " charity-" + charity + " greed-" + greed);
 			// if more than 2 cubes choose another bay
 			if (CubesCollected(health, npc) > 2)
 			{
@@ -201,7 +202,7 @@ public class SetBehaviour: State
 		// Don't steal, if self has > 2 cubes choose another bay, abstain if self has > 2 cubes
 		else if (dishonesty == false && charity == true && greed == false)
 		{
-			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
+			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name + " \ndishonesty-" + dishonesty + " charity-" + charity + " greed-" + greed);
 			CountCubesInEachBay();
 			// if if agent has more than 2 cubes AND one bay has less than 2 cubes choose it and assist / collect
 			if (CubesCollected(health, npc) > 2 && AgentsNeedHelp())
@@ -228,7 +229,7 @@ public class SetBehaviour: State
 		// Take from any bay, if self has > 2 cubes choose another bay, don't abstain keep collecting
 		else if (dishonesty == true && charity == true && greed == true)
 		{
-			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
+			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name + " \ndishonesty-" + dishonesty + " charity-" + charity + " greed-" + greed);
 			CountCubesInEachBay();
 			// if if agent has more than 2 cubes AND one bay has less than 2 cubes choose it and assist / collect by stealing
 			if (CubesCollected(health, npc) > 2 && AgentsNeedHelp())
@@ -250,7 +251,7 @@ public class SetBehaviour: State
 		// Take from any bay, if self has > 2 cubes choose another bay, abstain if self has > 2 cube
 		else if (dishonesty == true && charity == true && greed == false)
 		{
-			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
+			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name + " \ndishonesty-" + dishonesty + " charity-" + charity + " greed-" + greed);
 			CountCubesInEachBay();
 			// if if agent has more than 2 cubes AND one bay has less than 2 cubes choose it and assist / collect by stealing
 			if (CubesCollected(health, npc) > 2 && AgentsNeedHelp())
@@ -279,8 +280,7 @@ public class SetBehaviour: State
 		// , abstain if self has > 2 cubes
 		else if (dishonesty == true && charity == false && greed == false)
 		{
-			Debug.Log(npc.name+ " true / false / false ");
-			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
+			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name + " \ndishonesty-" + dishonesty + " charity-" + charity + " greed-" + greed);
 			CountCubesInEachBay();
 			// if if agent has more than 2 cubes abstain 
 			if (CubesCollected(health, npc) > 2)
@@ -301,8 +301,7 @@ public class SetBehaviour: State
 		// , don't abstain 
 		else if (dishonesty == true && charity == false && greed == true)
 		{
-			Debug.Log(npc.name+ " true / false / true ");
-			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name);
+			Debug.Log(npc.name+ " TARGETING " +ai.currentBay.name + " \ndishonesty-" + dishonesty + " charity-" + charity + " greed-" + greed);
 			CountCubesInEachBay();
 			// if if agent has more than 2 cubes abstain 
 			// keep collecting and stealing
