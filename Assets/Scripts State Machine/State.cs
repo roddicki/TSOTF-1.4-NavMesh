@@ -109,16 +109,37 @@ public class SetBehaviour: State
 	private bool greed;
 
 	// behaviour logic
-	// if 
+
+	// ==test calc behaviour==
+	private int TrueResults;
+	private int FalseResults;
 
 	public override void Enter ()
 	{
 		Debug.Log (npc.name + " " + name.ToString ());
-		// assign behaviour
+		// get behaviour from json
 		Behaviour = npc.GetComponent<AgentBehaviour>();
 		ai = npc.GetComponent<AI>();
 		// reset bay to agent name
 		ResetBay(); // set currentBay for OrientCube.cs so it is not null
+
+		// ==test calc behaviour==
+		for (int i = 0; i < 200; i++) {
+			bool result = CalculateBehaviour (Behaviour.Charity);
+			if(result == true) {
+				TrueResults += 1;
+			}
+			else {
+				FalseResults += 1;
+			}
+		}
+		Debug.Log (npc.name + " TrueResults " + TrueResults);
+		Debug.Log (npc.name + " FalseResults " + FalseResults);
+		// change to a float // not working
+		float fractionResult = FalseResults / 200;// not working
+		Debug.Log (npc.name + " fractionResult " + fractionResult);
+
+
 		dishonesty = true;
 		charity = false;
 		greed = true;
@@ -329,6 +350,25 @@ public class SetBehaviour: State
 		base.Exit ();
 	}
 
+
+	// determine if coefficient is true or false
+	bool CalculateBehaviour (float coefficient)
+	{
+		// generate random float
+		float RandomNo = Random.Range (0.0f, 1.0f);
+
+		// test if rand no higher or lower than coefficient
+		if (coefficient <= RandomNo) 
+		{
+			return true;
+		} 
+		else 
+		{
+			return false;
+		}
+
+	}
+
 	// get number of cubes in the agents bay // to help get the health of each agent
 	int CubesCollected(AgentHealth health, GameObject npc) 
 	{
@@ -425,6 +465,7 @@ public class SetBehaviour: State
 			//Debug.Log(" -- " +chosenBay.name+ " HAS " + cubes+ " CUBES");
 		}
 	}
+
 
 }
 
