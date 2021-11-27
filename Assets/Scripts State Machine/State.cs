@@ -140,9 +140,9 @@ public class SetBehaviour: State
 		Debug.Log (npc.name + " fractionResult " + fractionResult);
 
 
-		dishonesty = false;
-		charity = true;
-		greed = false;
+		dishonesty = CalculateBehaviour (Behaviour.Dishonesty);
+		charity = CalculateBehaviour (Behaviour.Charity);
+		greed = CalculateBehaviour (Behaviour.Greed);
 		base.Enter ();
 	}
 
