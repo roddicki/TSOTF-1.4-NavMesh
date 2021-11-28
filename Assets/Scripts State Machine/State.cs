@@ -136,7 +136,7 @@ public class SetBehaviour: State
 		Debug.Log (npc.name + " TrueResults " + TrueResults);
 		Debug.Log (npc.name + " FalseResults " + FalseResults);
 		// change to a float // not working
-		float fractionResult = FalseResults / 200.0f;// not working
+		float fractionResult = TrueResults / 200.0f;// not working
 		Debug.Log (npc.name + " fractionResult " + fractionResult);
 
 
@@ -357,7 +357,7 @@ public class SetBehaviour: State
 		float RandomNo = Random.Range (0.0f, 1.0f);
 
 		// test if rand no higher or lower than coefficient
-		if (coefficient <= RandomNo) 
+		if (coefficient >= RandomNo) 
 		{
 			return true;
 		} 
