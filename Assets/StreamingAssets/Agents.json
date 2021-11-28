@@ -7,38 +7,38 @@
       "dishonesty": 1,
       "robinHood": "false",
       "charity": 0,
-      "competitiveness": 0,
+      "competitiveness": 1.0,
       "greed": 1
     },
     {
       "name": "Agent1",
       "dishonesty": 0,
       "robinHood": "false",
-      "charity": 0.66,
+      "charity": 1,
       "competitiveness": 0,
       "greed": 0
     },
     {
       "name": "Agent2",
-      "dishonesty": 1,
+      "dishonesty": 0,
       "robinHood": "false",
-      "charity": 0,
+      "charity": 1,
       "competitiveness": 0,
-      "greed": 1
+      "greed": 0
     },
     {
       "name": "Agent3",
-      "dishonesty": 1,
+      "dishonesty": 0,
       "robinHood": "false",
-      "charity": 0,
+      "charity": 1,
       "competitiveness": 0,
-      "greed": 1
+      "greed": 0
     },
     {
       "name": "Agent4",
       "dishonesty": 0,
       "robinHood": "false",
-      "charity": 1.0,
+      "charity": 1,
       "competitiveness": 0,
       "greed": 0
     },
@@ -89,6 +89,46 @@
       "charity": 1.0,
       "competitiveness": 0,
       "greed": 0
+    },
+    {
+      "name": "Agent11",
+      "dishonesty": 0,
+      "robinHood": "false",
+      "charity": 1.0,
+      "competitiveness": 0,
+      "greed": 0
+    },
+    {
+      "name": "Agent12",
+      "dishonesty": 0,
+      "robinHood": "false",
+      "charity": 1.0,
+      "competitiveness": 0,
+      "greed": 0
+    },
+    {
+      "name": "Agent13",
+      "dishonesty": 0,
+      "robinHood": "false",
+      "charity": 1.0,
+      "competitiveness": 0,
+      "greed": 0
+    },
+    {
+      "name": "Agent14",
+      "dishonesty": 0,
+      "robinHood": "false",
+      "charity": 1.0,
+      "competitiveness": 0,
+      "greed": 0
+    },
+    {
+      "name": "Agent15",
+      "dishonesty": 1,
+      "robinHood": "false",
+      "charity": 0,
+      "competitiveness": 1.0,
+      "greed": 1
     }
   ]
 }
