@@ -214,7 +214,7 @@ MonoBehaviour:
   DoSpawn: 1
   SpawnedCube: {fileID: 6811169491011583293, guid: a0f9603884bfc48a1ba47085651368b3,
     type: 3}
-  NumCubes: 50
+  NumCubes: 70
   SpawnPosMaxX: 6
   SpawnPosMinX: -5
   SpawnPosMaxZ: 6
